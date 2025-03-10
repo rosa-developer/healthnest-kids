@@ -12,6 +12,10 @@ import Memories from "./pages/Memories";
 import Advice from "./pages/Advice";
 import Settings from "./pages/Settings";
 import NotFound from "./pages/NotFound";
+import PregnancyTracker from "./pages/PregnancyTracker";
+import MilestoneTracker from "./pages/MilestoneTracker";
+import HealthRecords from "./pages/HealthRecords";
+import UserProfiles from "./pages/UserProfiles";
 
 const queryClient = new QueryClient();
 
@@ -28,6 +32,10 @@ const App = () => (
           <Route path="/memories" element={<Memories />} />
           <Route path="/advice" element={<Advice />} />
           <Route path="/settings" element={<Settings />} />
+          <Route path="/pregnancy" element={<PregnancyTracker />} />
+          <Route path="/milestones" element={<MilestoneTracker />} />
+          <Route path="/health-records" element={<HealthRecords />} />
+          <Route path="/profiles" element={<UserProfiles />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
         <Navigation />
