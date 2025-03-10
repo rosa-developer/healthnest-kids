@@ -35,7 +35,7 @@ const FamilyMembersSection: React.FC = () => {
       </CardHeader>
       <CardContent>
         <div className="space-y-4">
-          <FamilyMemberCard name="Emma" age="8 months old" />
+          <FamilyMemberCard name="Emma" age="8 months old" photoSrc="/baby-emma.jpg" />
         </div>
       </CardContent>
     </Card>

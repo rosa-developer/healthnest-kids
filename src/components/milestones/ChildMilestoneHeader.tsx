@@ -6,17 +6,23 @@ import { Brain, Mic, Camera } from 'lucide-react';
 interface ChildMilestoneHeaderProps {
   onCaptureAudio: () => void;
   onAddRecord: () => void;
+  photoSrc?: string;
 }
 
 const ChildMilestoneHeader: React.FC<ChildMilestoneHeaderProps> = ({
   onCaptureAudio,
-  onAddRecord
+  onAddRecord,
+  photoSrc
 }) => {
   return (
     <div className="flex items-center justify-between mb-4">
       <div className="flex items-center">
-        <div className="h-10 w-10 rounded-full bg-healthnest-soft-purple flex items-center justify-center mr-3">
-          <Brain className="h-5 w-5 text-purple-500" />
+        <div className="h-10 w-10 rounded-full bg-healthnest-soft-purple flex items-center justify-center mr-3 overflow-hidden">
+          {photoSrc ? (
+            <img src={photoSrc} alt="Child" className="w-full h-full object-cover" />
+          ) : (
+            <Brain className="h-5 w-5 text-purple-500" />
+          )}
         </div>
         <div>
           <h3 className="font-medium text-lg">Emma's Milestones</h3>
