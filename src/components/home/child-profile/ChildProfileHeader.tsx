@@ -15,7 +15,7 @@ const ChildProfileHeader = () => {
 
   return (
     <div className="flex items-center justify-between mb-4">
-      <div className="chip bg-healthnest-soft-blue text-healthnest-primary">
+      <div className="chip bg-healthnest-soft-blue text-healthnest-primary px-3 py-1 rounded-full text-xs font-medium">
         Current Child
       </div>
       <Button

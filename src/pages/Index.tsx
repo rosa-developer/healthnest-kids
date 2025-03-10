@@ -1,7 +1,7 @@
 
 import React from 'react';
 import PageTransition from '@/components/common/PageTransition';
-import ChildProfileCard from '@/components/home/ChildProfileCard';
+import ChildProfileCard from '@/components/home/child-profile/ChildProfileCard';
 import UpcomingAppointments from '@/components/home/UpcomingAppointments';
 import RecentTimeline from '@/components/home/RecentTimeline';
 import HealthOverview from '@/components/home/HealthOverview';
