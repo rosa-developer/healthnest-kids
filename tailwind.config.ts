@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -61,6 +62,21 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
+				},
+				healthnest: {
+					'soft-blue': '#E3F2FD',
+					'light-blue': '#90CAF9',
+					'medium-blue': '#42A5F5',
+					'primary': '#1976D2',
+					'secondary': '#FF8A65',
+					'soft-green': '#E8F5E9',
+					'light-green': '#A5D6A7',
+					'soft-pink': '#FCE4EC',
+					'light-pink': '#F8BBD0',
+					'soft-purple': '#F3E5F5',
+					'light-purple': '#CE93D8',
+					'neutral': '#F5F5F5',
+					'neutral-dark': '#E0E0E0',
 				}
 			},
 			borderRadius: {
@@ -84,11 +100,73 @@ export default {
 					to: {
 						height: '0'
 					}
+				},
+				'fade-in': {
+					from: {
+						opacity: '0'
+					},
+					to: {
+						opacity: '1'
+					}
+				},
+				'fade-out': {
+					from: {
+						opacity: '1'
+					},
+					to: {
+						opacity: '0'
+					}
+				},
+				'slide-up': {
+					from: {
+						transform: 'translateY(10px)',
+						opacity: '0'
+					},
+					to: {
+						transform: 'translateY(0)',
+						opacity: '1'
+					}
+				},
+				'slide-down': {
+					from: {
+						transform: 'translateY(-10px)',
+						opacity: '0'
+					},
+					to: {
+						transform: 'translateY(0)',
+						opacity: '1'
+					}
+				},
+				'scale-in': {
+					from: {
+						transform: 'scale(0.95)',
+						opacity: '0'
+					},
+					to: {
+						transform: 'scale(1)',
+						opacity: '1'
+					}
 				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
+				'accordion-up': 'accordion-up 0.2s ease-out',
+				'fade-in': 'fade-in 0.3s ease-out',
+				'fade-out': 'fade-out 0.3s ease-out',
+				'slide-up': 'slide-up 0.4s ease-out',
+				'slide-down': 'slide-down 0.4s ease-out',
+				'scale-in': 'scale-in 0.4s ease-out'
+			},
+			boxShadow: {
+				'soft': '0 4px 20px rgba(0, 0, 0, 0.05)',
+				'medium': '0 8px 30px rgba(0, 0, 0, 0.1)',
+				'inner-soft': 'inset 0 1px 3px rgba(0, 0, 0, 0.05)'
+			},
+			backdropBlur: {
+				'xs': '2px',
+			},
+			transitionDuration: {
+				'400': '400ms',
 			}
 		}
 	},
