@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Progress } from "@/components/ui/progress";
-import { Baby, Calendar, ChevronRight, BarChart3, Heart, List, ArrowRight } from 'lucide-react';
+import { Baby, Calendar, ChevronRight, BarChart3, Heart, List, ArrowRight, Check } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
 import TimelineCard from '@/components/common/TimelineCard';
 

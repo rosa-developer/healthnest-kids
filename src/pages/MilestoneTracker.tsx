@@ -26,6 +26,17 @@ import {
   ArrowRight
 } from 'lucide-react';
 
+// Define the Milestone type to avoid TypeScript errors
+type Milestone = {
+  id: string;
+  category: string;
+  title: string;
+  ageRange: string;
+  completed: boolean;
+  date?: string;
+  notes?: string;
+};
+
 // Mock milestone categories and items for demo
 const milestoneCategories = [
   {
@@ -55,7 +66,7 @@ const milestoneCategories = [
 ];
 
 // Mock milestone data for 6-9 month old
-const mockMilestones = [
+const mockMilestones: Milestone[] = [
   {
     id: '1',
     category: 'physical',
@@ -129,7 +140,7 @@ const mockMilestones = [
 const MilestoneTracker: React.FC = () => {
   const { toast } = useToast();
   const [activeCategory, setActiveCategory] = useState('physical');
-  const [milestones, setMilestones] = useState(mockMilestones);
+  const [milestones, setMilestones] = useState<Milestone[]>(mockMilestones);
   const [showRecorder, setShowRecorder] = useState(false);
   const [selectedMilestoneId, setSelectedMilestoneId] = useState<string | null>(null);
   const [milestoneNote, setMilestoneNote] = useState('');
@@ -156,15 +167,23 @@ const MilestoneTracker: React.FC = () => {
   };
   
   const handleToggleMilestone = (id: string) => {
-    setMilestones(milestones.map(milestone => 
-      milestone.id === id 
-        ? { 
-            ...milestone, 
-            completed: !milestone.completed,
-            date: !milestone.completed ? new Date().toISOString().split('T')[0] : milestone.date
-          }
-        : milestone
-    ));
+    setMilestones(milestones.map(milestone => {
+      if (milestone.id === id) {
+        // Create a new copy of the milestone with updated properties
+        const updatedMilestone: Milestone = {
+          ...milestone,
+          completed: !milestone.completed
+        };
+        
+        // Add date if completing the milestone
+        if (!milestone.completed) {
+          updatedMilestone.date = new Date().toISOString().split('T')[0];
+        }
+        
+        return updatedMilestone;
+      }
+      return milestone;
+    }));
     
     const milestone = milestones.find(m => m.id === id);
     if (milestone && !milestone.completed) {
@@ -185,11 +204,15 @@ const MilestoneTracker: React.FC = () => {
   
   const handleSaveNotes = () => {
     if (selectedMilestoneId) {
-      setMilestones(milestones.map(milestone => 
-        milestone.id === selectedMilestoneId 
-          ? { ...milestone, notes: milestoneNote }
-          : milestone
-      ));
+      setMilestones(milestones.map(milestone => {
+        if (milestone.id === selectedMilestoneId) {
+          return {
+            ...milestone,
+            notes: milestoneNote
+          };
+        }
+        return milestone;
+      }));
       
       setSelectedMilestoneId(null);
       setMilestoneNote('');
