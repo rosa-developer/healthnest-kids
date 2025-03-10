@@ -102,4 +102,13 @@
   .glass-panel-dark {
     @apply bg-black/10 backdrop-blur-sm border border-white/10 shadow-soft;
   }
+
+  /* Custom color classes */
+  .bg-healthnest-soft-blue {
+    @apply bg-blue-100;
+  }
+  
+  .text-healthnest-primary {
+    @apply text-blue-600;
+  }
 }

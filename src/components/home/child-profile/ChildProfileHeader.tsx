@@ -1,29 +1,20 @@
 
 import React from 'react';
 import { Button } from "@/components/ui/button";
-import { useToast } from "@/hooks/use-toast";
+import { ChevronDown } from "lucide-react";
 
 const ChildProfileHeader = () => {
-  const { toast } = useToast();
-
-  const handleChildSelection = () => {
-    toast({
-      title: "Coming Soon",
-      description: "Multiple children profiles will be available in the next update!",
-    });
-  };
-
   return (
     <div className="flex items-center justify-between mb-4">
-      <div className="chip bg-healthnest-soft-blue text-healthnest-primary px-3 py-1 rounded-full text-xs font-medium">
+      <div className="chip bg-blue-100 text-blue-600">
         Current Child
       </div>
       <Button
         variant="ghost"
-        className="text-sm text-muted-foreground"
-        onClick={handleChildSelection}
+        size="sm"
+        className="text-sm font-normal"
       >
-        Change Child
+        Switch Child <ChevronDown className="ml-1 h-4 w-4" />
       </Button>
     </div>
   );
