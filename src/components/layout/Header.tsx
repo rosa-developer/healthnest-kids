@@ -1,8 +1,9 @@
+
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Bell, Settings } from 'lucide-react';
 import { Button } from "@/components/ui/button";
-import { toast } from "@/components/ui/use-toast";
+import { toast } from "@/hooks/use-toast";
 
 const Header: React.FC = () => {
   const location = useLocation();

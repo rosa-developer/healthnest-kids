@@ -1,6 +1,6 @@
 
 import React, { createContext, useContext } from 'react';
-import { useToast } from "@/hooks/use-toast";
+import { toast } from "@/hooks/use-toast";
 import { formatTime } from './utils';
 import { VoiceRecorderContextProps, VoiceRecorderProviderProps } from './types';
 import { useRecorder } from './hooks/useRecorder';
@@ -9,7 +9,6 @@ import { useAudioPlayer } from './hooks/useAudioPlayer';
 const VoiceRecorderContext = createContext<VoiceRecorderContextProps | undefined>(undefined);
 
 export const VoiceRecorderProvider: React.FC<VoiceRecorderProviderProps> = ({ children, onSave }) => {
-  const { toast } = useToast();
   const { 
     isRecording, 
     recordingTime, 

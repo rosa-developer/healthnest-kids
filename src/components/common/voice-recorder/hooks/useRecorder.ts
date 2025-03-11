@@ -1,6 +1,6 @@
 
 import { useState, useRef, useEffect } from 'react';
-import { useToast } from "@/hooks/use-toast";
+import { toast } from "@/hooks/use-toast";
 
 export function useRecorder() {
   const [isRecording, setIsRecording] = useState(false);
@@ -9,7 +9,6 @@ export function useRecorder() {
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const audioChunksRef = useRef<Blob[]>([]);
   const timerRef = useRef<number | null>(null);
-  const { toast } = useToast();
 
   const startRecording = async () => {
     try {

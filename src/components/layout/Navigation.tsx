@@ -4,7 +4,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Home, Heart, Camera, Book, Plus } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from "@/components/ui/button";
-import { toast } from "@/components/ui/use-toast";
+import { toast } from "@/hooks/use-toast";
 
 const Navigation: React.FC = () => {
   const location = useLocation();
