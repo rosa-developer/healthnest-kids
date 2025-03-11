@@ -1,6 +1,6 @@
 
 import { useState, useRef, useEffect } from 'react';
-import { toast } from "@/hooks/use-toast";
+import { useToast } from "@/hooks/use-toast";
 
 export function useRecorder() {
   const [isRecording, setIsRecording] = useState(false);
@@ -35,6 +35,7 @@ export function useRecorder() {
       }, 1000);
       
     } catch (error) {
+      const { toast } = useToast();
       toast({
         title: "Microphone Access Denied",
         description: "Please allow microphone access to record audio.",

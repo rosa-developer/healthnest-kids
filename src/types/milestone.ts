@@ -1,17 +1,11 @@
 
-export type Milestone = {
+export interface Milestone {
   id: string;
-  category: string;
   title: string;
+  description: string;
+  category: string;
   ageRange: string;
   completed: boolean;
   date?: string;
   notes?: string;
-};
-
-export type MilestoneCategory = {
-  id: string;
-  name: string;
-  icon: React.ElementType;
-  color: string;
-};
+}

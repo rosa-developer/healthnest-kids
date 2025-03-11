@@ -14,7 +14,7 @@ export type ToastProps = {
   onOpenChange?: (open: boolean) => void;
 };
 
-// Create a toast function that logs to console
+// Create a toast function
 export const toast = ({ title, description, variant }: { 
   title?: React.ReactNode; 
   description?: React.ReactNode; 
