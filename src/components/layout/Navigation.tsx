@@ -1,14 +1,14 @@
 
 import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Home, Heart, Camera, Book, Plus } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from "@/components/ui/button";
-import { useToast } from "@/hooks/use-toast";
+import { toast } from "@/components/ui/use-toast";
 
 const Navigation: React.FC = () => {
   const location = useLocation();
-  const { toast } = useToast();
+  const navigate = useNavigate();
   
   const handleAddNew = () => {
     toast({
