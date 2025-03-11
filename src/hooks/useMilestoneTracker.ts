@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Milestone } from '@/types/milestone';
-import { useToast } from "@/hooks/use-toast";
+import { toast } from "./use-toast";
 
 export function useMilestoneTracker(initialMilestones: Milestone[]) {
   const { toast } = useToast();

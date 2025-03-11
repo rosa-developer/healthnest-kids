@@ -1,4 +1,3 @@
-
 export interface VoiceRecorderContextProps {
   isRecording: boolean;
   recordingTime: number;
@@ -16,4 +15,11 @@ export interface VoiceRecorderContextProps {
 export interface VoiceRecorderProviderProps {
   children: React.ReactNode;
   onSave: (audioBlob: Blob, duration: number) => void;
+}
+
+export interface AudioRecording {
+  id: string;
+  title: string;
+  url: string;
+  blob: Blob;
 }
