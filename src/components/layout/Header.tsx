@@ -1,12 +1,12 @@
-
 import React from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { Bell, Settings } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 
 const Header: React.FC = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const { toast } = useToast();
   
   const getPageTitle = (pathname: string) => {
@@ -31,6 +31,10 @@ const Header: React.FC = () => {
       title: "Notifications",
       description: "Coming soon in the next update!",
     });
+  };
+
+  const handleSettingsClick = () => {
+    navigate('/settings');
   };
 
   return (
@@ -60,7 +64,7 @@ const Header: React.FC = () => {
           <Button
             variant="ghost"
             size="icon"
-            onClick={() => window.location.href = '/settings'}
+            onClick={handleSettingsClick}
             className="transition-all duration-300 hover:bg-primary/10 text-foreground"
           >
             <Settings className="h-5 w-5" />
