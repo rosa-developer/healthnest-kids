@@ -9,3 +9,10 @@ export interface Milestone {
   date?: string;
   notes?: string;
 }
+
+export interface MilestoneCategory {
+  id: string;
+  name: string;
+  icon: React.ElementType;
+  color: string;
+}
