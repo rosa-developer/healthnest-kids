@@ -1,22 +1,18 @@
 
-// This file imports directly from the toast component instead of from hooks
-import type {
-  ToastActionElement,
-  ToastProps,
-} from "@/components/ui/toast";
+import * as React from "react";
 
-export type { ToastProps, ToastActionElement };
+// Define types to avoid circular dependency
+export type ToastActionElement = React.ReactElement<any>;
 
-// Re-export the toast components directly
-export { 
-  ToastProvider,
-  ToastViewport,
-  Toast,
-  ToastTitle,
-  ToastDescription,
-  ToastClose,
-  ToastAction 
-} from "@/components/ui/toast";
+export type ToastProps = {
+  id: string;
+  title?: React.ReactNode;
+  description?: React.ReactNode;
+  action?: ToastActionElement;
+  variant?: "default" | "destructive";
+  open?: boolean;
+  onOpenChange?: (open: boolean) => void;
+};
 
 // Create a simplified toast function
 export const toast = ({ title, description, variant }: { 
@@ -24,17 +20,15 @@ export const toast = ({ title, description, variant }: {
   description?: React.ReactNode; 
   variant?: "default" | "destructive";
 }) => {
-  // We'll implement a simplified version since the hook approach has circular dependencies
-  console.log('Toast:', title, description);
   // This is a simplified version that logs to console
-  // In a production app, you'd want to use a proper toast library
+  console.log('Toast:', title, description);
   return { id: Date.now().toString() };
 };
 
 export const useToast = () => {
   return {
     toast,
-    toasts: [],
+    toasts: [] as ToastProps[],
     dismiss: () => {}
   };
 };

@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Bell, Settings } from 'lucide-react';
@@ -34,7 +33,6 @@ const Header: React.FC = () => {
   };
 
   const handleSettingsClick = () => {
-    // Use navigate for client-side routing instead of window.location
     navigate('/settings');
   };
 
