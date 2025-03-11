@@ -1,4 +1,3 @@
-
 import React from 'react';
 import PageTransition from '@/components/common/PageTransition';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -16,15 +15,28 @@ import {
   Cloud
 } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
+import { useNavigate } from 'react-router-dom';
 
 const Settings = () => {
   const { toast } = useToast();
+  const navigate = useNavigate();
   
   const handleAction = (action: string) => {
     toast({
       title: action,
       description: "This feature will be available in the next update!",
     });
+  };
+
+  const handleLogout = () => {
+    toast({
+      title: "Logging Out",
+      description: "You have been logged out successfully!",
+    });
+    // Navigate to home after logout
+    setTimeout(() => {
+      navigate('/');
+    }, 1500);
   };
 
   return (
@@ -223,7 +235,7 @@ const Settings = () => {
               <Button 
                 variant="outline" 
                 className="w-full flex items-center justify-center"
-                onClick={() => handleAction("Logout")}
+                onClick={handleLogout}
               >
                 <LogOut className="h-5 w-5 mr-2" />
                 Log Out
