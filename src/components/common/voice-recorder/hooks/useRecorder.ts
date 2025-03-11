@@ -1,87 +1,124 @@
-
-import { useState, useRef, useEffect } from 'react';
+import { useState, useCallback } from 'react';
+import { AudioRecording } from '../types';
 import { useToast } from "@/hooks/use-toast";
 
-export function useRecorder() {
-  const [isRecording, setIsRecording] = useState(false);
-  const [recordingTime, setRecordingTime] = useState(0);
-  const [audioBlob, setAudioBlob] = useState<Blob | null>(null);
-  const mediaRecorderRef = useRef<MediaRecorder | null>(null);
-  const audioChunksRef = useRef<Blob[]>([]);
-  const timerRef = useRef<number | null>(null);
+interface RecorderState {
+  recording: boolean;
+  audioURL: string | null;
+  audioBlob: Blob | null;
+  error: string | null;
+  audioRecordings: AudioRecording[];
+}
 
-  const startRecording = async () => {
+const initialState: RecorderState = {
+  recording: false,
+  audioURL: null,
+  audioBlob: null,
+  error: null,
+  audioRecordings: [],
+};
+
+export const useRecorder = () => {
+  const [recorderState, setRecorderState] = useState(initialState);
+  const [mediaRecorder, setMediaRecorder] = useState<MediaRecorder | null>(null);
+  const { toast } = useToast();
+
+  const startRecording = useCallback(async () => {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-      const mediaRecorder = new MediaRecorder(stream);
-      mediaRecorderRef.current = mediaRecorder;
-      audioChunksRef.current = [];
+      const recorder = new MediaRecorder(stream);
 
-      mediaRecorder.ondataavailable = (event) => {
-        audioChunksRef.current.push(event.data);
+      recorder.ondataavailable = (event) => {
+        const audioBlob = new Blob([event.data], { type: 'audio/wav' });
+        const audioURL = URL.createObjectURL(audioBlob);
+
+        setRecorderState((prevState) => ({
+          ...prevState,
+          audioURL,
+          audioBlob,
+          error: null,
+        }));
       };
 
-      mediaRecorder.onstop = () => {
-        const audioBlob = new Blob(audioChunksRef.current, { type: 'audio/wav' });
-        setAudioBlob(audioBlob);
+      recorder.onstop = () => {
+        stream.getTracks().forEach(track => track.stop());
       };
 
-      mediaRecorder.start();
-      setIsRecording(true);
-      
-      let startTime = Date.now();
-      timerRef.current = window.setInterval(() => {
-        setRecordingTime(Math.floor((Date.now() - startTime) / 1000));
-      }, 1000);
-      
-    } catch (error) {
-      const { toast } = useToast();
+      recorder.onerror = (event) => {
+        console.error("MediaRecorder Error: ", event.error);
+        setRecorderState(prevState => ({
+          ...prevState,
+          error: 'An error occurred while recording.',
+        }));
+        toast({
+          title: "Recording Error",
+          description: "An error occurred while recording. Please check your microphone and try again.",
+          variant: "destructive",
+        });
+      };
+
+      setMediaRecorder(recorder);
+      recorder.start();
+      setRecorderState(prevState => ({ ...prevState, recording: true, error: null }));
+    } catch (error: any) {
+      console.error("Error starting recording: ", error);
+      setRecorderState(prevState => ({
+        ...prevState,
+        error: 'Failed to start recording. Please check your microphone permissions.',
+      }));
       toast({
-        title: "Microphone Access Denied",
-        description: "Please allow microphone access to record audio.",
-        variant: "destructive"
+        title: "Permission Denied",
+        description: "Please allow microphone access to start recording.",
+        variant: "destructive",
       });
-      console.error("Error accessing microphone:", error);
     }
-  };
+  }, [toast]);
 
-  const stopRecording = () => {
-    if (mediaRecorderRef.current && isRecording) {
-      mediaRecorderRef.current.stop();
-      setIsRecording(false);
-      
-      if (timerRef.current) {
-        clearInterval(timerRef.current);
-        timerRef.current = null;
-      }
-      
-      mediaRecorderRef.current.stream.getTracks().forEach(track => track.stop());
+  const stopRecording = useCallback(() => {
+    if (mediaRecorder) {
+      mediaRecorder.stop();
+      setRecorderState(prevState => ({ ...prevState, recording: false }));
     }
-  };
+  }, [mediaRecorder]);
 
-  const reset = () => {
-    setAudioBlob(null);
-    setRecordingTime(0);
-  };
+  const resetRecording = useCallback(() => {
+    setRecorderState(initialState);
+  }, []);
 
-  useEffect(() => {
-    return () => {
-      if (timerRef.current) {
-        clearInterval(timerRef.current);
-      }
-      if (mediaRecorderRef.current && isRecording) {
-        mediaRecorderRef.current.stream.getTracks().forEach(track => track.stop());
-      }
-    };
-  }, [isRecording]);
+  const saveRecording = useCallback((title: string) => {
+    if (recorderState.audioURL && recorderState.audioBlob) {
+      const newRecording: AudioRecording = {
+        id: Date.now().toString(),
+        title: title,
+        url: recorderState.audioURL,
+        blob: recorderState.audioBlob,
+      };
+
+      setRecorderState(prevState => ({
+        ...prevState,
+        audioRecordings: [...prevState.audioRecordings, newRecording],
+        audioURL: null,
+        audioBlob: null,
+      }));
+
+      toast({
+        title: "Recording Saved",
+        description: "Your audio recording has been saved successfully.",
+      });
+    } else {
+      toast({
+        title: "No Recording Found",
+        description: "Please record audio before saving.",
+        variant: "destructive",
+      });
+    }
+  }, [recorderState.audioURL, recorderState.audioBlob, toast]);
 
   return {
-    isRecording,
-    recordingTime,
-    audioBlob,
+    ...recorderState,
     startRecording,
     stopRecording,
-    setAudioBlob,
-    reset
+    resetRecording,
+    saveRecording,
   };
-}
+};

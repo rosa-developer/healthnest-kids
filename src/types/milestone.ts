@@ -1,4 +1,6 @@
 
+import { ElementType } from 'react';
+
 export interface Milestone {
   id: string;
   title: string;
@@ -13,6 +15,6 @@ export interface Milestone {
 export interface MilestoneCategory {
   id: string;
   name: string;
-  icon: React.ElementType;
+  icon: ElementType;
   color: string;
 }

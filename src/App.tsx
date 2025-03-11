@@ -16,6 +16,7 @@ import PregnancyTracker from "./pages/PregnancyTracker";
 import MilestoneTracker from "./pages/MilestoneTracker";
 import HealthRecords from "./pages/HealthRecords";
 import UserProfiles from "./pages/UserProfiles";
+import PhotoInsert from "./pages/PhotoInsert";
 
 const queryClient = new QueryClient();
 
@@ -36,6 +37,7 @@ const App = () => (
           <Route path="/milestones" element={<MilestoneTracker />} />
           <Route path="/health-records" element={<HealthRecords />} />
           <Route path="/profiles" element={<UserProfiles />} />
+          <Route path="/photos" element={<PhotoInsert />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
         <Navigation />
