@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { Photo } from '@/types/photo';
 import { useToast } from '@/hooks/use-toast';

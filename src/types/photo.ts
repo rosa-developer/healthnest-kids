@@ -1,6 +1,4 @@
 
-import { Brain, Cake, Milestone } from 'lucide-react';
-
 export interface Photo {
   id: string;
   src: string;
