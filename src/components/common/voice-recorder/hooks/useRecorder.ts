@@ -1,7 +1,6 @@
-
 import { useState, useCallback } from 'react';
 import { AudioRecording } from '../types';
-import { toast } from "@/hooks/use-toast";
+import { useToast } from "@/hooks/use-toast";
 
 interface RecorderState {
   recording: boolean;
