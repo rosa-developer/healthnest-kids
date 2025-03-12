@@ -1,9 +1,9 @@
 
-import { Milestone, MilestoneCategory } from "../types/milestone";
+import { Milestone } from "../types/milestone";
 import { Brain } from 'lucide-react';
 
 // Milestone categories
-export const milestoneCategories: MilestoneCategory[] = [
+export const milestoneCategories = [
   {
     id: 'physical',
     name: 'Physical Development',
@@ -40,7 +40,8 @@ export const mockMilestones: Milestone[] = [
     ageRange: '6-8 months',
     completed: true,
     date: '2023-04-02',
-    notes: 'Emma started sitting without support during playtime.'
+    notes: 'Emma started sitting without support during playtime.',
+    icon: Brain
   },
   {
     id: '2',
@@ -50,7 +51,8 @@ export const mockMilestones: Milestone[] = [
     ageRange: '7-10 months',
     completed: true,
     date: '2023-04-10',
-    notes: 'Began army-crawling, then progressed to hands-and-knees crawling.'
+    notes: 'Began army-crawling, then progressed to hands-and-knees crawling.',
+    icon: Brain
   },
   {
     id: '3',
@@ -58,7 +60,8 @@ export const mockMilestones: Milestone[] = [
     title: 'Pulls to stand',
     description: 'Baby can pull up to a standing position by holding onto furniture or support.',
     ageRange: '8-10 months',
-    completed: false
+    completed: false,
+    icon: Brain
   },
   {
     id: '4',
@@ -68,7 +71,8 @@ export const mockMilestones: Milestone[] = [
     ageRange: '7-9 months',
     completed: true,
     date: '2023-03-15',
-    notes: 'Started looking for toys when they were hidden under a blanket.'
+    notes: 'Started looking for toys when they were hidden under a blanket.',
+    icon: Brain
   },
   {
     id: '5',
@@ -78,7 +82,8 @@ export const mockMilestones: Milestone[] = [
     ageRange: '6-9 months',
     completed: true,
     date: '2023-02-20',
-    notes: 'Loves to examine toys, put them in mouth, and bang them together.'
+    notes: 'Loves to examine toys, put them in mouth, and bang them together.',
+    icon: Brain
   },
   {
     id: '6',
@@ -86,7 +91,8 @@ export const mockMilestones: Milestone[] = [
     title: 'Shows anxiety with strangers',
     description: 'Baby becomes anxious or fearful around unfamiliar people, showing stranger anxiety.',
     ageRange: '6-10 months',
-    completed: false
+    completed: false,
+    icon: Brain
   },
   {
     id: '7',
@@ -96,7 +102,8 @@ export const mockMilestones: Milestone[] = [
     ageRange: '6-9 months',
     completed: true,
     date: '2023-03-10',
-    notes: 'Started making "ba", "da", and "ma" sounds regularly.'
+    notes: 'Started making "ba", "da", and "ma" sounds regularly.',
+    icon: Brain
   },
   {
     id: '8',
@@ -106,6 +113,7 @@ export const mockMilestones: Milestone[] = [
     ageRange: '6-9 months',
     completed: true,
     date: '2023-02-28',
-    notes: 'Consistently turns head when called by name.'
+    notes: 'Consistently turns head when called by name.',
+    icon: Brain
   }
 ];

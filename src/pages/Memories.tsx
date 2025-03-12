@@ -4,8 +4,9 @@ import PageTransition from '@/components/common/PageTransition';
 import MemoryCard from '@/components/common/MemoryCard';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
-import { Camera, Mic, Calendar, Filter } from 'lucide-react';
+import { Camera, Mic, Calendar, Filter, Upload } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
+import { Link } from 'react-router-dom';
 
 const Memories = () => {
   const { toast } = useToast();
@@ -39,6 +40,16 @@ const Memories = () => {
             >
               <Camera className="h-4 w-4 mr-2" />
               Add Memory
+            </Button>
+            <Button 
+              size="sm"
+              className="bg-green-500 text-white hover:bg-green-600"
+              asChild
+            >
+              <Link to="/photos">
+                <Upload className="h-4 w-4 mr-2" />
+                Photo Gallery
+              </Link>
             </Button>
           </div>
         </div>

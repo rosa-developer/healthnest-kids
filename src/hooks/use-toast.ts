@@ -1,25 +1,23 @@
 
-import * as React from "react";
+import React from 'react';
 
-// Define types to avoid circular dependency
-export type ToastActionElement = React.ReactElement;
-
+// Create a standalone toast implementation
 export type ToastProps = {
   id: string;
   title?: React.ReactNode;
   description?: React.ReactNode;
-  action?: ToastActionElement;
+  action?: React.ReactElement;
   variant?: "default" | "destructive";
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
 };
 
-// Create a toast function
 export const toast = ({ title, description, variant }: { 
   title?: React.ReactNode; 
   description?: React.ReactNode; 
   variant?: "default" | "destructive";
 }) => {
+  // This is a simplified version that logs to console
   console.log('Toast:', title, description);
   return { id: Date.now().toString() };
 };

@@ -1,79 +1,66 @@
-import { useState } from 'react';
-import { Milestone } from '@/types/milestone';
-import { useToast } from "@/hooks/use-toast";
 
-export function useMilestoneTracker(initialMilestones: Milestone[]) {
+import { useState, useEffect } from 'react';
+import { Milestone } from '../types/milestone';
+import { useToast } from '../hooks/use-toast';
+
+export const useMilestoneTracker = (initialMilestones: Milestone[]) => {
   const { toast } = useToast();
   const [milestones, setMilestones] = useState<Milestone[]>(initialMilestones);
   const [selectedMilestoneId, setSelectedMilestoneId] = useState<string | null>(null);
-  const [milestoneNote, setMilestoneNote] = useState('');
-  
+  const [milestoneNote, setMilestoneNote] = useState<string>('');
+
+  useEffect(() => {
+    // Load milestones from local storage on component mount
+    const storedMilestones = localStorage.getItem('milestones');
+    if (storedMilestones) {
+      setMilestones(JSON.parse(storedMilestones));
+    }
+  }, []);
+
+  useEffect(() => {
+    // Save milestones to local storage whenever milestones state changes
+    localStorage.setItem('milestones', JSON.stringify(milestones));
+  }, [milestones]);
+
   const getFilteredMilestones = (category: string) => {
     return milestones.filter(milestone => milestone.category === category);
   };
-  
-  const getCompletedCount = (categoryId: string) => {
-    return milestones.filter(m => m.category === categoryId && m.completed).length;
+
+  const getCompletedCount = (category: string) => {
+    return milestones.filter(milestone => milestone.category === category && milestone.completed).length;
   };
-  
-  const getTotalCount = (categoryId: string) => {
-    return milestones.filter(m => m.category === categoryId).length;
+
+  const getTotalCount = (category: string) => {
+    return milestones.filter(milestone => milestone.category === category).length;
   };
-  
+
   const handleToggleMilestone = (id: string) => {
-    setMilestones(milestones.map(milestone => {
-      if (milestone.id === id) {
-        // Create a new copy of the milestone with updated properties
-        const updatedMilestone: Milestone = {
-          ...milestone,
-          completed: !milestone.completed
-        };
-        
-        // Add date if completing the milestone
-        if (!milestone.completed) {
-          updatedMilestone.date = new Date().toISOString().split('T')[0];
-        }
-        
-        return updatedMilestone;
-      }
-      return milestone;
-    }));
-    
-    const milestone = milestones.find(m => m.id === id);
-    if (milestone && !milestone.completed) {
-      toast({
-        title: "Milestone Achieved!",
-        description: `"${milestone.title}" has been marked as completed.`
-      });
-    }
+    setMilestones(prevMilestones =>
+      prevMilestones.map(milestone =>
+        milestone.id === id
+          ? { ...milestone, completed: !milestone.completed, completedDate: !milestone.completed ? new Date().toISOString() : undefined }
+          : milestone
+      )
+    );
   };
-  
+
   const handleEditNotes = (id: string) => {
+    setSelectedMilestoneId(id);
     const milestone = milestones.find(m => m.id === id);
-    if (milestone) {
-      setSelectedMilestoneId(id);
-      setMilestoneNote(milestone.notes || '');
-    }
+    setMilestoneNote(milestone?.notes || '');
   };
-  
+
   const handleSaveNotes = () => {
     if (selectedMilestoneId) {
-      setMilestones(milestones.map(milestone => {
-        if (milestone.id === selectedMilestoneId) {
-          return {
-            ...milestone,
-            notes: milestoneNote
-          };
-        }
-        return milestone;
-      }));
-      
+      setMilestones(prevMilestones =>
+        prevMilestones.map(milestone =>
+          milestone.id === selectedMilestoneId ? { ...milestone, notes: milestoneNote } : milestone
+        )
+      );
       setSelectedMilestoneId(null);
-      setMilestoneNote('');
-      
       toast({
         title: "Notes Saved",
-        description: "Your milestone notes have been updated."
+        description: "Your notes have been saved successfully!",
       });
     }
   };
@@ -90,4 +77,4 @@ export function useMilestoneTracker(initialMilestones: Milestone[]) {
     handleSaveNotes,
     setMilestoneNote
   };
-}
+};

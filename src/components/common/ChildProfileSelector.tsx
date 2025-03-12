@@ -21,40 +21,20 @@ import {
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 import { Baby, Plus, Check } from 'lucide-react';
+import { useChildProfile } from '@/contexts/ChildProfileContext';
 
-// Mock child profiles for demo
-const mockProfiles = [
-  { id: '1', name: 'Emma', age: '8 months', isActive: true },
-  { id: '2', name: 'Noah', age: '2 years', isActive: false },
-  { id: '3', name: 'Oliver', age: 'Pregnancy (24 weeks)', isActive: false }
-];
-
-interface ChildProfileSelectorProps {
-  onProfileChange?: (profileId: string) => void;
-}
-
-const ChildProfileSelector: React.FC<ChildProfileSelectorProps> = ({ onProfileChange }) => {
-  const [profiles, setProfiles] = useState(mockProfiles);
+const ChildProfileSelector: React.FC = () => {
   const [newChildName, setNewChildName] = useState('');
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const { toast } = useToast();
-
-  const activeProfile = profiles.find(p => p.isActive) || profiles[0];
+  const { profiles, activeProfile, switchProfile, addProfile } = useChildProfile();
 
   const handleProfileChange = (profileId: string) => {
-    const updatedProfiles = profiles.map(profile => ({
-      ...profile,
-      isActive: profile.id === profileId
-    }));
-    setProfiles(updatedProfiles);
-    
-    if (onProfileChange) {
-      onProfileChange(profileId);
-    }
+    switchProfile(profileId);
     
     toast({
       title: "Profile Changed",
-      description: `Switched to ${updatedProfiles.find(p => p.id === profileId)?.name}'s profile.`
+      description: `Switched to ${profiles.find(p => p.id === profileId)?.name}'s profile.`
     });
   };
 
@@ -68,14 +48,7 @@ const ChildProfileSelector: React.FC<ChildProfileSelectorProps> = ({ onProfileCh
       return;
     }
     
-    const newProfile = {
-      id: `${profiles.length + 1}`,
-      name: newChildName,
-      age: 'Newborn',
-      isActive: false
-    };
-    
-    setProfiles([...profiles, newProfile]);
+    addProfile(newChildName);
     setNewChildName('');
     setIsDialogOpen(false);
     
@@ -93,8 +66,8 @@ const ChildProfileSelector: React.FC<ChildProfileSelectorProps> = ({ onProfileCh
             variant="ghost" 
             className="flex items-center space-x-2 text-sm font-medium"
           >
-            <div className="h-8 w-8 rounded-full bg-healthnest-soft-blue flex items-center justify-center">
-              <Baby className="h-4 w-4 text-healthnest-primary" />
+            <div className="h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center">
+              <Baby className="h-4 w-4 text-primary" />
             </div>
             <span>{activeProfile.name}</span>
           </Button>
@@ -106,18 +79,18 @@ const ChildProfileSelector: React.FC<ChildProfileSelectorProps> = ({ onProfileCh
             <DropdownMenuItem 
               key={profile.id}
               onClick={() => handleProfileChange(profile.id)}
-              className="flex items-center justify-between"
+              className="flex items-center justify-between cursor-pointer"
             >
               <div className="flex items-center space-x-2">
-                <div className="h-6 w-6 rounded-full bg-healthnest-soft-blue flex items-center justify-center">
-                  <Baby className="h-3 w-3 text-healthnest-primary" />
+                <div className="h-6 w-6 rounded-full bg-primary/10 flex items-center justify-center">
+                  <Baby className="h-3 w-3 text-primary" />
                 </div>
                 <div>
                   <span className="block">{profile.name}</span>
                   <span className="block text-xs text-muted-foreground">{profile.age}</span>
                 </div>
               </div>
-              {profile.isActive && <Check className="h-4 w-4 text-healthnest-primary" />}
+              {profile.isActive && <Check className="h-4 w-4 text-primary" />}
             </DropdownMenuItem>
           ))}
           <DropdownMenuSeparator />
@@ -125,7 +98,7 @@ const ChildProfileSelector: React.FC<ChildProfileSelectorProps> = ({ onProfileCh
             <DialogTrigger asChild>
               <DropdownMenuItem 
                 onSelect={(e) => e.preventDefault()}
-                className="text-healthnest-primary focus:text-healthnest-primary"
+                className="text-primary focus:text-primary cursor-pointer"
               >
                 <Plus className="h-4 w-4 mr-2" />
                 Add New Child
