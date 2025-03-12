@@ -1,29 +1,37 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { Component, ErrorInfo, ReactNode } from 'react';
 
-type ErrorBoundaryProps = {
-  children: React.ReactNode;
-  fallback: React.ReactNode;
-};
+interface Props {
+  children: ReactNode;
+  fallback: ReactNode;
+}
 
-const ErrorBoundary = ({ children, fallback }: ErrorBoundaryProps) => {
-  const [hasError, setHasError] = useState(false);
-  
-  useEffect(() => {
-    const errorHandler = (error: ErrorEvent) => {
-      console.error("Caught error:", error);
-      setHasError(true);
-    };
-    
-    window.addEventListener('error', errorHandler);
-    return () => window.removeEventListener('error', errorHandler);
-  }, []);
-  
-  if (hasError) {
-    return <>{fallback}</>;
+interface State {
+  hasError: boolean;
+}
+
+class ErrorBoundary extends Component<Props, State> {
+  constructor(props: Props) {
+    super(props);
+    this.state = { hasError: false };
   }
-  
-  return <>{children}</>;
-};
+
+  static getDerivedStateFromError(_: Error): State {
+    // Update state so the next render will show the fallback UI
+    return { hasError: true };
+  }
+
+  componentDidCatch(error: Error, errorInfo: ErrorInfo): void {
+    console.error("ErrorBoundary caught an error:", error, errorInfo);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return this.props.fallback;
+    }
+
+    return this.props.children;
+  }
+}
 
 export default ErrorBoundary;
