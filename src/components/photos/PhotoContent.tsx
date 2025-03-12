@@ -14,6 +14,7 @@ interface PhotoContentProps {
   onUploadClick: () => void;
   onEditPhoto: (photo: Photo) => void;
   onDeletePhoto: (id: string) => void;
+  onToggleFavorite: (id: string) => void;
   onFilesAdded?: (files: FileList) => void;
 }
 
@@ -23,6 +24,7 @@ const PhotoContent: React.FC<PhotoContentProps> = ({
   onUploadClick,
   onEditPhoto,
   onDeletePhoto,
+  onToggleFavorite,
   onFilesAdded
 }) => {
   return (
@@ -35,6 +37,7 @@ const PhotoContent: React.FC<PhotoContentProps> = ({
                 photos={filteredPhotos}
                 onEdit={onEditPhoto}
                 onDelete={onDeletePhoto}
+                onToggleFavorite={onToggleFavorite}
               />
             ) : (
               <div className="flex flex-col items-center justify-center py-16 px-4 text-center">

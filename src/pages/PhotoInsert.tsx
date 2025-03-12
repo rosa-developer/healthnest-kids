@@ -7,6 +7,7 @@ import EditPhotoModal from '@/components/photos/EditPhotoModal';
 import PhotoGalleryHeader from '@/components/photos/PhotoGalleryHeader';
 import PhotoSearchControls from '@/components/photos/PhotoSearchControls';
 import PhotoCategoryControls from '@/components/photos/PhotoCategoryControls';
+import PhotoSortControls from '@/components/photos/PhotoSortControls';
 import PhotoContent from '@/components/photos/PhotoContent';
 import FeaturedPhotos from '@/components/photos/FeaturedPhotos';
 
@@ -18,6 +19,7 @@ const PhotoInsert = () => {
     filteredPhotos,
     searchQuery,
     activeCategory,
+    sortOption,
     showEditModal,
     editCaption,
     editCategory,
@@ -25,6 +27,7 @@ const PhotoInsert = () => {
     
     setSearchQuery,
     setActiveCategory,
+    setSortOption,
     setShowEditModal,
     setEditCaption,
     setEditCategory,
@@ -32,7 +35,8 @@ const PhotoInsert = () => {
     handleAddPhotos,
     handleDeletePhoto,
     handleEditPhoto,
-    saveEditPhoto
+    saveEditPhoto,
+    toggleFavorite
   } = usePhotoManagement();
 
   const handleUploadClick = () => {
@@ -79,10 +83,16 @@ const PhotoInsert = () => {
             onCaptureClick={handleCaptureClick}
           />
 
-          <PhotoCategoryControls 
-            activeCategory={activeCategory}
-            setActiveCategory={setActiveCategory}
-          />
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+            <PhotoCategoryControls 
+              activeCategory={activeCategory}
+              setActiveCategory={setActiveCategory}
+            />
+            <PhotoSortControls
+              sortOption={sortOption}
+              setSortOption={setSortOption}
+            />
+          </div>
 
           <PhotoContent 
             filteredPhotos={filteredPhotos}
@@ -90,6 +100,7 @@ const PhotoInsert = () => {
             onUploadClick={handleUploadClick}
             onEditPhoto={handleEditPhoto}
             onDeletePhoto={handleDeletePhoto}
+            onToggleFavorite={toggleFavorite}
             onFilesAdded={handleFilesAdded}
           />
 

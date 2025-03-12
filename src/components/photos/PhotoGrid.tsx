@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Card } from "@/components/ui/card";
-import { Edit2, Trash2 } from 'lucide-react';
+import { Edit2, Star, Trash2 } from 'lucide-react';
 import { Photo, photoCategories } from '@/types/photo';
 import { Badge } from "@/components/ui/badge";
 
@@ -9,9 +9,15 @@ interface PhotoGridProps {
   photos: Photo[];
   onEdit: (photo: Photo) => void;
   onDelete: (id: string) => void;
+  onToggleFavorite: (id: string) => void;
 }
 
-const PhotoGrid: React.FC<PhotoGridProps> = ({ photos, onEdit, onDelete }) => {
+const PhotoGrid: React.FC<PhotoGridProps> = ({ 
+  photos, 
+  onEdit, 
+  onDelete,
+  onToggleFavorite 
+}) => {
   if (photos.length === 0) {
     return null;
   }
@@ -31,6 +37,13 @@ const PhotoGrid: React.FC<PhotoGridProps> = ({ photos, onEdit, onDelete }) => {
               />
               <div className="absolute top-0 left-0 w-full h-full bg-black/0 group-hover:bg-black/30 transition-all duration-300">
                 <div className="absolute top-2 right-2 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <button 
+                    onClick={() => onToggleFavorite(photo.id)}
+                    className={`p-1.5 ${photo.isFavorite ? 'bg-yellow-400' : 'bg-white/90'} rounded-full shadow-md hover:bg-white`}
+                    aria-label={photo.isFavorite ? "Remove from favorites" : "Add to favorites"}
+                  >
+                    <Star className={`h-4 w-4 ${photo.isFavorite ? 'text-white' : 'text-muted-foreground'}`} />
+                  </button>
                   <button 
                     onClick={() => onEdit(photo)}
                     className="p-1.5 bg-white/90 rounded-full shadow-md hover:bg-white"
@@ -52,11 +65,16 @@ const PhotoGrid: React.FC<PhotoGridProps> = ({ photos, onEdit, onDelete }) => {
                   {category.name}
                 </Badge>
               )}
+              {photo.isFavorite && (
+                <div className="absolute top-2 left-2">
+                  <Star className="h-5 w-5 text-yellow-400 fill-yellow-400" />
+                </div>
+              )}
             </div>
             <div className="p-4">
               <h3 className="font-medium line-clamp-1">{photo.caption}</h3>
               <p className="text-xs text-muted-foreground mt-1">
-                Added {new Date().toLocaleDateString()}
+                Added {new Date(photo.date).toLocaleDateString()}
               </p>
             </div>
           </Card>

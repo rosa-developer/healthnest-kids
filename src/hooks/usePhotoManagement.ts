@@ -1,6 +1,9 @@
+
 import { useState, useEffect } from 'react';
 import { Photo } from '@/types/photo';
 import { useToast } from '@/hooks/use-toast';
+
+export type SortOption = 'newest' | 'oldest' | 'favorites';
 
 export const usePhotoManagement = () => {
   const [photos, setPhotos] = useState<Photo[]>(() => {
@@ -10,6 +13,7 @@ export const usePhotoManagement = () => {
   const [filteredPhotos, setFilteredPhotos] = useState<Photo[]>(photos);
   const [searchQuery, setSearchQuery] = useState('');
   const [activeCategory, setActiveCategory] = useState('all');
+  const [sortOption, setSortOption] = useState<SortOption>('newest');
   const [showEditModal, setShowEditModal] = useState(false);
   const [editCaption, setEditCaption] = useState('');
   const [editCategory, setEditCategory] = useState('');
@@ -19,7 +23,7 @@ export const usePhotoManagement = () => {
   useEffect(() => {
     localStorage.setItem('photos', JSON.stringify(photos));
     filterPhotos();
-  }, [photos, searchQuery, activeCategory]);
+  }, [photos, searchQuery, activeCategory, sortOption]);
 
   const handleAddPhotos = (files: FileList) => {
     const newPhotos: Photo[] = Array.from(files).map(file => {
@@ -30,6 +34,7 @@ export const usePhotoManagement = () => {
         caption: file.name,
         category: 'uncategorized',
         date: new Date().toISOString(),
+        isFavorite: false,
       };
     });
 
@@ -76,17 +81,42 @@ export const usePhotoManagement = () => {
     });
   };
 
+  const toggleFavorite = (id: string) => {
+    setPhotos(prevPhotos =>
+      prevPhotos.map(photo =>
+        photo.id === id
+          ? { ...photo, isFavorite: !photo.isFavorite }
+          : photo
+      )
+    );
+  };
+
   const filterPhotos = () => {
     let filtered = [...photos];
 
+    // Apply search filter
     if (searchQuery) {
       filtered = filtered.filter(photo =>
         photo.caption.toLowerCase().includes(searchQuery.toLowerCase())
       );
     }
 
+    // Apply category filter
     if (activeCategory !== 'all') {
       filtered = filtered.filter(photo => photo.category === activeCategory);
+    }
+
+    // Apply sorting
+    switch (sortOption) {
+      case 'newest':
+        filtered.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+        break;
+      case 'oldest':
+        filtered.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+        break;
+      case 'favorites':
+        filtered = filtered.filter(photo => photo.isFavorite);
+        break;
     }
 
     setFilteredPhotos(filtered);
@@ -97,6 +127,7 @@ export const usePhotoManagement = () => {
     filteredPhotos,
     searchQuery,
     activeCategory,
+    sortOption,
     showEditModal,
     editCaption,
     editCategory,
@@ -104,6 +135,7 @@ export const usePhotoManagement = () => {
     
     setSearchQuery,
     setActiveCategory,
+    setSortOption,
     setShowEditModal,
     setEditCaption,
     setEditCategory,
@@ -111,6 +143,7 @@ export const usePhotoManagement = () => {
     handleAddPhotos,
     handleDeletePhoto,
     handleEditPhoto,
-    saveEditPhoto
+    saveEditPhoto,
+    toggleFavorite
   };
 };

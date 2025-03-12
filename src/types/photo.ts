@@ -1,19 +1,21 @@
 
+import { Brain, Cake, Drop, Milestone } from 'lucide-react';
+
 export interface Photo {
   id: string;
   src: string;
   caption: string;
   category: string;
   date: string;
-  favorite?: boolean;
+  isFavorite?: boolean;
 }
 
 export const photoCategories = [
+  { id: 'all', name: 'All Photos' },
   { id: 'favorites', name: 'Favorites' },
-  { id: 'family', name: 'Family' },
-  { id: 'events', name: 'Events' },
-  { id: 'outdoor', name: 'Outdoor' },
-  { id: 'baby', name: 'Baby' },
   { id: 'milestones', name: 'Milestones' },
-  { id: 'uncategorized', name: 'Uncategorized' }
+  { id: 'family', name: 'Family' },
+  { id: 'medical', name: 'Medical' },
+  { id: 'ultrasound', name: 'Ultrasound' },
+  { id: 'uncategorized', name: 'Uncategorized' },
 ];
