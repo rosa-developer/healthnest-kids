@@ -69,7 +69,7 @@ const Index = () => {
 
   if (error) {
     return (
-      <div className="main-container pt-16 pb-20 px-4 mx-auto">
+      <div className="main-container">
         <Alert variant="destructive" className="mb-6">
           <AlertCircle className="h-4 w-4" />
           <AlertDescription>{error}</AlertDescription>
@@ -85,52 +85,69 @@ const Index = () => {
   }
 
   return (
-    <div className="main-container pt-16 pb-20 px-4 mx-auto">
+    <div className="main-container">
       <PageTransition>
-        <div className="space-y-6 animate-fade-in">
-          <div className="section-title">
-            <div className="section-title-bar"></div>
-            <h2 className="section-title-text">Dashboard</h2>
+        <div className="space-y-8 animate-fade-in">
+          {/* Welcome Section */}
+          <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-primary/10 to-secondary/10 p-8">
+            <div className="absolute inset-0 bg-grid-white/10" />
+            <div className="relative">
+              <h1 className="text-4xl font-bold tracking-tight bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+                Welcome Back
+              </h1>
+              <p className="mt-2 text-muted-foreground">
+                Track your child's health journey and milestones
+              </p>
+            </div>
           </div>
-          
-          <div className="grid grid-cols-1 gap-6">
-            {isLoading ? (
-              <div className="animate-pulse space-y-6">
-                <div className="h-40 bg-muted rounded-xl"></div>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="h-32 bg-muted rounded-xl"></div>
-                  <div className="h-32 bg-muted rounded-xl"></div>
-                </div>
-                <div className="h-64 bg-muted rounded-xl"></div>
+
+          {isLoading ? (
+            <div className="animate-pulse space-y-8">
+              <div className="h-48 bg-muted rounded-3xl" />
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div className="h-36 bg-muted rounded-3xl" />
+                <div className="h-36 bg-muted rounded-3xl" />
               </div>
-            ) : (
-              <>
-                <div className="animate-scale-in">
+              <div className="h-72 bg-muted rounded-3xl" />
+            </div>
+          ) : (
+            <>
+              {/* Profile Section */}
+              <div className="animate-scale-in">
+                <div className="glass-panel p-6">
                   <ChildProfileCard />
                 </div>
-                
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="content-card card-hover card-expand animate-slide-up overflow-hidden">
-                    <ErrorBoundary fallback={<CardError title="Appointments" />}>
+              </div>
+              
+              {/* Stats Grid */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div className="content-card card-hover card-expand animate-slide-up overflow-hidden">
+                  <ErrorBoundary fallback={<CardError title="Appointments" />}>
+                    <div className="p-6">
                       <UpcomingAppointments />
-                    </ErrorBoundary>
-                  </div>
-                  
-                  <div className="content-card card-hover card-expand animate-slide-up overflow-hidden" style={{animationDelay: "0.1s"}}>
-                    <ErrorBoundary fallback={<CardError title="Timeline" />}>
-                      <RecentTimeline />
-                    </ErrorBoundary>
-                  </div>
+                    </div>
+                  </ErrorBoundary>
                 </div>
                 
-                <div className="content-card card-hover card-expand animate-slide-up" style={{animationDelay: "0.2s"}}>
+                <div className="content-card card-hover card-expand animate-slide-up overflow-hidden" style={{animationDelay: "0.1s"}}>
+                  <ErrorBoundary fallback={<CardError title="Timeline" />}>
+                    <div className="p-6">
+                      <RecentTimeline />
+                    </div>
+                  </ErrorBoundary>
+                </div>
+              </div>
+              
+              {/* Health Overview Section */}
+              <div className="content-card card-hover card-expand animate-slide-up" style={{animationDelay: "0.2s"}}>
+                <div className="p-6">
                   <ErrorBoundary fallback={<CardError title="Health Overview" />}>
                     <HealthOverview />
                   </ErrorBoundary>
                 </div>
-              </>
-            )}
-          </div>
+              </div>
+            </>
+          )}
         </div>
       </PageTransition>
     </div>
