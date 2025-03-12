@@ -1,3 +1,3 @@
 
 // Re-export from the ui folder
-export { useToast } from "@/components/ui/use-toast";
+export { useToast, toast, type ToastActionElement, type ToastProps } from "@/components/ui/toast";

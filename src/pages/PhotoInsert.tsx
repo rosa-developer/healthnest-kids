@@ -1,8 +1,8 @@
 
-import React, { useState, useRef } from 'react';
+import React, { useRef } from 'react';
 import PageTransition from '@/components/common/PageTransition';
 import { useToast } from "@/hooks/use-toast";
-import { Photo } from '@/types/photo';
+import { usePhotoManagement } from '@/hooks/usePhotoManagement';
 
 // Importing refactored components
 import PhotoGrid from '@/components/photos/PhotoGrid';
@@ -14,13 +14,27 @@ import EditPhotoModal from '@/components/photos/EditPhotoModal';
 const PhotoInsert = () => {
   const { toast } = useToast();
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const [photos, setPhotos] = useState<Photo[]>([]);
-  const [selectedPhoto, setSelectedPhoto] = useState<string | null>(null);
-  const [editCaption, setEditCaption] = useState<string>('');
-  const [editCategory, setEditCategory] = useState<string>('other');
-  const [showEditModal, setShowEditModal] = useState<boolean>(false);
-  const [searchQuery, setSearchQuery] = useState<string>('');
-  const [activeCategory, setActiveCategory] = useState<string>('all');
+  
+  const {
+    filteredPhotos,
+    searchQuery,
+    activeCategory,
+    showEditModal,
+    editCaption,
+    editCategory,
+    currentPhoto,
+    
+    setSearchQuery,
+    setActiveCategory,
+    setShowEditModal,
+    setEditCaption,
+    setEditCategory,
+    
+    handleAddPhotos,
+    handleDeletePhoto,
+    handleEditPhoto,
+    saveEditPhoto
+  } = usePhotoManagement();
 
   const handleUploadClick = () => {
     fileInputRef.current?.click();
@@ -37,72 +51,11 @@ const PhotoInsert = () => {
     const files = e.target.files;
     
     if (files && files.length > 0) {
-      const newPhotos = Array.from(files).map(file => {
-        const id = `photo-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
-        return {
-          id,
-          src: URL.createObjectURL(file),
-          caption: file.name.split('.')[0] || 'New Photo',
-          category: 'other',
-          date: new Date().toISOString(),
-        };
-      });
-      
-      setPhotos(prev => [...prev, ...newPhotos]);
-      
-      toast({
-        title: "Photos Added",
-        description: `${files.length} photo(s) have been successfully added.`,
-      });
-      
+      handleAddPhotos(files);
       // Reset file input
       e.target.value = '';
     }
   };
-
-  const handleDelete = (id: string) => {
-    setPhotos(prev => prev.filter(photo => photo.id !== id));
-    toast({
-      title: "Photo Deleted",
-      description: "The photo has been removed.",
-    });
-  };
-
-  const handleEdit = (photo: Photo) => {
-    setSelectedPhoto(photo.id);
-    setEditCaption(photo.caption);
-    setEditCategory(photo.category);
-    setShowEditModal(true);
-  };
-
-  const saveEdit = () => {
-    if (selectedPhoto) {
-      setPhotos(prev => prev.map(photo => 
-        photo.id === selectedPhoto 
-          ? { ...photo, caption: editCaption, category: editCategory }
-          : photo
-      ));
-      
-      setShowEditModal(false);
-      setSelectedPhoto(null);
-      
-      toast({
-        title: "Photo Updated",
-        description: "Photo details have been updated successfully.",
-      });
-    }
-  };
-
-  // Filter photos based on active category and search query
-  const filteredPhotos = photos.filter(photo => {
-    const matchesCategory = activeCategory === 'all' || photo.category === activeCategory;
-    const matchesSearch = photo.caption.toLowerCase().includes(searchQuery.toLowerCase());
-    return matchesCategory && matchesSearch;
-  });
-
-  const currentPhoto = selectedPhoto 
-    ? photos.find(photo => photo.id === selectedPhoto)
-    : null;
 
   return (
     <div className="main-container">
@@ -127,8 +80,8 @@ const PhotoInsert = () => {
           {filteredPhotos.length > 0 ? (
             <PhotoGrid 
               photos={filteredPhotos}
-              onEdit={handleEdit}
-              onDelete={handleDelete}
+              onEdit={handleEditPhoto}
+              onDelete={handleDeletePhoto}
             />
           ) : (
             <EmptyPhotoState 
@@ -145,7 +98,7 @@ const PhotoInsert = () => {
             editCategory={editCategory}
             onEditCaptionChange={setEditCaption}
             onEditCategoryChange={setEditCategory}
-            onSave={saveEdit}
+            onSave={saveEditPhoto}
           />
 
           <input 
