@@ -4,15 +4,27 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Calendar } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
+import { 
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+} from "@/components/ui/dialog";
 
 const UpcomingAppointments = () => {
   const { toast } = useToast();
+  const [openDialog, setOpenDialog] = React.useState(false);
 
   const handleAddAppointment = () => {
     toast({
       title: "Add Appointment",
       description: "This feature will be available in the next update!",
     });
+  };
+
+  const handleViewDetails = () => {
+    setOpenDialog(true);
   };
 
   return (
@@ -40,12 +52,38 @@ const UpcomingAppointments = () => {
               <h3 className="font-medium">9-Month Checkup</h3>
               <p className="text-sm text-muted-foreground">May 15, 2023 - 10:00 AM</p>
             </div>
-            <Button variant="ghost" size="sm">
+            <Button variant="ghost" size="sm" onClick={handleViewDetails}>
               Details
             </Button>
           </div>
         </CardContent>
       </Card>
+
+      <Dialog open={openDialog} onOpenChange={setOpenDialog}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>9-Month Checkup Details</DialogTitle>
+            <DialogDescription>
+              Scheduled with Dr. Sarah Johnson
+            </DialogDescription>
+          </DialogHeader>
+          <div className="space-y-4 py-4">
+            <div className="grid grid-cols-2 gap-2">
+              <div className="text-sm font-medium">Date & Time:</div>
+              <div className="text-sm">May 15, 2023 - 10:00 AM</div>
+              
+              <div className="text-sm font-medium">Location:</div>
+              <div className="text-sm">Sunshine Pediatrics, Suite 300</div>
+              
+              <div className="text-sm font-medium">Purpose:</div>
+              <div className="text-sm">Regular wellness checkup, vaccination review</div>
+              
+              <div className="text-sm font-medium">Notes:</div>
+              <div className="text-sm">Bring growth journal and any questions about development</div>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
     </section>
   );
 };
