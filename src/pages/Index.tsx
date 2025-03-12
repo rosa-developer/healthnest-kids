@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import PageTransition from '@/components/common/PageTransition';
 import ChildProfileCard from '@/components/home/child-profile/ChildProfileCard';
@@ -87,9 +88,9 @@ const Index = () => {
     <div className="main-container pt-16 pb-20 px-4 mx-auto">
       <PageTransition>
         <div className="space-y-6 animate-fade-in">
-          <div className="flex items-center mb-2">
-            <div className="h-1.5 w-12 bg-primary rounded mr-2"></div>
-            <h2 className="text-xl font-semibold tracking-tight">Dashboard</h2>
+          <div className="section-title">
+            <div className="section-title-bar"></div>
+            <h2 className="section-title-text">Dashboard</h2>
           </div>
           
           <div className="grid grid-cols-1 gap-6">
@@ -109,20 +110,20 @@ const Index = () => {
                 </div>
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="card-hover rounded-xl bg-gradient-to-br from-white to-blue-50 dark:from-gray-900 dark:to-gray-800 shadow-soft overflow-hidden animate-slide-up">
+                  <div className="content-card card-hover card-expand animate-slide-up overflow-hidden">
                     <ErrorBoundary fallback={<CardError title="Appointments" />}>
                       <UpcomingAppointments />
                     </ErrorBoundary>
                   </div>
                   
-                  <div className="card-hover rounded-xl bg-gradient-to-br from-white to-blue-50 dark:from-gray-900 dark:to-gray-800 shadow-soft overflow-hidden animate-slide-up" style={{animationDelay: "0.1s"}}>
+                  <div className="content-card card-hover card-expand animate-slide-up overflow-hidden" style={{animationDelay: "0.1s"}}>
                     <ErrorBoundary fallback={<CardError title="Timeline" />}>
                       <RecentTimeline />
                     </ErrorBoundary>
                   </div>
                 </div>
                 
-                <div className="card-hover rounded-xl bg-gradient-to-br from-white to-blue-50 dark:from-gray-900 dark:to-gray-800 shadow-soft overflow-hidden animate-slide-up" style={{animationDelay: "0.2s"}}>
+                <div className="content-card card-hover card-expand animate-slide-up" style={{animationDelay: "0.2s"}}>
                   <ErrorBoundary fallback={<CardError title="Health Overview" />}>
                     <HealthOverview />
                   </ErrorBoundary>

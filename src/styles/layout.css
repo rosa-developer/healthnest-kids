@@ -1,4 +1,5 @@
 
+
 @tailwind components;
 
 @layer components {
@@ -36,3 +37,4 @@
            overflow-hidden transition-all duration-300 hover:shadow-xl;
   }
 }
+
