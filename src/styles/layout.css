@@ -1,0 +1,32 @@
+
+@tailwind components;
+
+@layer components {
+  .main-container {
+    @apply max-w-screen-lg mx-auto px-4 md:px-6 pb-24 pt-20;
+  }
+
+  .page-container {
+    @apply animate-fade-in;
+  }
+  
+  .section-title {
+    @apply flex items-center space-x-2 mb-4;
+  }
+  
+  .section-title-bar {
+    @apply h-1 w-10 bg-primary rounded;
+  }
+  
+  .section-title-text {
+    @apply text-xl font-semibold tracking-tight;
+  }
+  
+  .glass-panel {
+    @apply bg-white/80 backdrop-blur-sm border border-white/20 shadow-soft;
+  }
+  
+  .glass-panel-dark {
+    @apply bg-black/10 backdrop-blur-sm border border-white/10 shadow-soft;
+  }
+}

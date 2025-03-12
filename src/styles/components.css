@@ -1,0 +1,75 @@
+
+@layer components {
+  .chip {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary/10 text-primary;
+  }
+
+  .card-hover {
+    @apply transition-all duration-300 hover:shadow-medium hover:-translate-y-1;
+  }
+
+  /* Card design improvements */
+  .card-title {
+    @apply text-lg font-semibold text-foreground mb-1 flex items-center;
+  }
+  
+  .card-subtitle {
+    @apply text-sm text-muted-foreground mb-4;
+  }
+  
+  .card-content {
+    @apply p-5;
+  }
+  
+  /* Button improvements */
+  .btn-primary {
+    @apply inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors 
+    focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 
+    disabled:opacity-50 disabled:pointer-events-none ring-offset-background
+    bg-primary text-primary-foreground hover:bg-primary/90 h-10 py-2 px-4;
+  }
+  
+  .btn-secondary {
+    @apply inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors 
+    focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 
+    disabled:opacity-50 disabled:pointer-events-none ring-offset-background
+    bg-secondary text-secondary-foreground hover:bg-secondary/80 h-9 px-3;
+  }
+  
+  .btn-outline {
+    @apply inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors 
+    focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 
+    disabled:opacity-50 disabled:pointer-events-none ring-offset-background
+    border border-input hover:bg-accent hover:text-accent-foreground h-9 px-3;
+  }
+  
+  /* Status indicators */
+  .status-dot {
+    @apply h-2 w-2 rounded-full inline-block mr-2;
+  }
+  
+  .status-active {
+    @apply bg-green-500;
+  }
+  
+  .status-pending {
+    @apply bg-amber-500;
+  }
+  
+  .status-completed {
+    @apply bg-blue-500;
+  }
+  
+  .status-overdue {
+    @apply bg-red-500;
+  }
+
+  /* Custom color classes */
+  .bg-healthnest-soft-blue {
+    @apply bg-blue-100;
+  }
+  
+  .text-healthnest-primary {
+    @apply text-blue-600;
+  }
+}

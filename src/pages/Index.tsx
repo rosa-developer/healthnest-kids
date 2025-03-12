@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import PageTransition from '@/components/common/PageTransition';
 import ChildProfileCard from '@/components/home/child-profile/ChildProfileCard';
@@ -9,6 +8,7 @@ import { useChildProfile } from '@/contexts/ChildProfileContext';
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { AlertCircle } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
+import ErrorBoundary from '@/components/common/ErrorBoundary';
 
 const Index = () => {
   const { activeProfile } = useChildProfile();
@@ -134,27 +134,6 @@ const Index = () => {
       </PageTransition>
     </div>
   );
-};
-
-// Simple error boundary component for graceful failures
-const ErrorBoundary = ({ children, fallback }: { children: React.ReactNode, fallback: React.ReactNode }) => {
-  const [hasError, setHasError] = useState(false);
-  
-  useEffect(() => {
-    const errorHandler = (error: ErrorEvent) => {
-      console.error("Caught error:", error);
-      setHasError(true);
-    };
-    
-    window.addEventListener('error', errorHandler);
-    return () => window.removeEventListener('error', errorHandler);
-  }, []);
-  
-  if (hasError) {
-    return <>{fallback}</>;
-  }
-  
-  return <>{children}</>;
 };
 
 // Fallback component for card errors
