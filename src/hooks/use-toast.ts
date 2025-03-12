@@ -1,33 +1,33 @@
 
-import { toast as sonnerToast } from "sonner";
+import * as React from "react";
 
-// Create a hook that returns the toast function
-export const useToast = () => {
-  return {
-    toast: (props: { title?: string; description?: string; variant?: "default" | "destructive" }) => {
-      return sonnerToast(props.title || "", {
-        description: props.description,
-        className: props.variant === "destructive" ? "bg-destructive text-destructive-foreground" : ""
-      });
-    }
-  };
-};
+// Define types to avoid circular dependency
+export type ToastActionElement = React.ReactElement<any>;
 
-// Re-export the toast function
-export const toast = (props: { title?: string; description?: string; variant?: "default" | "destructive" }) => {
-  return sonnerToast(props.title || "", {
-    description: props.description,
-    className: props.variant === "destructive" ? "bg-destructive text-destructive-foreground" : ""
-  });
-};
-
-// Types for the toast props
 export type ToastProps = {
   id: string;
   title?: React.ReactNode;
   description?: React.ReactNode;
-  action?: React.ReactElement;
+  action?: ToastActionElement;
   variant?: "default" | "destructive";
+  open?: boolean;
+  onOpenChange?: (open: boolean) => void;
 };
 
-export type ToastActionElement = React.ReactElement;
+// Create a toast function
+export const toast = ({ title, description, variant }: { 
+  title?: React.ReactNode; 
+  description?: React.ReactNode; 
+  variant?: "default" | "destructive";
+}) => {
+  console.log('Toast:', title, description);
+  return { id: Date.now().toString() };
+};
+
+export const useToast = () => {
+  return {
+    toast,
+    toasts: [] as ToastProps[],
+    dismiss: (toastId?: string) => {}
+  };
+};

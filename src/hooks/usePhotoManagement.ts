@@ -1,91 +1,98 @@
-
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Photo } from '@/types/photo';
-import { useToast } from "@/hooks/use-toast";
+import { useToast } from '@/hooks/use-toast';
 
-export function usePhotoManagement() {
+export const usePhotoManagement = () => {
+  const [photos, setPhotos] = useState<Photo[]>(() => {
+    const storedPhotos = localStorage.getItem('photos');
+    return storedPhotos ? JSON.parse(storedPhotos) : [];
+  });
+  const [filteredPhotos, setFilteredPhotos] = useState<Photo[]>(photos);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [activeCategory, setActiveCategory] = useState('all');
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [editCaption, setEditCaption] = useState('');
+  const [editCategory, setEditCategory] = useState('');
+  const [currentPhoto, setCurrentPhoto] = useState<Photo | null>(null);
   const { toast } = useToast();
-  const [photos, setPhotos] = useState<Photo[]>([]);
-  const [selectedPhoto, setSelectedPhoto] = useState<string | null>(null);
-  const [editCaption, setEditCaption] = useState<string>('');
-  const [editCategory, setEditCategory] = useState<string>('other');
-  const [showEditModal, setShowEditModal] = useState<boolean>(false);
-  const [searchQuery, setSearchQuery] = useState<string>('');
-  const [activeCategory, setActiveCategory] = useState<string>('all');
+
+  useEffect(() => {
+    localStorage.setItem('photos', JSON.stringify(photos));
+    filterPhotos();
+  }, [photos, searchQuery, activeCategory]);
 
   const handleAddPhotos = (files: FileList) => {
-    if (files && files.length > 0) {
-      const newPhotos = Array.from(files).map(file => {
-        const id = `photo-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
-        return {
-          id,
-          src: URL.createObjectURL(file),
-          caption: file.name.split('.')[0] || 'New Photo',
-          category: 'other',
-          date: new Date().toISOString(),
-        };
-      });
-      
-      setPhotos(prev => [...prev, ...newPhotos]);
-      
-      toast({
-        title: "Photos Added",
-        description: `${files.length} photo(s) have been successfully added.`,
-      });
-    }
+    const newPhotos: Photo[] = Array.from(files).map(file => {
+      const imageUrl = URL.createObjectURL(file);
+      return {
+        id: Date.now().toString() + '-' + Math.random().toString(36).substring(2, 9),
+        src: imageUrl,
+        caption: file.name,
+        category: 'uncategorized',
+        date: new Date().toISOString(),
+      };
+    });
+
+    setPhotos(prevPhotos => [...prevPhotos, ...newPhotos]);
+    toast({
+      title: "Photos Uploaded",
+      description: `Successfully uploaded ${files.length} photos.`,
+    });
   };
 
   const handleDeletePhoto = (id: string) => {
-    setPhotos(prev => prev.filter(photo => photo.id !== id));
+    setPhotos(prevPhotos => {
+      const updatedPhotos = prevPhotos.filter(photo => photo.id !== id);
+      return updatedPhotos;
+    });
     toast({
       title: "Photo Deleted",
-      description: "The photo has been removed.",
+      description: "The photo has been successfully deleted.",
     });
   };
 
   const handleEditPhoto = (photo: Photo) => {
-    setSelectedPhoto(photo.id);
+    setCurrentPhoto(photo);
     setEditCaption(photo.caption);
     setEditCategory(photo.category);
     setShowEditModal(true);
   };
 
   const saveEditPhoto = () => {
-    if (selectedPhoto) {
-      setPhotos(prev => prev.map(photo => 
-        photo.id === selectedPhoto 
+    if (!currentPhoto) return;
+
+    setPhotos(prevPhotos =>
+      prevPhotos.map(photo =>
+        photo.id === currentPhoto.id
           ? { ...photo, caption: editCaption, category: editCategory }
           : photo
-      ));
-      
-      setShowEditModal(false);
-      setSelectedPhoto(null);
-      
-      toast({
-        title: "Photo Updated",
-        description: "Photo details have been updated successfully.",
-      });
-    }
-  };
+      )
+    );
 
-  const cancelEditPhoto = () => {
     setShowEditModal(false);
-    setSelectedPhoto(null);
+    toast({
+      title: "Photo Updated",
+      description: "The photo details have been updated.",
+    });
   };
 
-  // Filter photos based on active category and search query
-  const filteredPhotos = photos.filter(photo => {
-    const matchesCategory = activeCategory === 'all' || photo.category === activeCategory;
-    const matchesSearch = photo.caption.toLowerCase().includes(searchQuery.toLowerCase());
-    return matchesCategory && matchesSearch;
-  });
+  const filterPhotos = () => {
+    let filtered = [...photos];
 
-  const currentPhoto = selectedPhoto 
-    ? photos.find(photo => photo.id === selectedPhoto)
-    : null;
+    if (searchQuery) {
+      filtered = filtered.filter(photo =>
+        photo.caption.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+    }
+
+    if (activeCategory !== 'all') {
+      filtered = filtered.filter(photo => photo.category === activeCategory);
+    }
+
+    setFilteredPhotos(filtered);
+  };
 
   return {
-    // State
     photos,
     filteredPhotos,
     searchQuery,
@@ -95,18 +102,15 @@ export function usePhotoManagement() {
     editCategory,
     currentPhoto,
     
-    // Setters
     setSearchQuery,
     setActiveCategory,
     setShowEditModal,
     setEditCaption,
     setEditCategory,
     
-    // Actions
     handleAddPhotos,
     handleDeletePhoto,
     handleEditPhoto,
-    saveEditPhoto,
-    cancelEditPhoto
+    saveEditPhoto
   };
-}
+};

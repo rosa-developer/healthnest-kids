@@ -1,125 +1,148 @@
+import { useState, useEffect, useRef } from 'react';
+import { getRecordingTime } from '../utils';
+import { useToast } from '@/hooks/use-toast';
 
-import { useState, useCallback } from 'react';
-import { AudioRecording } from '../types';
-import { useToast } from "@/hooks/use-toast";
-
-interface RecorderState {
-  recording: boolean;
-  audioURL: string | null;
-  audioBlob: Blob | null;
-  error: string | null;
-  audioRecordings: AudioRecording[];
+interface RecorderControls {
+  startRecording: () => Promise<void>;
+  stopRecording: () => void;
+  pauseRecording: () => void;
+  resumeRecording: () => void;
+  getRecordings: () => { audio: string | null; duration: number }[];
+  clearRecordings: () => void;
+  recordingStatus: string;
+  recordingTime: number;
+  isAudioContextSupported: boolean;
 }
 
-const initialState: RecorderState = {
-  recording: false,
-  audioURL: null,
-  audioBlob: null,
-  error: null,
-  audioRecordings: [],
-};
+const audioContext = typeof window !== 'undefined' ? (window.AudioContext || (window as any).webkitAudioContext) : null;
 
-export const useRecorder = () => {
+const useRecorder = (): RecorderControls => {
   const { toast } = useToast();
-  const [recorderState, setRecorderState] = useState(initialState);
-  const [mediaRecorder, setMediaRecorder] = useState<MediaRecorder | null>(null);
+  const [recorder, setRecorder] = useState<MediaRecorder | null>(null);
+  const [audioChunks, setAudioChunks] = useState<Blob[]>([]);
+  const [recordingStatus, setRecordingStatus] = useState<string>('inactive');
+  const [recordingTime, setRecordingTime] = useState<number>(0);
+  const [recordings, setRecordings] = useState<{ audio: string | null; duration: number }[]>([]);
+  const [isAudioContextSupported, setIsAudioContextSupported] = useState(!!audioContext);
 
-  const startRecording = useCallback(async () => {
-    try {
-      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-      const recorder = new MediaRecorder(stream);
+  const timerInterval = useRef<number | null>(null);
 
-      recorder.ondataavailable = (event) => {
-        const audioBlob = new Blob([event.data], { type: 'audio/wav' });
-        const audioURL = URL.createObjectURL(audioBlob);
+  useEffect(() => {
+    const initializeRecorder = async () => {
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        const newRecorder = new MediaRecorder(stream);
 
-        setRecorderState((prevState) => ({
-          ...prevState,
-          audioURL,
-          audioBlob,
-          error: null,
-        }));
-      };
+        newRecorder.ondataavailable = (event) => {
+          setAudioChunks((prevChunks) => [...prevChunks, event.data]);
+        };
 
-      recorder.onstop = () => {
-        stream.getTracks().forEach(track => track.stop());
-      };
+        newRecorder.onstop = () => {
+          const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
+          const audioUrl = URL.createObjectURL(audioBlob);
+          setRecordings((prevRecordings) => [...prevRecordings, { audio: audioUrl, duration: recordingTime }]);
+          setAudioChunks([]);
+          setRecordingTime(0);
+        };
 
-      recorder.onerror = (event: Event) => {
-        console.error("MediaRecorder Error");
-        setRecorderState(prevState => ({
-          ...prevState,
-          error: 'An error occurred while recording.',
-        }));
+        setRecorder(newRecorder);
+      } catch (error) {
+        console.error('Error initializing recorder:', error);
+        setIsAudioContextSupported(false);
         toast({
-          title: "Recording Error",
-          description: "An error occurred while recording. Please check your microphone and try again.",
+          title: "Error",
+          description: "Audio recording is not supported in your browser or device. Please check your browser settings and permissions.",
           variant: "destructive",
         });
-      };
+      }
+    };
 
-      setMediaRecorder(recorder);
-      recorder.start();
-      setRecorderState(prevState => ({ ...prevState, recording: true, error: null }));
-    } catch (error: any) {
-      console.error("Error starting recording: ", error);
-      setRecorderState(prevState => ({
-        ...prevState,
-        error: 'Failed to start recording. Please check your microphone permissions.',
-      }));
-      toast({
-        title: "Permission Denied",
-        description: "Please allow microphone access to start recording.",
-        variant: "destructive",
-      });
-    }
-  }, [toast]);
+    initializeRecorder();
 
-  const stopRecording = useCallback(() => {
-    if (mediaRecorder) {
-      mediaRecorder.stop();
-      setRecorderState(prevState => ({ ...prevState, recording: false }));
-    }
-  }, [mediaRecorder]);
-
-  const resetRecording = useCallback(() => {
-    setRecorderState(initialState);
+    return () => {
+      if (recorder) {
+        recorder.stream.getTracks().forEach(track => track.stop());
+      }
+      if (timerInterval.current !== null) {
+        clearInterval(timerInterval.current);
+      }
+    };
   }, []);
 
-  const saveRecording = useCallback((title: string) => {
-    if (recorderState.audioURL && recorderState.audioBlob) {
-      const newRecording: AudioRecording = {
-        id: Date.now().toString(),
-        title: title,
-        url: recorderState.audioURL,
-        blob: recorderState.audioBlob,
-      };
+  const startRecording = async () => {
+    if (!recorder) return;
 
-      setRecorderState(prevState => ({
-        ...prevState,
-        audioRecordings: [...prevState.audioRecordings, newRecording],
-        audioURL: null,
-        audioBlob: null,
-      }));
+    try {
+      await navigator.mediaDevices.getUserMedia({ audio: true });
+      recorder.start();
+      setRecordingStatus('recording');
+      setRecordingTime(0);
 
+      timerInterval.current = window.setInterval(() => {
+        setRecordingTime((prevTime) => prevTime + 1);
+      }, 1000);
+    } catch (error) {
+      console.error('Error starting recording:', error);
       toast({
-        title: "Recording Saved",
-        description: "Your audio recording has been saved successfully.",
-      });
-    } else {
-      toast({
-        title: "No Recording Found",
-        description: "Please record audio before saving.",
+        title: "Error",
+        description: "Failed to start recording. Please check your microphone permissions.",
         variant: "destructive",
       });
+      setRecordingStatus('inactive');
     }
-  }, [recorderState.audioURL, recorderState.audioBlob, toast]);
+  };
+
+  const stopRecording = () => {
+    if (recorder && recorder.state === 'recording') {
+      recorder.stop();
+      setRecordingStatus('inactive');
+      if (timerInterval.current !== null) {
+        clearInterval(timerInterval.current);
+        timerInterval.current = null;
+      }
+    }
+  };
+
+  const pauseRecording = () => {
+    if (recorder && recorder.state === 'recording') {
+      recorder.pause();
+      setRecordingStatus('paused');
+      if (timerInterval.current !== null) {
+        clearInterval(timerInterval.current);
+        timerInterval.current = null;
+      }
+    }
+  };
+
+  const resumeRecording = () => {
+    if (recorder && recorder.state === 'paused') {
+      recorder.resume();
+      setRecordingStatus('recording');
+      timerInterval.current = window.setInterval(() => {
+        setRecordingTime((prevTime) => prevTime + 1);
+      }, 1000);
+    }
+  };
+
+  const getRecordings = () => {
+    return recordings;
+  };
+
+  const clearRecordings = () => {
+    setRecordings([]);
+  };
 
   return {
-    ...recorderState,
     startRecording,
     stopRecording,
-    resetRecording,
-    saveRecording,
+    pauseRecording,
+    resumeRecording,
+    getRecordings,
+    clearRecordings,
+    recordingStatus,
+    recordingTime,
+    isAudioContextSupported
   };
 };
+
+export default useRecorder;
