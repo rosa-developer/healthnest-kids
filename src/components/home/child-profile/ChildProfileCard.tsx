@@ -10,7 +10,7 @@ const ChildProfileCard = () => {
     <div className="mb-6">
       <ChildProfileHeader />
 
-      <Card className="border border-border shadow-soft overflow-hidden">
+      <Card className="border border-border shadow-sm overflow-hidden">
         <CardContent className="p-0">
           <div className="flex flex-col sm:flex-row">
             <ChildProfileInfo />

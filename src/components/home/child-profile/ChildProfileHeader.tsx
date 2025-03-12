@@ -10,11 +10,10 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 import { Baby } from 'lucide-react';
-import { useToast } from "@/hooks/use-toast";
+import { toast } from "@/hooks/use-toast";
 
 const ChildProfileHeader = () => {
   const { profiles, activeProfile, switchProfile } = useChildProfile();
-  const { toast } = useToast();
 
   const handleProfileChange = (profileId: string) => {
     switchProfile(profileId);
@@ -27,7 +26,7 @@ const ChildProfileHeader = () => {
 
   return (
     <div className="flex items-center justify-between mb-4">
-      <div className="chip bg-blue-100 text-blue-600 px-2 py-1 rounded-full text-sm">
+      <div className="inline-block px-2 py-1 text-xs font-medium rounded-full bg-blue-100 text-blue-600">
         Current Child
       </div>
       <DropdownMenu>
