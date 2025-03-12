@@ -14,19 +14,3 @@
   "include": ["./src/**/*.ts"],
   "exclude": ["node_modules", "dist"]
 }
-{
-  "compilerOptions": {
-    "target": "ES6",
-    "module": "commonjs",
-    "strict": true,
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "outDir": "./dist",
-    "sourceMap": true,
-    "rootDir": "./src",
-    "noImplicitAny": true,
-    "resolveJsonModule": true // Added this line to fix the bug
-  },
-  "include": ["./src/**/*.ts"],
-  "exclude": ["node_modules", "dist"]
-}
