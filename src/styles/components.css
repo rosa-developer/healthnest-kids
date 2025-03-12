@@ -1,16 +1,16 @@
 
 @layer components {
   .chip {
-    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary/10 text-primary;
+    @apply inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-primary/15 text-primary transition-all duration-300 hover:bg-primary/20;
   }
 
   .card-hover {
-    @apply transition-all duration-300 hover:shadow-medium hover:-translate-y-1;
+    @apply transition-all duration-300 hover:shadow-xl hover:-translate-y-1;
   }
 
   /* Card design improvements */
   .card-title {
-    @apply text-lg font-semibold text-foreground mb-1 flex items-center;
+    @apply text-lg font-semibold text-foreground mb-2 flex items-center;
   }
   
   .card-subtitle {
@@ -18,38 +18,38 @@
   }
   
   .card-content {
-    @apply p-5;
+    @apply p-6;
   }
   
   /* Button improvements */
   .btn-primary {
-    @apply inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors 
+    @apply inline-flex items-center justify-center rounded-lg text-sm font-medium transition-colors 
     focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 
     disabled:opacity-50 disabled:pointer-events-none ring-offset-background
-    bg-primary text-primary-foreground hover:bg-primary/90 h-10 py-2 px-4;
+    bg-primary text-primary-foreground hover:bg-primary/90 h-10 py-2 px-5 shadow-sm;
   }
   
   .btn-secondary {
-    @apply inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors 
+    @apply inline-flex items-center justify-center rounded-lg text-sm font-medium transition-colors 
     focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 
     disabled:opacity-50 disabled:pointer-events-none ring-offset-background
-    bg-secondary text-secondary-foreground hover:bg-secondary/80 h-9 px-3;
+    bg-secondary text-secondary-foreground hover:bg-secondary/90 h-10 py-2 px-5 shadow-sm;
   }
   
   .btn-outline {
-    @apply inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors 
+    @apply inline-flex items-center justify-center rounded-lg text-sm font-medium transition-colors 
     focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 
     disabled:opacity-50 disabled:pointer-events-none ring-offset-background
-    border border-input hover:bg-accent hover:text-accent-foreground h-9 px-3;
+    border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 py-2 px-5;
   }
   
   /* Status indicators */
   .status-dot {
-    @apply h-2 w-2 rounded-full inline-block mr-2;
+    @apply h-2.5 w-2.5 rounded-full inline-block mr-2;
   }
   
   .status-active {
-    @apply bg-green-500;
+    @apply bg-secondary;
   }
   
   .status-pending {
@@ -57,19 +57,19 @@
   }
   
   .status-completed {
-    @apply bg-blue-500;
+    @apply bg-primary;
   }
   
   .status-overdue {
-    @apply bg-red-500;
+    @apply bg-accent;
   }
 
   /* Custom color classes */
   .bg-healthnest-soft-blue {
-    @apply bg-blue-100;
+    @apply bg-blue-50;
   }
   
   .text-healthnest-primary {
-    @apply text-blue-600;
+    @apply text-primary;
   }
 }
