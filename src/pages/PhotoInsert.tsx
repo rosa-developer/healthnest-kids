@@ -3,16 +3,53 @@ import React, { useState, useRef } from 'react';
 import PageTransition from '@/components/common/PageTransition';
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { 
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogFooter,
+} from "@/components/ui/dialog";
+import { 
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/hooks/use-toast";
-import { Camera, Upload, X, Edit2, Trash2 } from 'lucide-react';
+import { Camera, Upload, Search, X, Edit2, Trash2, FolderPlus } from 'lucide-react';
+
+// Define the photo type
+interface Photo {
+  id: string;
+  src: string;
+  caption: string;
+  category: string;
+  date: string;
+}
+
+const categories = [
+  { id: 'all', name: 'All Photos' },
+  { id: 'favorites', name: 'Favorites' },
+  { id: 'family', name: 'Family' },
+  { id: 'milestones', name: 'Milestones' },
+  { id: 'activities', name: 'Activities' },
+  { id: 'other', name: 'Other' },
+];
 
 const PhotoInsert = () => {
   const { toast } = useToast();
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const [photos, setPhotos] = useState<{ id: string; src: string; caption: string }[]>([]);
+  const [photos, setPhotos] = useState<Photo[]>([]);
   const [selectedPhoto, setSelectedPhoto] = useState<string | null>(null);
   const [editCaption, setEditCaption] = useState<string>('');
+  const [editCategory, setEditCategory] = useState<string>('other');
   const [showEditModal, setShowEditModal] = useState<boolean>(false);
+  const [searchQuery, setSearchQuery] = useState<string>('');
+  const [activeCategory, setActiveCategory] = useState<string>('all');
 
   const handleUploadClick = () => {
     fileInputRef.current?.click();
@@ -34,7 +71,9 @@ const PhotoInsert = () => {
         return {
           id,
           src: URL.createObjectURL(file),
-          caption: file.name.split('.')[0] || 'New Photo'
+          caption: file.name.split('.')[0] || 'New Photo',
+          category: 'other',
+          date: new Date().toISOString(),
         };
       });
       
@@ -58,17 +97,18 @@ const PhotoInsert = () => {
     });
   };
 
-  const handleEdit = (photo: { id: string; src: string; caption: string }) => {
+  const handleEdit = (photo: Photo) => {
     setSelectedPhoto(photo.id);
     setEditCaption(photo.caption);
+    setEditCategory(photo.category);
     setShowEditModal(true);
   };
 
-  const saveCaption = () => {
+  const saveEdit = () => {
     if (selectedPhoto) {
       setPhotos(prev => prev.map(photo => 
         photo.id === selectedPhoto 
-          ? { ...photo, caption: editCaption }
+          ? { ...photo, caption: editCaption, category: editCategory }
           : photo
       ));
       
@@ -76,11 +116,22 @@ const PhotoInsert = () => {
       setSelectedPhoto(null);
       
       toast({
-        title: "Caption Updated",
-        description: "Photo caption has been updated successfully.",
+        title: "Photo Updated",
+        description: "Photo details have been updated successfully.",
       });
     }
   };
+
+  // Filter photos based on active category and search query
+  const filteredPhotos = photos.filter(photo => {
+    const matchesCategory = activeCategory === 'all' || photo.category === activeCategory;
+    const matchesSearch = photo.caption.toLowerCase().includes(searchQuery.toLowerCase());
+    return matchesCategory && matchesSearch;
+  });
+
+  const currentPhoto = selectedPhoto 
+    ? photos.find(photo => photo.id === selectedPhoto)
+    : null;
 
   return (
     <div className="main-container">
@@ -90,23 +141,31 @@ const PhotoInsert = () => {
             Photo Gallery
           </div>
 
-          {/* Upload Controls */}
-          <Card className="border border-border shadow-soft mb-6 p-6">
-            <h2 className="text-xl font-semibold mb-4">Add New Photos</h2>
-            <div className="flex flex-wrap gap-4">
+          {/* Search and Filter Bar */}
+          <div className="flex flex-col sm:flex-row gap-4 mb-6">
+            <div className="relative flex-1">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+              <Input
+                placeholder="Search photos..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="pl-9"
+              />
+            </div>
+            <div className="flex gap-3">
               <Button 
                 onClick={handleUploadClick}
                 className="bg-healthnest-primary text-white hover:bg-healthnest-primary/90"
               >
                 <Upload className="h-4 w-4 mr-2" />
-                Upload Photos
+                Upload
               </Button>
               <Button 
                 variant="outline"
                 onClick={handleCaptureClick}
               >
                 <Camera className="h-4 w-4 mr-2" />
-                Take Photo
+                Capture
               </Button>
               <input 
                 type="file" 
@@ -117,29 +176,51 @@ const PhotoInsert = () => {
                 onChange={handleFileChange}
               />
             </div>
-          </Card>
+          </div>
+
+          {/* Photo Categories */}
+          <Tabs 
+            defaultValue="all" 
+            value={activeCategory}
+            onValueChange={setActiveCategory}
+            className="mb-6"
+          >
+            <TabsList className="w-full overflow-x-auto flex justify-start sm:justify-center no-scrollbar p-1">
+              {categories.map(category => (
+                <TabsTrigger 
+                  key={category.id} 
+                  value={category.id}
+                  className="min-w-24"
+                >
+                  {category.name}
+                </TabsTrigger>
+              ))}
+            </TabsList>
+          </Tabs>
 
           {/* Photos Grid */}
-          {photos.length > 0 ? (
+          {filteredPhotos.length > 0 ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {photos.map(photo => (
-                <Card key={photo.id} className="border border-border shadow-soft overflow-hidden">
+              {filteredPhotos.map(photo => (
+                <Card key={photo.id} className="border border-border shadow-soft overflow-hidden group hover:shadow-medium transition-all duration-300">
                   <div className="relative">
                     <img 
                       src={photo.src} 
                       alt={photo.caption} 
-                      className="w-full h-48 object-cover"
+                      className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-105"
                     />
-                    <div className="absolute top-2 right-2 flex gap-2">
+                    <div className="absolute top-2 right-2 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                       <button 
                         onClick={() => handleEdit(photo)}
-                        className="p-1 bg-white rounded-full shadow-md hover:bg-gray-100"
+                        className="p-1.5 bg-white/90 rounded-full shadow-md hover:bg-white"
+                        aria-label="Edit photo"
                       >
                         <Edit2 className="h-4 w-4 text-healthnest-primary" />
                       </button>
                       <button 
                         onClick={() => handleDelete(photo.id)}
-                        className="p-1 bg-white rounded-full shadow-md hover:bg-gray-100"
+                        className="p-1.5 bg-white/90 rounded-full shadow-md hover:bg-white"
+                        aria-label="Delete photo"
                       >
                         <Trash2 className="h-4 w-4 text-red-500" />
                       </button>
@@ -147,6 +228,9 @@ const PhotoInsert = () => {
                   </div>
                   <div className="p-4">
                     <p className="font-medium truncate">{photo.caption}</p>
+                    <p className="text-xs text-muted-foreground">
+                      {categories.find(c => c.id === photo.category)?.name || 'Uncategorized'}
+                    </p>
                   </div>
                 </Card>
               ))}
@@ -154,8 +238,14 @@ const PhotoInsert = () => {
           ) : (
             <div className="text-center p-12 bg-gray-50 rounded-lg border border-dashed border-gray-300">
               <Camera className="h-12 w-12 mx-auto text-gray-400 mb-4" />
-              <h3 className="text-lg font-medium text-gray-600 mb-2">No Photos Yet</h3>
-              <p className="text-gray-500 mb-4">Upload some photos to get started!</p>
+              <h3 className="text-lg font-medium text-gray-600 mb-2">
+                {searchQuery ? 'No matching photos found' : 'No Photos Yet'}
+              </h3>
+              <p className="text-gray-500 mb-4">
+                {searchQuery 
+                  ? 'Try changing your search or uploading new photos.' 
+                  : 'Upload some photos to get started!'}
+              </p>
               <Button 
                 onClick={handleUploadClick}
                 className="bg-healthnest-primary text-white hover:bg-healthnest-primary/90"
@@ -167,42 +257,75 @@ const PhotoInsert = () => {
           )}
 
           {/* Edit Modal */}
-          {showEditModal && (
-            <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-              <Card className="w-full max-w-md p-6">
-                <div className="flex justify-between items-center mb-4">
-                  <h3 className="text-lg font-medium">Edit Caption</h3>
-                  <button 
-                    onClick={() => setShowEditModal(false)}
-                    className="text-gray-500 hover:text-gray-700"
-                  >
-                    <X className="h-5 w-5" />
-                  </button>
+          <Dialog
+            open={showEditModal}
+            onOpenChange={(open) => {
+              if (!open) setShowEditModal(false);
+            }}
+          >
+            <DialogContent className="sm:max-w-md">
+              <DialogHeader>
+                <DialogTitle>Edit Photo Details</DialogTitle>
+              </DialogHeader>
+              
+              {currentPhoto && (
+                <div className="grid gap-4 py-2">
+                  <div className="mb-2">
+                    <img 
+                      src={currentPhoto.src} 
+                      alt={currentPhoto.caption} 
+                      className="w-full h-40 object-cover rounded-md"
+                    />
+                  </div>
+                  
+                  <div className="grid gap-2">
+                    <label htmlFor="caption" className="text-sm font-medium">Caption</label>
+                    <Input
+                      id="caption"
+                      value={editCaption}
+                      onChange={(e) => setEditCaption(e.target.value)}
+                      className="w-full"
+                      placeholder="Enter photo caption"
+                    />
+                  </div>
+                  
+                  <div className="grid gap-2">
+                    <label htmlFor="category" className="text-sm font-medium">Category</label>
+                    <Select
+                      value={editCategory}
+                      onValueChange={setEditCategory}
+                    >
+                      <SelectTrigger id="category">
+                        <SelectValue placeholder="Select a category" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {categories.slice(1).map(category => (
+                          <SelectItem key={category.id} value={category.id}>
+                            {category.name}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
                 </div>
-                <input
-                  type="text"
-                  value={editCaption}
-                  onChange={(e) => setEditCaption(e.target.value)}
-                  className="w-full p-2 border border-gray-300 rounded-md mb-4"
-                  placeholder="Enter photo caption"
-                />
-                <div className="flex justify-end gap-2">
-                  <Button 
-                    variant="outline" 
-                    onClick={() => setShowEditModal(false)}
-                  >
-                    Cancel
-                  </Button>
-                  <Button 
-                    onClick={saveCaption}
-                    className="bg-healthnest-primary text-white hover:bg-healthnest-primary/90"
-                  >
-                    Save
-                  </Button>
-                </div>
-              </Card>
-            </div>
-          )}
+              )}
+              
+              <DialogFooter>
+                <Button
+                  variant="outline"
+                  onClick={() => setShowEditModal(false)}
+                >
+                  Cancel
+                </Button>
+                <Button
+                  onClick={saveEdit}
+                  className="bg-healthnest-primary text-white hover:bg-healthnest-primary/90"
+                >
+                  Save Changes
+                </Button>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
         </div>
       </PageTransition>
     </div>

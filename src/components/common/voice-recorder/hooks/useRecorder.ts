@@ -1,6 +1,7 @@
+
 import { useState, useCallback } from 'react';
 import { AudioRecording } from '../types';
-import { toast } from "@/components/ui/use-toast";
+import { toast } from "@/hooks/use-toast";
 
 interface RecorderState {
   recording: boolean;
@@ -43,8 +44,8 @@ export const useRecorder = () => {
         stream.getTracks().forEach(track => track.stop());
       };
 
-      recorder.onerror = (event) => {
-        console.error("MediaRecorder Error: ", event.error);
+      recorder.onerror = (event: Event) => {
+        console.error("MediaRecorder Error");
         setRecorderState(prevState => ({
           ...prevState,
           error: 'An error occurred while recording.',
