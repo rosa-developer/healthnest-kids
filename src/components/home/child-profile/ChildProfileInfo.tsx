@@ -10,7 +10,7 @@ const ChildProfileInfo = () => {
       <div className="flex flex-col items-center sm:items-start">
         <div className="h-24 w-24 rounded-full bg-white/80 flex items-center justify-center mb-3 overflow-hidden border-2 border-white shadow-sm">
           <img 
-            src="/baby-emma.jpg" 
+            src="baby-emma.jpg" 
             alt={`Baby ${activeProfile.name}`}
             className="w-full h-full object-cover"
           />
