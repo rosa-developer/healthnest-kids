@@ -1,5 +1,4 @@
 
-// Import from the ui/toaster component instead of ui/toast
 import { toast as sonnerToast } from "sonner";
 
 // Create a hook that returns the toast function

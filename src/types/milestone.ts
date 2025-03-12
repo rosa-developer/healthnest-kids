@@ -11,6 +11,13 @@ export interface Milestone {
   mediaUrls?: string[];
 }
 
+export interface MilestoneCategory {
+  id: string;
+  name: string;
+  icon: React.ComponentType;
+  color: string;
+}
+
 export const milestoneCategories = [
   { id: 'all', name: 'All Milestones' },
   { id: 'physical', name: 'Physical' },
