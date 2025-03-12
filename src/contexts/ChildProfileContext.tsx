@@ -1,5 +1,5 @@
 
-import React, { createContext, useState, useContext, ReactNode } from 'react';
+import React, { createContext, useState, useContext, ReactNode, useEffect } from 'react';
 
 // Mock child profiles for demo
 export const mockProfiles = [
@@ -35,9 +35,25 @@ export const useChildProfile = () => {
 
 export const ChildProfileProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [profiles, setProfiles] = useState<ChildProfile[]>(mockProfiles);
+  const [initialized, setInitialized] = useState(false);
   
   // Find the active profile or default to the first one
   const activeProfile = profiles.find(p => p.isActive) || profiles[0];
+  
+  useEffect(() => {
+    // Ensure at least one profile is active
+    if (!profiles.some(p => p.isActive) && profiles.length > 0 && !initialized) {
+      setProfiles(prevProfiles => 
+        prevProfiles.map((profile, index) => ({
+          ...profile,
+          isActive: index === 0
+        }))
+      );
+      setInitialized(true);
+    }
+    
+    console.log("ChildProfileProvider useEffect with profiles:", profiles);
+  }, [profiles, initialized]);
   
   const switchProfile = (profileId: string) => {
     console.log("Switching to profile ID:", profileId);
