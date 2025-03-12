@@ -1,51 +1,42 @@
 
-import React, { useEffect } from 'react';
+import React from 'react';
 import PageTransition from '@/components/common/PageTransition';
 import ChildProfileCard from '@/components/home/child-profile/ChildProfileCard';
 import UpcomingAppointments from '@/components/home/UpcomingAppointments';
 import RecentTimeline from '@/components/home/RecentTimeline';
 import HealthOverview from '@/components/home/HealthOverview';
 import { useChildProfile } from '@/contexts/ChildProfileContext';
-import { toast } from '@/hooks/use-toast';
 
 const Index = () => {
   // Make sure we're using the child profile context
   const { activeProfile } = useChildProfile();
   
-  useEffect(() => {
-    // Ensure components are properly loaded
-    console.log("Index page rendering with active profile:", activeProfile);
-  }, [activeProfile]);
-
-  // This will help diagnose if the items aren't working
-  const handleComponentError = (componentName: string) => {
-    toast({
-      title: `${componentName} Error`,
-      description: `There was an issue loading the ${componentName} component. Please try again.`,
-      variant: "destructive",
-    });
-  };
-  
   return (
-    <div className="main-container pt-16 pb-20 px-4 max-w-screen-lg mx-auto">
+    <div className="main-container pt-16 pb-20 px-4 mx-auto">
       <PageTransition>
-        <div className="space-y-6">
-          {/* Wrap each component in error boundary */}
-          <React.Suspense fallback={<div>Loading profile...</div>}>
+        <div className="space-y-6 animate-fade-in">
+          <div className="flex items-center mb-2">
+            <div className="h-1.5 w-12 bg-primary rounded mr-2"></div>
+            <h2 className="text-xl font-semibold tracking-tight">Dashboard</h2>
+          </div>
+          
+          <div className="grid grid-cols-1 gap-6">
             <ChildProfileCard />
-          </React.Suspense>
-          
-          <React.Suspense fallback={<div>Loading appointments...</div>}>
-            <UpcomingAppointments />
-          </React.Suspense>
-          
-          <React.Suspense fallback={<div>Loading timeline...</div>}>
-            <RecentTimeline />
-          </React.Suspense>
-          
-          <React.Suspense fallback={<div>Loading health data...</div>}>
-            <HealthOverview />
-          </React.Suspense>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="card-hover rounded-xl bg-gradient-to-br from-white to-blue-50 dark:from-gray-900 dark:to-gray-800 shadow-soft overflow-hidden">
+                <UpcomingAppointments />
+              </div>
+              
+              <div className="card-hover rounded-xl bg-gradient-to-br from-white to-blue-50 dark:from-gray-900 dark:to-gray-800 shadow-soft overflow-hidden">
+                <RecentTimeline />
+              </div>
+            </div>
+            
+            <div className="card-hover rounded-xl bg-gradient-to-br from-white to-blue-50 dark:from-gray-900 dark:to-gray-800 shadow-soft overflow-hidden">
+              <HealthOverview />
+            </div>
+          </div>
         </div>
       </PageTransition>
     </div>
