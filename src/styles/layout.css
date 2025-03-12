@@ -35,4 +35,41 @@
            border border-white/40 dark:border-white/5 shadow-lg rounded-2xl 
            overflow-hidden transition-all duration-300 hover:shadow-xl;
   }
+
+  /* Photo-specific layouts */
+  .photo-masonry-layout {
+    @apply columns-1 sm:columns-2 lg:columns-3 xl:columns-4 gap-4;
+  }
+  
+  .photo-masonry-item {
+    @apply mb-4 break-inside-avoid;
+  }
+  
+  .photo-album-grid {
+    @apply grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8;
+  }
+  
+  .photo-fullwidth-container {
+    @apply -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8;
+  }
+  
+  .photo-gallery-header {
+    @apply relative h-60 overflow-hidden rounded-2xl mb-10 flex items-center justify-center;
+  }
+  
+  .photo-memories-layout {
+    @apply grid grid-cols-1 md:grid-cols-3 gap-8;
+  }
+  
+  .photo-sidebar-layout {
+    @apply grid grid-cols-1 lg:grid-cols-4 gap-8;
+  }
+  
+  .photo-sidebar {
+    @apply lg:col-span-1 space-y-6;
+  }
+  
+  .photo-main-content {
+    @apply lg:col-span-3 space-y-6;
+  }
 }

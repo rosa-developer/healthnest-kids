@@ -1,3 +1,4 @@
+
 @layer utilities {
   .shadow-soft {
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
@@ -41,60 +42,89 @@
   }
 
   /* Photo Gallery Specific Styles */
-.photo-hover-overlay {
-  opacity: 0;
-  transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
+  .photo-hover-overlay {
+    opacity: 0;
+    transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
 
-.photo-card:hover .photo-hover-overlay {
-  opacity: 1;
-}
+  .photo-card:hover .photo-hover-overlay {
+    opacity: 1;
+  }
 
-.photo-category-badge {
-  transform: translateY(10px);
-  opacity: 0;
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-}
+  .photo-category-badge {
+    transform: translateY(10px);
+    opacity: 0;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
 
-.photo-card:hover .photo-category-badge {
-  transform: translateY(0);
-  opacity: 1;
-}
+  .photo-card:hover .photo-category-badge {
+    transform: translateY(0);
+    opacity: 1;
+  }
 
-/* Drag and Drop Styles */
-.drag-active {
-  border-color: hsl(var(--primary));
-  background-color: hsl(var(--primary) / 0.1);
-  box-shadow: 0 0 0 4px hsl(var(--primary) / 0.1);
-}
+  /* Drag and Drop Styles */
+  .drag-active {
+    border-color: hsl(var(--primary));
+    background-color: hsl(var(--primary) / 0.1);
+    box-shadow: 0 0 0 4px hsl(var(--primary) / 0.1);
+  }
 
-/* Health-specific color classes */
-.bg-healthnest-soft-blue {
-  @apply bg-blue-50 dark:bg-blue-900/20;
-}
+  /* Health-specific color classes */
+  .bg-healthnest-soft-blue {
+    @apply bg-blue-50 dark:bg-blue-900/20;
+  }
 
-.bg-healthnest-soft-pink {
-  @apply bg-pink-50 dark:bg-pink-900/20;
-}
+  .bg-healthnest-soft-pink {
+    @apply bg-pink-50 dark:bg-pink-900/20;
+  }
 
-.bg-healthnest-soft-green {
-  @apply bg-green-50 dark:bg-green-900/20;
-}
+  .bg-healthnest-soft-green {
+    @apply bg-green-50 dark:bg-green-900/20;
+  }
 
-.bg-healthnest-soft-purple {
-  @apply bg-purple-50 dark:bg-purple-900/20;
-}
+  .bg-healthnest-soft-purple {
+    @apply bg-purple-50 dark:bg-purple-900/20;
+  }
 
-.bg-healthnest-neutral-dark {
-  @apply bg-gray-200 dark:bg-gray-700;
-}
+  .bg-healthnest-neutral-dark {
+    @apply bg-gray-200 dark:bg-gray-700;
+  }
 
-/* Card hover effects */
-.card-lift {
-  @apply transition-all duration-300 hover:-translate-y-1 hover:shadow-xl;
-}
+  /* Card hover effects */
+  .card-lift {
+    @apply transition-all duration-300 hover:-translate-y-1 hover:shadow-xl;
+  }
 
-.card-expand {
-  @apply transition-all duration-300 hover:scale-[1.02];
-}
+  .card-expand {
+    @apply transition-all duration-300 hover:scale-[1.02];
+  }
+  
+  /* Photo-specific styles */
+  .photo-grid-masonry {
+    @apply columns-1 sm:columns-2 lg:columns-3 xl:columns-4 gap-4 space-y-4;
+  }
+  
+  .photo-frame {
+    @apply border-4 border-white shadow-lg rounded-sm rotate-1 hover:rotate-0 transition-all duration-300;
+  }
+  
+  .photo-polaroid {
+    @apply bg-white p-2 pb-8 shadow-md hover:shadow-xl transition-all duration-300 rotate-[-1deg] hover:rotate-0;
+  }
+  
+  .photo-carousel {
+    @apply flex overflow-x-auto snap-x snap-mandatory gap-4 pb-4 hide-scrollbar;
+  }
+  
+  .photo-carousel-item {
+    @apply snap-center shrink-0 w-80 h-60 rounded-xl overflow-hidden;
+  }
+  
+  .photo-shadow-3d {
+    @apply shadow-[0_20px_50px_rgba(8,_112,_184,_0.7)];
+  }
+  
+  .photo-gradient-overlay {
+    @apply bg-gradient-to-t from-black/60 via-black/20 to-transparent;
+  }
 }

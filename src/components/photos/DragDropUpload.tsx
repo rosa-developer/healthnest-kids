@@ -37,9 +37,9 @@ const DragDropUpload: React.FC<DragDropUploadProps> = ({
 
   return (
     <div
-      className={`relative rounded-lg border-2 border-dashed transition-all
+      className={`relative rounded-lg border-2 border-dashed transition-all duration-300
         ${isDragging 
-          ? 'border-primary bg-primary/5' 
+          ? 'drag-active scale-[0.99] border-primary' 
           : 'border-muted-foreground/25 hover:border-primary/50'
         }`}
       onDragOver={handleDragOver}
@@ -47,10 +47,11 @@ const DragDropUpload: React.FC<DragDropUploadProps> = ({
       onDrop={handleDrop}
     >
       {isDragging && (
-        <div className="absolute inset-0 bg-primary/5 rounded-lg flex items-center justify-center z-10">
-          <div className="text-center p-4">
-            <Upload className="mx-auto h-12 w-12 text-primary mb-2" />
-            <p className="text-lg font-medium">Drop your photos here</p>
+        <div className="absolute inset-0 bg-primary/5 rounded-lg flex items-center justify-center z-10 animate-pulse">
+          <div className="text-center p-6 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-xl shadow-lg">
+            <Upload className="mx-auto h-12 w-12 text-primary mb-2 animate-bounce" />
+            <p className="text-xl font-medium">Drop your photos here</p>
+            <p className="text-sm text-muted-foreground mt-1">Release to upload</p>
           </div>
         </div>
       )}
