@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { Photo } from '@/types/photo';
 import { useToast } from '@/hooks/use-toast';
@@ -103,7 +102,11 @@ export const usePhotoManagement = () => {
 
     // Apply category filter
     if (activeCategory !== 'all') {
-      filtered = filtered.filter(photo => photo.category === activeCategory);
+      if (activeCategory === 'favorites') {
+        filtered = filtered.filter(photo => photo.isFavorite);
+      } else {
+        filtered = filtered.filter(photo => photo.category === activeCategory);
+      }
     }
 
     // Apply sorting

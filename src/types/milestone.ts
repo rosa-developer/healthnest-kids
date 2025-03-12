@@ -10,10 +10,12 @@ export interface Milestone {
   description: string;
   completed: boolean;
   date?: string;
+  notes?: string;
   media?: {
     type: string;
     url: string;
   }[];
+  completedDate?: string;
 }
 
 export const milestoneCategories = [
