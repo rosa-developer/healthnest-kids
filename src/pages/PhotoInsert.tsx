@@ -56,6 +56,16 @@ const PhotoInsert = () => {
     }
   };
 
+  const handleFilesAdded = (files: FileList) => {
+    if (files && files.length > 0) {
+      handleAddPhotos(files);
+      toast({
+        title: "Photos Uploaded",
+        description: `Successfully added ${files.length} photos via drag and drop.`,
+      });
+    }
+  };
+
   return (
     <div className="main-container">
       <PageTransition>
@@ -80,6 +90,7 @@ const PhotoInsert = () => {
             onUploadClick={handleUploadClick}
             onEditPhoto={handleEditPhoto}
             onDeletePhoto={handleDeletePhoto}
+            onFilesAdded={handleFilesAdded}
           />
 
           {filteredPhotos.length > 0 && (
