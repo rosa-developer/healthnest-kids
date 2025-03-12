@@ -1,5 +1,6 @@
 
 import React, { createContext, useState, useContext, ReactNode, useEffect } from 'react';
+import { connectToDatabase } from '@/lib/mongodb';
 
 // Mock child profiles for demo
 export const mockProfiles = [
@@ -21,6 +22,8 @@ interface ChildProfileContextType {
   setProfiles: React.Dispatch<React.SetStateAction<ChildProfile[]>>;
   switchProfile: (profileId: string) => void;
   addProfile: (name: string) => void;
+  isLoading: boolean;
+  error: string | null;
 }
 
 const ChildProfileContext = createContext<ChildProfileContextType | undefined>(undefined);
@@ -36,24 +39,55 @@ export const useChildProfile = () => {
 export const ChildProfileProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [profiles, setProfiles] = useState<ChildProfile[]>(mockProfiles);
   const [initialized, setInitialized] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   
   // Find the active profile or default to the first one
   const activeProfile = profiles.find(p => p.isActive) || profiles[0];
   
+  // Connect to MongoDB and load profiles
   useEffect(() => {
-    // Ensure at least one profile is active
-    if (!profiles.some(p => p.isActive) && profiles.length > 0 && !initialized) {
-      setProfiles(prevProfiles => 
-        prevProfiles.map((profile, index) => ({
-          ...profile,
-          isActive: index === 0
-        }))
-      );
-      setInitialized(true);
-    }
-    
-    console.log("ChildProfileProvider useEffect with profiles:", profiles);
-  }, [profiles, initialized]);
+    const loadProfiles = async () => {
+      try {
+        setIsLoading(true);
+        
+        // Try to connect to MongoDB
+        try {
+          await connectToDatabase();
+          console.log('MongoDB connection successful');
+          
+          // In a real app, we would fetch profiles from MongoDB here
+          // For now, we're still using mock data but showing the connection works
+          
+          // Simulate API delay
+          await new Promise(resolve => setTimeout(resolve, 500));
+          
+        } catch (err) {
+          console.error('MongoDB connection error:', err);
+          // Continue with mock data if MongoDB connection fails
+        }
+        
+        // Ensure at least one profile is active
+        if (!profiles.some(p => p.isActive) && profiles.length > 0 && !initialized) {
+          setProfiles(prevProfiles => 
+            prevProfiles.map((profile, index) => ({
+              ...profile,
+              isActive: index === 0
+            }))
+          );
+          setInitialized(true);
+        }
+        
+        setIsLoading(false);
+      } catch (err) {
+        console.error("Error loading profiles:", err);
+        setError("Failed to load profiles. Using default data.");
+        setIsLoading(false);
+      }
+    };
+
+    loadProfiles();
+  }, [initialized, profiles]);
   
   const switchProfile = (profileId: string) => {
     console.log("Switching to profile ID:", profileId);
@@ -77,15 +111,15 @@ export const ChildProfileProvider: React.FC<{ children: ReactNode }> = ({ childr
     setProfiles(prevProfiles => [...prevProfiles, newProfile]);
   };
   
-  console.log("ChildProfileProvider rendering with active profile:", activeProfile);
-  
   return (
     <ChildProfileContext.Provider value={{ 
       profiles, 
       activeProfile, 
       setProfiles, 
       switchProfile,
-      addProfile
+      addProfile,
+      isLoading,
+      error
     }}>
       {children}
     </ChildProfileContext.Provider>

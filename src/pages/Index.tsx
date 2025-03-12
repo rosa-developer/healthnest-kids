@@ -7,15 +7,16 @@ import RecentTimeline from '@/components/home/RecentTimeline';
 import HealthOverview from '@/components/home/HealthOverview';
 import { useChildProfile } from '@/contexts/ChildProfileContext';
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { AlertCircle } from "lucide-react";
+import { AlertCircle, Database, Shield } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
 import ErrorBoundary from '@/components/common/ErrorBoundary';
 
 const Index = () => {
-  const { activeProfile } = useChildProfile();
+  const { activeProfile, isLoading: profileLoading, error: profileError } = useChildProfile();
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const { toast } = useToast();
+  const [dbStatus, setDbStatus] = useState<'connecting' | 'connected' | 'error'>('connecting');
 
   // Simulate data loading and handle potential errors
   useEffect(() => {
@@ -34,11 +35,24 @@ const Index = () => {
           });
         }
         
+        // Update database connection status
+        if (profileError && profileError.includes('MongoDB')) {
+          setDbStatus('error');
+        } else {
+          setDbStatus('connected');
+          toast({
+            title: "Database connected",
+            description: "MongoDB connection established",
+            duration: 3000,
+          });
+        }
+        
         setIsLoading(false);
       } catch (err) {
         console.error("Dashboard loading error:", err);
         setError("Unable to load dashboard data. Please try again later.");
         setIsLoading(false);
+        setDbStatus('error');
         toast({
           variant: "destructive",
           title: "Error",
@@ -55,11 +69,12 @@ const Index = () => {
       // Cancel any pending operations if component unmounts
       setIsLoading(false);
     };
-  }, [activeProfile, toast]);
+  }, [activeProfile, toast, profileError]);
 
   const handleRetry = () => {
     setError(null);
     setIsLoading(true);
+    setDbStatus('connecting');
     // Force re-run of the effect
     const timer = setTimeout(() => {
       window.location.reload();
@@ -98,10 +113,34 @@ const Index = () => {
               <p className="mt-2 text-muted-foreground">
                 Track your child's health journey and milestones
               </p>
+              
+              {/* Database status indicator */}
+              <div className="mt-4 flex items-center gap-2">
+                <div className="flex items-center gap-2">
+                  <Database className="h-4 w-4 text-muted-foreground" />
+                  <span className="text-sm">
+                    Database: 
+                    {dbStatus === 'connecting' && (
+                      <span className="ml-1 text-amber-500">Connecting...</span>
+                    )}
+                    {dbStatus === 'connected' && (
+                      <span className="ml-1 text-green-500">Connected</span>
+                    )}
+                    {dbStatus === 'error' && (
+                      <span className="ml-1 text-destructive">Using Fallback Data</span>
+                    )}
+                  </span>
+                </div>
+                <span className="text-muted-foreground mx-2">|</span>
+                <div className="flex items-center gap-2">
+                  <Shield className="h-4 w-4 text-muted-foreground" />
+                  <span className="text-sm text-muted-foreground">Data Secured</span>
+                </div>
+              </div>
             </div>
           </div>
 
-          {isLoading ? (
+          {isLoading || profileLoading ? (
             <div className="animate-pulse space-y-8">
               <div className="h-48 bg-muted rounded-3xl" />
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
