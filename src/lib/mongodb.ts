@@ -2,12 +2,20 @@
 import mongoose from 'mongoose';
 
 /**
+ * Define the shape of our cached MongoDB connection
+ */
+interface MongooseConnection {
+  conn: mongoose.Connection | null;
+  promise: Promise<mongoose.Connection> | null;
+}
+
+/**
  * Global MongoDB connection variable
  */
-let cached = global.mongoose;
+let cached: MongooseConnection = (global as any).mongoose || { conn: null, promise: null };
 
-if (!cached) {
-  cached = global.mongoose = { conn: null, promise: null };
+if (!(global as any).mongoose) {
+  (global as any).mongoose = cached;
 }
 
 /**
@@ -25,7 +33,7 @@ export async function connectToDatabase() {
     console.log('Connecting to MongoDB...');
     cached.promise = mongoose.connect(MONGODB_URI, {
       bufferCommands: false,
-    });
+    }).then(mongoose => mongoose.connection);
   }
 
   try {

@@ -1,4 +1,3 @@
-
 import React, { createContext, useState, useContext, ReactNode, useEffect } from 'react';
 import { connectToDatabase } from '@/lib/mongodb';
 
@@ -64,6 +63,7 @@ export const ChildProfileProvider: React.FC<{ children: ReactNode }> = ({ childr
           
         } catch (err) {
           console.error('MongoDB connection error:', err);
+          setError('Failed to connect to MongoDB. Using mock data.');
           // Continue with mock data if MongoDB connection fails
         }
         
