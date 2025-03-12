@@ -36,10 +36,11 @@ export const useChildProfile = () => {
 export const ChildProfileProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [profiles, setProfiles] = useState<ChildProfile[]>(mockProfiles);
   
-  // Find the active profile - this line ensures we always have an active profile
+  // Find the active profile or default to the first one
   const activeProfile = profiles.find(p => p.isActive) || profiles[0];
   
   const switchProfile = (profileId: string) => {
+    console.log("Switching to profile ID:", profileId);
     // Set the active status for the selected profile and disable for all others
     setProfiles(prevProfiles => 
       prevProfiles.map(profile => ({
@@ -59,6 +60,8 @@ export const ChildProfileProvider: React.FC<{ children: ReactNode }> = ({ childr
     
     setProfiles(prevProfiles => [...prevProfiles, newProfile]);
   };
+  
+  console.log("ChildProfileProvider rendering with active profile:", activeProfile);
   
   return (
     <ChildProfileContext.Provider value={{ 

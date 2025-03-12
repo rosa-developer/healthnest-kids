@@ -19,30 +19,35 @@ import UserProfiles from "./pages/UserProfiles";
 import PhotoInsert from "./pages/PhotoInsert";
 import { ChildProfileProvider } from "./contexts/ChildProfileContext";
 
+// Create a new QueryClient instance
 const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
       <ChildProfileProvider>
-        <Toaster />
-        <Sonner />
         <BrowserRouter>
-          <Header />
-          <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="/health" element={<Health />} />
-            <Route path="/memories" element={<Memories />} />
-            <Route path="/advice" element={<Advice />} />
-            <Route path="/settings" element={<Settings />} />
-            <Route path="/pregnancy" element={<PregnancyTracker />} />
-            <Route path="/milestones" element={<MilestoneTracker />} />
-            <Route path="/health-records" element={<HealthRecords />} />
-            <Route path="/profiles" element={<UserProfiles />} />
-            <Route path="/photos" element={<PhotoInsert />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-          <Navigation />
+          <div className="flex flex-col min-h-screen bg-background text-foreground">
+            <Header />
+            <main className="flex-1">
+              <Routes>
+                <Route path="/" element={<Index />} />
+                <Route path="/health" element={<Health />} />
+                <Route path="/memories" element={<Memories />} />
+                <Route path="/advice" element={<Advice />} />
+                <Route path="/settings" element={<Settings />} />
+                <Route path="/pregnancy" element={<PregnancyTracker />} />
+                <Route path="/milestones" element={<MilestoneTracker />} />
+                <Route path="/health-records" element={<HealthRecords />} />
+                <Route path="/profiles" element={<UserProfiles />} />
+                <Route path="/photos" element={<PhotoInsert />} />
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </main>
+            <Navigation />
+          </div>
+          <Toaster />
+          <Sonner />
         </BrowserRouter>
       </ChildProfileProvider>
     </TooltipProvider>

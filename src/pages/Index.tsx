@@ -11,8 +11,10 @@ const Index = () => {
   // Make sure we're using the child profile context
   const { activeProfile } = useChildProfile();
   
+  console.log("Index page rendering with active profile:", activeProfile);
+  
   return (
-    <div className="main-container">
+    <div className="main-container pt-16 pb-20 px-4 max-w-screen-lg mx-auto">
       <PageTransition>
         <ChildProfileCard />
         <UpcomingAppointments />
