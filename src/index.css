@@ -1,4 +1,3 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
 @tailwind base;
@@ -198,6 +197,15 @@
   
   .animate-slide-up {
     animation: slide-up 0.5s ease-out;
+  }
+  
+  @keyframes scale-in {
+    from { transform: scale(0.95); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+  }
+  
+  .animate-scale-in {
+    animation: scale-in 0.4s ease-out;
   }
   
   /* Shadow utilities */
