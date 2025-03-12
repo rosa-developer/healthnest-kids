@@ -1,3 +1,4 @@
+
 import { useState, useCallback } from 'react';
 import { AudioRecording } from '../types';
 import { useToast } from "@/hooks/use-toast";
@@ -19,6 +20,7 @@ const initialState: RecorderState = {
 };
 
 export const useRecorder = () => {
+  const { toast } = useToast();
   const [recorderState, setRecorderState] = useState(initialState);
   const [mediaRecorder, setMediaRecorder] = useState<MediaRecorder | null>(null);
 
@@ -71,7 +73,7 @@ export const useRecorder = () => {
         variant: "destructive",
       });
     }
-  }, []);
+  }, [toast]);
 
   const stopRecording = useCallback(() => {
     if (mediaRecorder) {
@@ -111,7 +113,7 @@ export const useRecorder = () => {
         variant: "destructive",
       });
     }
-  }, [recorderState.audioURL, recorderState.audioBlob]);
+  }, [recorderState.audioURL, recorderState.audioBlob, toast]);
 
   return {
     ...recorderState,
