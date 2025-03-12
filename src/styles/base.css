@@ -1,27 +1,27 @@
 
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
 
 @tailwind base;
 
 @layer base {
   :root {
-    --background: 210 40% 98%;
-    --foreground: 222 47% 11%;
+    --background: 210 45% 98%;
+    --foreground: 224 47% 11%;
 
     --card: 0 0% 100%;
-    --card-foreground: 222 47% 11%;
+    --card-foreground: 224 47% 11%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222 47% 11%;
+    --popover-foreground: 224 47% 11%;
 
-    --primary: 222 89% 55%;
+    --primary: 248 89% 60%;
     --primary-foreground: 210 40% 98%;
 
-    --secondary: 169 65% 45%;
+    --secondary: 164 75% 45%;
     --secondary-foreground: 210 40% 98%;
 
     --muted: 210 40% 93%;
-    --muted-foreground: 215 25% 40%;
+    --muted-foreground: 220 25% 40%;
 
     --accent: 342 89% 60%;
     --accent-foreground: 210 40% 98%;
@@ -31,25 +31,25 @@
 
     --border: 214 32% 91%;
     --input: 214 32% 91%;
-    --ring: 222 89% 55%;
+    --ring: 248 89% 60%;
 
-    --radius: 0.75rem;
+    --radius: 1rem;
   }
 
   .dark {
-    --background: 222 47% 11%;
+    --background: 224 47% 8%;
     --foreground: 210 40% 98%;
 
-    --card: 222 47% 13%;
+    --card: 224 47% 10%;
     --card-foreground: 210 40% 98%;
 
-    --popover: 222 47% 13%;
+    --popover: 224 47% 10%;
     --popover-foreground: 210 40% 98%;
 
-    --primary: 222 89% 55%;
+    --primary: 248 89% 60%;
     --primary-foreground: 210 40% 98%;
 
-    --secondary: 169 65% 45%;
+    --secondary: 164 75% 45%;
     --secondary-foreground: 210 40% 98%;
 
     --muted: 217 33% 17%;
@@ -63,7 +63,7 @@
 
     --border: 217 33% 20%;
     --input: 217 33% 20%;
-    --ring: 222 89% 55%;
+    --ring: 248 89% 60%;
   }
 }
 
@@ -73,7 +73,7 @@
   }
 
   body {
-    @apply bg-background text-foreground font-sans antialiased overflow-x-hidden;
-    font-family: 'Poppins', sans-serif;
+    @apply bg-background text-foreground antialiased overflow-x-hidden;
+    font-family: 'Montserrat', sans-serif;
   }
 }

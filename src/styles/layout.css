@@ -23,10 +23,16 @@
   }
   
   .glass-panel {
-    @apply bg-white/90 backdrop-blur-lg border border-white/30 shadow-lg rounded-2xl;
+    @apply bg-white/90 backdrop-blur-lg border border-white/30 shadow-xl rounded-3xl;
   }
   
   .glass-panel-dark {
-    @apply bg-black/20 backdrop-blur-lg border border-white/10 shadow-lg rounded-2xl;
+    @apply bg-black/20 backdrop-blur-lg border border-white/10 shadow-xl rounded-3xl;
+  }
+
+  .content-card {
+    @apply bg-gradient-to-br from-white to-muted/30 dark:from-gray-900 dark:to-gray-800 
+           border border-white/40 dark:border-white/5 shadow-xl rounded-3xl 
+           overflow-hidden transition-all duration-300 hover:shadow-2xl;
   }
 }

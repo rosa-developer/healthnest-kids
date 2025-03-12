@@ -39,12 +39,12 @@ const Header: React.FC = () => {
   };
 
   return (
-    <header className="fixed top-0 left-0 right-0 bg-background/80 backdrop-blur-md border-b border-border z-50 transition-all duration-400">
-      <div className="max-w-screen-lg mx-auto px-4 py-3 flex items-center justify-between">
-        <div className="flex items-center gap-3">
+    <header className="fixed top-0 left-0 right-0 bg-background/80 backdrop-blur-xl border-b border-border z-50 transition-all duration-400">
+      <div className="max-w-screen-lg mx-auto px-5 py-4 flex items-center justify-between">
+        <div className="flex items-center gap-4">
           <ChildProfileSelector />
           <div className="flex flex-col">
-            <h1 className="text-xl font-semibold tracking-tight animate-fade-in">
+            <h1 className="text-xl font-bold tracking-tight animate-fade-in">
               {getPageTitle(location.pathname)}
             </h1>
             {location.pathname === '/' && (
@@ -54,12 +54,12 @@ const Header: React.FC = () => {
             )}
           </div>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-3">
           <Button 
             variant="ghost" 
             size="icon"
             onClick={handleNotification}
-            className="transition-all duration-300 hover:bg-primary/10 text-foreground"
+            className="transition-all duration-300 hover:bg-primary/10 text-foreground rounded-full"
           >
             <Bell className="h-5 w-5" />
           </Button>
@@ -67,7 +67,7 @@ const Header: React.FC = () => {
             variant="ghost"
             size="icon"
             onClick={handleSettingsClick}
-            className="transition-all duration-300 hover:bg-primary/10 text-foreground"
+            className="transition-all duration-300 hover:bg-primary/10 text-foreground rounded-full"
           >
             <Settings className="h-5 w-5" />
           </Button>

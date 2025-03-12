@@ -36,6 +36,23 @@
   .bg-gradient-accent {
     @apply bg-gradient-to-r from-accent to-accent/80;
   }
+
+  /* New gradients */
+  .bg-gradient-purple {
+    @apply bg-gradient-to-br from-purple-500 to-indigo-600;
+  }
+
+  .bg-gradient-teal {
+    @apply bg-gradient-to-br from-teal-400 to-cyan-500;
+  }
+
+  .bg-gradient-warm {
+    @apply bg-gradient-to-br from-amber-400 to-pink-500;
+  }
+  
+  .bg-gradient-cool {
+    @apply bg-gradient-to-br from-blue-400 to-indigo-500;
+  }
 }
 
 /* Photo Gallery Specific Styles */
