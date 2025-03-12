@@ -1,5 +1,7 @@
 
-// Create a simplified toast function
+import React from 'react';
+
+// Create a standalone toast implementation
 export type ToastProps = {
   id: string;
   title?: React.ReactNode;

@@ -1,7 +1,7 @@
 
 import { useState, useEffect } from 'react';
-import { Milestone } from '@/types/milestone';
-import { useToast } from '@/hooks/use-toast';
+import { Milestone } from '../types/milestone';
+import { useToast } from '../hooks/use-toast';
 
 export const useMilestoneTracker = (initialMilestones: Milestone[]) => {
   const { toast } = useToast();

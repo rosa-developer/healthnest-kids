@@ -1,7 +1,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { getRecordingTime } from '../utils';
-import { useToast } from '@/hooks/use-toast';
+import { useToast } from '../../../../hooks/use-toast';
 
 interface RecorderControls {
   startRecording: () => Promise<void>;
