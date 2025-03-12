@@ -1,31 +1,35 @@
 
 import React from 'react';
 import { Button } from "@/components/ui/button";
-import { Camera, Upload } from 'lucide-react';
+import { ImageIcon, Upload } from 'lucide-react';
 
 interface EmptyPhotoStateProps {
   searchQuery: string;
   onUploadClick: () => void;
 }
 
-const EmptyPhotoState: React.FC<EmptyPhotoStateProps> = ({ searchQuery, onUploadClick }) => {
+const EmptyPhotoState: React.FC<EmptyPhotoStateProps> = ({ 
+  searchQuery, 
+  onUploadClick 
+}) => {
   return (
-    <div className="text-center p-12 bg-gray-50 rounded-lg border border-dashed border-gray-300">
-      <Camera className="h-12 w-12 mx-auto text-gray-400 mb-4" />
-      <h3 className="text-lg font-medium text-gray-600 mb-2">
-        {searchQuery ? 'No matching photos found' : 'No Photos Yet'}
-      </h3>
-      <p className="text-gray-500 mb-4">
+    <div className="flex flex-col items-center justify-center py-16 px-4 text-center bg-muted/20 rounded-xl border border-dashed border-muted">
+      <div className="bg-primary/10 rounded-full p-6 mb-6">
+        <ImageIcon className="h-10 w-10 text-primary/80" />
+      </div>
+      <h3 className="text-xl font-semibold mb-3">No photos found</h3>
+      <p className="text-muted-foreground max-w-md mb-8">
         {searchQuery 
-          ? 'Try changing your search or uploading new photos.' 
-          : 'Upload some photos to get started!'}
+          ? `No photos match "${searchQuery}". Try another search term or clear your search.` 
+          : "Start creating your photo collection by uploading your favorite memories."}
       </p>
       <Button 
-        onClick={onUploadClick}
-        className="bg-healthnest-primary text-white hover:bg-healthnest-primary/90"
+        onClick={onUploadClick} 
+        size="lg"
+        className="bg-primary hover:bg-primary/90"
       >
         <Upload className="h-4 w-4 mr-2" />
-        Add Photos
+        Upload Photos
       </Button>
     </div>
   );

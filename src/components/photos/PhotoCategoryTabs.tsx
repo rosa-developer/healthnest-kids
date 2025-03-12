@@ -1,7 +1,8 @@
 
 import React from 'react';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { photoCategories } from '@/types/photo';
+import { Button } from "@/components/ui/button";
+import { cn } from '@/lib/utils';
 
 interface PhotoCategoryTabsProps {
   activeCategory: string;
@@ -13,24 +14,36 @@ const PhotoCategoryTabs: React.FC<PhotoCategoryTabsProps> = ({
   onCategoryChange 
 }) => {
   return (
-    <Tabs 
-      defaultValue="all" 
-      value={activeCategory}
-      onValueChange={onCategoryChange}
-      className="mb-6"
-    >
-      <TabsList className="w-full overflow-x-auto flex justify-start sm:justify-center no-scrollbar p-1">
-        {photoCategories.map(category => (
-          <TabsTrigger 
-            key={category.id} 
-            value={category.id}
-            className="min-w-24"
-          >
-            {category.name}
-          </TabsTrigger>
-        ))}
-      </TabsList>
-    </Tabs>
+    <div className="flex items-center space-x-1 overflow-x-auto pb-2 hide-scrollbar">
+      <Button
+        variant={activeCategory === 'all' ? "default" : "ghost"}
+        size="sm"
+        onClick={() => onCategoryChange('all')}
+        className={cn(
+          "rounded-lg whitespace-nowrap",
+          activeCategory === 'all' ? "bg-primary text-primary-foreground" : ""
+        )}
+      >
+        All Photos
+      </Button>
+      
+      {photoCategories.map(category => (
+        <Button
+          key={category.id}
+          variant={activeCategory === category.id ? "default" : "ghost"}
+          size="sm"
+          onClick={() => onCategoryChange(category.id)}
+          className={cn(
+            "rounded-lg whitespace-nowrap transition-all duration-300",
+            activeCategory === category.id 
+              ? `bg-primary text-primary-foreground` 
+              : ""
+          )}
+        >
+          {category.name}
+        </Button>
+      ))}
+    </div>
   );
 };
 
