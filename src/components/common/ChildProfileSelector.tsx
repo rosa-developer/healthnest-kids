@@ -66,8 +66,8 @@ const ChildProfileSelector: React.FC = () => {
             variant="ghost" 
             className="flex items-center space-x-2 text-sm font-medium"
           >
-            <div className="h-8 w-8 rounded-full bg-healthnest-soft-blue flex items-center justify-center">
-              <Baby className="h-4 w-4 text-healthnest-primary" />
+            <div className="h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center">
+              <Baby className="h-4 w-4 text-primary" />
             </div>
             <span>{activeProfile.name}</span>
           </Button>
@@ -79,18 +79,18 @@ const ChildProfileSelector: React.FC = () => {
             <DropdownMenuItem 
               key={profile.id}
               onClick={() => handleProfileChange(profile.id)}
-              className="flex items-center justify-between"
+              className="flex items-center justify-between cursor-pointer"
             >
               <div className="flex items-center space-x-2">
-                <div className="h-6 w-6 rounded-full bg-healthnest-soft-blue flex items-center justify-center">
-                  <Baby className="h-3 w-3 text-healthnest-primary" />
+                <div className="h-6 w-6 rounded-full bg-primary/10 flex items-center justify-center">
+                  <Baby className="h-3 w-3 text-primary" />
                 </div>
                 <div>
                   <span className="block">{profile.name}</span>
                   <span className="block text-xs text-muted-foreground">{profile.age}</span>
                 </div>
               </div>
-              {profile.isActive && <Check className="h-4 w-4 text-healthnest-primary" />}
+              {profile.isActive && <Check className="h-4 w-4 text-primary" />}
             </DropdownMenuItem>
           ))}
           <DropdownMenuSeparator />
@@ -98,7 +98,7 @@ const ChildProfileSelector: React.FC = () => {
             <DialogTrigger asChild>
               <DropdownMenuItem 
                 onSelect={(e) => e.preventDefault()}
-                className="text-healthnest-primary focus:text-healthnest-primary"
+                className="text-primary focus:text-primary cursor-pointer"
               >
                 <Plus className="h-4 w-4 mr-2" />
                 Add New Child

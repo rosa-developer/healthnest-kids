@@ -27,7 +27,7 @@ const ChildProfileHeader = () => {
 
   return (
     <div className="flex items-center justify-between mb-4">
-      <div className="chip bg-blue-100 text-blue-600">
+      <div className="chip bg-blue-100 text-blue-600 px-2 py-1 rounded-full text-sm">
         Current Child
       </div>
       <DropdownMenu>
@@ -45,10 +45,10 @@ const ChildProfileHeader = () => {
             <DropdownMenuItem 
               key={profile.id}
               onClick={() => handleProfileChange(profile.id)}
-              className="flex items-center gap-2"
+              className="flex items-center gap-2 cursor-pointer"
             >
-              <div className="h-5 w-5 rounded-full bg-healthnest-soft-blue flex items-center justify-center">
-                <Baby className="h-3 w-3 text-healthnest-primary" />
+              <div className="h-5 w-5 rounded-full bg-primary/10 flex items-center justify-center">
+                <Baby className="h-3 w-3 text-primary" />
               </div>
               {profile.name}
             </DropdownMenuItem>
