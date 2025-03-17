@@ -1,18 +1,20 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { User } from 'lucide-react';
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { useToast } from "@/hooks/use-toast";
+import { 
+  Dialog,
+  DialogContent,
+  DialogTrigger
+} from "@/components/ui/dialog";
+import { EditProfileForm } from './EditProfileForm';
 
 const ProfileSection = () => {
-  const { toast } = useToast();
+  const [open, setOpen] = useState(false);
   
-  const handleAction = (action: string) => {
-    toast({
-      title: action,
-      description: "This feature will be available in the next update!",
-    });
+  const handleSuccess = () => {
+    setOpen(false);
   };
 
   return (
@@ -27,13 +29,19 @@ const ProfileSection = () => {
             <p className="text-muted-foreground">Parent</p>
           </div>
         </div>
-        <Button 
-          variant="outline" 
-          className="mt-4 w-full"
-          onClick={() => handleAction("Edit Profile")}
-        >
-          Edit Profile
-        </Button>
+        <Dialog open={open} onOpenChange={setOpen}>
+          <DialogTrigger asChild>
+            <Button 
+              variant="outline" 
+              className="mt-4 w-full"
+            >
+              Edit Profile
+            </Button>
+          </DialogTrigger>
+          <DialogContent className="sm:max-w-[425px]">
+            <EditProfileForm onSuccess={handleSuccess} />
+          </DialogContent>
+        </Dialog>
       </CardContent>
     </Card>
   );
