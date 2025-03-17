@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { 
@@ -21,7 +20,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 import { Baby, Plus, Check } from 'lucide-react';
-import { useChildProfile } from '@/contexts/ChildProfileContext';
+import { useChildProfile } from '../../contexts/ChildProfileContext';
 
 const ChildProfileSelector: React.FC = () => {
   const [newChildName, setNewChildName] = useState('');
