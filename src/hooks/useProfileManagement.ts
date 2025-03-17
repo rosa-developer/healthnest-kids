@@ -1,7 +1,7 @@
 
 import { useState, useEffect } from 'react';
-import { ChildProfile, mockProfiles } from '@/types/ChildProfile';
-import { connectToDatabase } from '@/lib/mongodb';
+import { ChildProfile, mockProfiles } from '../types/ChildProfile';
+import { connectToDatabase } from '../lib/mongodb';
 
 export interface ProfileManagementResult {
   profiles: ChildProfile[];

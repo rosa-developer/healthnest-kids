@@ -1,7 +1,6 @@
-
 import React, { createContext, useContext, ReactNode } from 'react';
-import { useProfileManagement, ProfileManagementResult } from '@/hooks/useProfileManagement';
-import { ChildProfile } from '@/types/ChildProfile';
+import { useProfileManagement, ProfileManagementResult } from '../hooks/useProfileManagement';
+import { ChildProfile } from '../types/ChildProfile';
 
 interface ChildProfileContextType extends ProfileManagementResult {}
 
@@ -26,5 +25,5 @@ export const ChildProfileProvider: React.FC<{ children: ReactNode }> = ({ childr
 };
 
 // Re-export types and mocks for convenience
-export { type ChildProfile } from '@/types/ChildProfile';
-export { mockProfiles } from '@/types/ChildProfile';
+export { type ChildProfile } from '../types/ChildProfile';
+export { mockProfiles } from '../types/ChildProfile';
