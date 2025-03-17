@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { useChildProfile } from '@/contexts/ChildProfileContext';
+import { useChildProfile } from '../../../contexts/ChildProfileContext';
 import { Badge } from "@/components/ui/badge";
 
 const ChildProfileInfo = () => {

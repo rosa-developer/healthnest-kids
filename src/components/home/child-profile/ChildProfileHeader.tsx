@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { ChevronDown } from "lucide-react";
-import { useChildProfile } from '@/contexts/ChildProfileContext';
+import { useChildProfile } from '../../../contexts/ChildProfileContext';
 import { 
   DropdownMenu,
   DropdownMenuContent,

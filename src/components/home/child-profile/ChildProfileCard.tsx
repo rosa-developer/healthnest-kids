@@ -4,7 +4,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import ChildProfileHeader from './ChildProfileHeader';
 import ChildProfileInfo from './ChildProfileInfo';
 import GrowthStats from './growth-stats/GrowthStats';
-import { useChildProfile } from '@/contexts/ChildProfileContext';
+import { useChildProfile } from '../../../contexts/ChildProfileContext';
 
 const ChildProfileCard = () => {
   const { activeProfile } = useChildProfile();
