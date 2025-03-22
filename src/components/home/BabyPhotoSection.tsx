@@ -1,6 +1,8 @@
 
 import React from 'react';
 import { AspectRatio } from "@/components/ui/aspect-ratio";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import { Baby } from 'lucide-react';
 
 const BabyPhotoSection = () => {
   return (
@@ -14,6 +16,10 @@ const BabyPhotoSection = () => {
                 src="/baby-emma.jpg" 
                 alt="Baby Emma" 
                 className="object-cover w-full h-full rounded-xl"
+                onError={(e) => {
+                  console.error("Failed to load baby image");
+                  e.currentTarget.src = "/placeholder.svg";
+                }}
               />
             </AspectRatio>
           </div>
@@ -26,6 +32,18 @@ const BabyPhotoSection = () => {
               <p className="text-sm text-muted-foreground">
                 Babies typically triple their birth weight by their first birthday.
               </p>
+            </div>
+            <div className="flex items-center space-x-3 mt-4">
+              <Avatar className="h-12 w-12 border-2 border-white shadow-sm">
+                <AvatarImage src="/baby-emma.jpg" alt="Baby Emma" />
+                <AvatarFallback>
+                  <Baby className="h-6 w-6 text-purple-500" />
+                </AvatarFallback>
+              </Avatar>
+              <div>
+                <h3 className="font-medium">Emma</h3>
+                <p className="text-sm text-muted-foreground">8 months old</p>
+              </div>
             </div>
           </div>
         </div>
