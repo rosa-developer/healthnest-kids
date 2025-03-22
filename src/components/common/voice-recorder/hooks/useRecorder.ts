@@ -3,147 +3,100 @@ import { useState, useEffect, useRef } from 'react';
 import { getRecordingTime } from '../utils';
 import { useToast } from '../../../../hooks/use-toast';
 
-interface RecorderControls {
+export interface RecorderState {
+  isRecording: boolean;
+  recordingTime: number;
+  audioBlob: Blob | null;
   startRecording: () => Promise<void>;
   stopRecording: () => void;
-  pauseRecording: () => void;
-  resumeRecording: () => void;
-  getRecordings: () => { audio: string | null; duration: number }[];
-  clearRecordings: () => void;
-  recordingStatus: string;
-  recordingTime: number;
-  isAudioContextSupported: boolean;
+  reset: () => void;
 }
 
-const audioContext = typeof window !== 'undefined' ? (window.AudioContext || (window as any).webkitAudioContext) : null;
-
-const useRecorder = (): RecorderControls => {
+export const useRecorder = (): RecorderState => {
   const { toast } = useToast();
-  const [recorder, setRecorder] = useState<MediaRecorder | null>(null);
-  const [audioChunks, setAudioChunks] = useState<Blob[]>([]);
-  const [recordingStatus, setRecordingStatus] = useState<string>('inactive');
+  const [isRecording, setIsRecording] = useState<boolean>(false);
   const [recordingTime, setRecordingTime] = useState<number>(0);
-  const [recordings, setRecordings] = useState<{ audio: string | null; duration: number }[]>([]);
-  const [isAudioContextSupported, setIsAudioContextSupported] = useState(!!audioContext);
-
+  const [audioBlob, setAudioBlob] = useState<Blob | null>(null);
+  const mediaRecorder = useRef<MediaRecorder | null>(null);
+  const audioChunks = useRef<Blob[]>([]);
   const timerInterval = useRef<number | null>(null);
 
-  useEffect(() => {
-    const initializeRecorder = async () => {
-      try {
-        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-        const newRecorder = new MediaRecorder(stream);
+  const reset = () => {
+    setAudioBlob(null);
+    setRecordingTime(0);
+    audioChunks.current = [];
+  };
 
-        newRecorder.ondataavailable = (event) => {
-          setAudioChunks((prevChunks) => [...prevChunks, event.data]);
-        };
-
-        newRecorder.onstop = () => {
-          const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
-          const audioUrl = URL.createObjectURL(audioBlob);
-          setRecordings((prevRecordings) => [...prevRecordings, { audio: audioUrl, duration: recordingTime }]);
-          setAudioChunks([]);
-          setRecordingTime(0);
-        };
-
-        setRecorder(newRecorder);
-      } catch (error) {
-        console.error('Error initializing recorder:', error);
-        setIsAudioContextSupported(false);
-        toast({
-          title: "Error",
-          description: "Audio recording is not supported in your browser or device. Please check your browser settings and permissions.",
-          variant: "destructive",
-        });
-      }
-    };
-
-    initializeRecorder();
-
-    return () => {
-      if (recorder) {
-        recorder.stream.getTracks().forEach(track => track.stop());
-      }
-      if (timerInterval.current !== null) {
-        clearInterval(timerInterval.current);
-      }
-    };
-  }, []);
-
-  const startRecording = async () => {
-    if (!recorder) return;
-
+  const startRecording = async (): Promise<void> => {
     try {
-      await navigator.mediaDevices.getUserMedia({ audio: true });
-      recorder.start();
-      setRecordingStatus('recording');
-      setRecordingTime(0);
-
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      
+      mediaRecorder.current = new MediaRecorder(stream);
+      
+      mediaRecorder.current.ondataavailable = (event) => {
+        audioChunks.current.push(event.data);
+      };
+      
+      mediaRecorder.current.onstop = () => {
+        const audioBlob = new Blob(audioChunks.current, { type: 'audio/wav' });
+        setAudioBlob(audioBlob);
+        setIsRecording(false);
+      };
+      
+      audioChunks.current = [];
+      mediaRecorder.current.start();
+      setIsRecording(true);
+      
+      // Start recording timer
       timerInterval.current = window.setInterval(() => {
-        setRecordingTime((prevTime) => prevTime + 1);
+        setRecordingTime(prev => prev + 1);
       }, 1000);
     } catch (error) {
       console.error('Error starting recording:', error);
       toast({
-        title: "Error",
-        description: "Failed to start recording. Please check your microphone permissions.",
-        variant: "destructive",
+        title: "Recording Error",
+        description: "Could not access microphone. Please check your browser permissions.",
+        variant: "destructive"
       });
-      setRecordingStatus('inactive');
     }
   };
 
   const stopRecording = () => {
-    if (recorder && recorder.state === 'recording') {
-      recorder.stop();
-      setRecordingStatus('inactive');
-      if (timerInterval.current !== null) {
+    if (mediaRecorder.current && isRecording) {
+      mediaRecorder.current.stop();
+      
+      // Stop the timer
+      if (timerInterval.current) {
         clearInterval(timerInterval.current);
         timerInterval.current = null;
+      }
+      
+      // Stop all tracks in the stream
+      if (mediaRecorder.current.stream) {
+        mediaRecorder.current.stream.getTracks().forEach(track => track.stop());
       }
     }
   };
 
-  const pauseRecording = () => {
-    if (recorder && recorder.state === 'recording') {
-      recorder.pause();
-      setRecordingStatus('paused');
-      if (timerInterval.current !== null) {
+  // Cleanup on unmount
+  useEffect(() => {
+    return () => {
+      if (timerInterval.current) {
         clearInterval(timerInterval.current);
-        timerInterval.current = null;
       }
-    }
-  };
-
-  const resumeRecording = () => {
-    if (recorder && recorder.state === 'paused') {
-      recorder.resume();
-      setRecordingStatus('recording');
-      timerInterval.current = window.setInterval(() => {
-        setRecordingTime((prevTime) => prevTime + 1);
-      }, 1000);
-    }
-  };
-
-  const getRecordings = () => {
-    return recordings;
-  };
-
-  const clearRecordings = () => {
-    setRecordings([]);
-  };
+      
+      if (mediaRecorder.current && mediaRecorder.current.stream) {
+        mediaRecorder.current.stream.getTracks().forEach(track => track.stop());
+      }
+    };
+  }, []);
 
   return {
+    isRecording,
+    recordingTime,
+    audioBlob,
     startRecording,
     stopRecording,
-    pauseRecording,
-    resumeRecording,
-    getRecordings,
-    clearRecordings,
-    recordingStatus,
-    recordingTime,
-    isAudioContextSupported
+    reset
   };
 };
-
-export default useRecorder;

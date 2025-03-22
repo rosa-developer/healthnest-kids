@@ -21,7 +21,8 @@ export const toast = ({ title, description, variant }: {
   // Use sonner toast for actual toast display
   sonnerToast(title as string, {
     description,
-    type: variant === 'destructive' ? 'error' : 'default'
+    // Use the proper property name for sonner toast type
+    variant: variant === 'destructive' ? 'error' : 'default'
   });
   
   return { id: Date.now().toString() };
