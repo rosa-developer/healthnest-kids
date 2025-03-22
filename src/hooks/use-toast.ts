@@ -1,7 +1,8 @@
 
 import React from 'react';
+import { toast as sonnerToast } from 'sonner';
 
-// Create a standalone toast implementation
+// Create a toast implementation using sonner
 export type ToastProps = {
   id: string;
   title?: React.ReactNode;
@@ -17,8 +18,12 @@ export const toast = ({ title, description, variant }: {
   description?: React.ReactNode; 
   variant?: "default" | "destructive";
 }) => {
-  // This is a simplified version that logs to console
-  console.log('Toast:', title, description);
+  // Use sonner toast for actual toast display
+  sonnerToast(title as string, {
+    description,
+    type: variant === 'destructive' ? 'error' : 'default'
+  });
+  
   return { id: Date.now().toString() };
 };
 
@@ -26,6 +31,6 @@ export const useToast = () => {
   return {
     toast,
     toasts: [] as ToastProps[],
-    dismiss: () => {}
+    dismiss: (id: string) => sonnerToast.dismiss(id)
   };
 };

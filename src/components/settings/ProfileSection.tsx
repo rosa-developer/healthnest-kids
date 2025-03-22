@@ -6,14 +6,22 @@ import { Button } from "@/components/ui/button";
 import { 
   Dialog,
   DialogContent,
+  DialogHeader,
+  DialogTitle,
   DialogTrigger
 } from "@/components/ui/dialog";
 import { EditProfileForm } from './EditProfileForm';
+import { useToast } from "@/hooks/use-toast";
 
 const ProfileSection = () => {
   const [open, setOpen] = useState(false);
+  const { toast } = useToast();
   
   const handleSuccess = () => {
+    toast({
+      title: "Profile Updated",
+      description: "Your profile has been updated successfully!",
+    });
     setOpen(false);
   };
 
@@ -39,6 +47,9 @@ const ProfileSection = () => {
             </Button>
           </DialogTrigger>
           <DialogContent className="sm:max-w-[425px]">
+            <DialogHeader>
+              <DialogTitle>Edit Profile</DialogTitle>
+            </DialogHeader>
             <EditProfileForm onSuccess={handleSuccess} />
           </DialogContent>
         </Dialog>

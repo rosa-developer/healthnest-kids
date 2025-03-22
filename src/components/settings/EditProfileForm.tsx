@@ -21,7 +21,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useToast } from "@/hooks/use-toast";
 
 // Define form schema with validation
 const formSchema = z.object({
@@ -52,8 +51,6 @@ export interface EditProfileFormProps {
 }
 
 export function EditProfileForm({ onSuccess }: EditProfileFormProps) {
-  const { toast } = useToast();
-  
   // Initialize form with react-hook-form
   const form = useForm<ProfileFormValues>({
     resolver: zodResolver(formSchema),
@@ -64,13 +61,7 @@ export function EditProfileForm({ onSuccess }: EditProfileFormProps) {
     // In a real app, this would save to a database
     console.log("Form submitted:", data);
     
-    // Show success toast
-    toast({
-      title: "Profile Updated",
-      description: "Your profile has been updated successfully!",
-    });
-    
-    // Close the dialog
+    // Close the dialog and trigger success callback
     onSuccess();
   }
 
