@@ -10,12 +10,16 @@ interface MongooseConnection {
 }
 
 /**
- * Global MongoDB connection variable
+ * Global MongoDB connection variable - use globalThis which works in both browser and Node
  */
-let cached: MongooseConnection = (global as any).mongoose || { conn: null, promise: null };
+const globalForMongoose = globalThis as unknown as {
+  mongoose?: MongooseConnection;
+};
 
-if (!(global as any).mongoose) {
-  (global as any).mongoose = cached;
+let cached: MongooseConnection = globalForMongoose.mongoose || { conn: null, promise: null };
+
+if (!globalForMongoose.mongoose) {
+  globalForMongoose.mongoose = cached;
 }
 
 /**
