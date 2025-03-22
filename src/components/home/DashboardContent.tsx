@@ -6,6 +6,7 @@ import UpcomingAppointments from '@/components/home/UpcomingAppointments';
 import RecentTimeline from '@/components/home/RecentTimeline';
 import HealthOverview from '@/components/home/HealthOverview';
 import BabyPhotoSection from './BabyPhotoSection';
+import RemindersSection from './RemindersSection';
 
 // Fallback component for card errors
 const CardError = ({ title }: { title: string }) => (
@@ -44,6 +45,15 @@ const DashboardContent = () => {
             <div className="p-6">
               <RecentTimeline />
             </div>
+          </ErrorBoundary>
+        </div>
+      </div>
+      
+      {/* Reminders Section */}
+      <div className="content-card card-hover card-expand animate-slide-up" style={{animationDelay: "0.15s"}}>
+        <div className="p-6">
+          <ErrorBoundary fallback={<CardError title="Reminders" />}>
+            <RemindersSection />
           </ErrorBoundary>
         </div>
       </div>

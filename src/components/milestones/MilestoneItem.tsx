@@ -1,9 +1,23 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Circle, CheckCircle2, Edit } from 'lucide-react';
+import { Textarea } from "@/components/ui/textarea";
+import { 
+  Circle, 
+  CheckCircle2, 
+  Edit, 
+  Camera, 
+  Mic, 
+  Trash, 
+  Save,
+  ChevronDown,
+  ChevronUp,
+  Calendar
+} from 'lucide-react';
 import { Milestone } from '@/types/milestone';
+import { useToast } from "@/hooks/use-toast";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 
 interface MilestoneItemProps {
   milestone: Milestone;
@@ -24,12 +38,36 @@ const MilestoneItem: React.FC<MilestoneItemProps> = ({
   onChangeMilestoneNote,
   onSaveNotes
 }) => {
+  const { toast } = useToast();
   const isSelected = selectedMilestoneId === milestone.id;
+  const [isOpen, setIsOpen] = useState(false);
+  
+  const handleCapturePhoto = () => {
+    toast({
+      title: "Capture Photo",
+      description: "Photo capturing will be available in the next update!"
+    });
+  };
+  
+  const handleRecordAudio = () => {
+    toast({
+      title: "Record Audio",
+      description: "Audio recording will be available in the next update!"
+    });
+  };
+  
+  const handleSetDate = () => {
+    toast({
+      title: "Set Achievement Date",
+      description: "Date picker will be available in the next update!"
+    });
+  };
   
   return (
-    <div 
-      key={milestone.id} 
-      className={`p-3 border border-border rounded-lg ${
+    <Collapsible 
+      open={isOpen} 
+      onOpenChange={setIsOpen}
+      className={`p-3 border border-border rounded-lg transition-colors ${
         milestone.completed ? 'bg-healthnest-soft-green/10' : ''
       }`}
     >
@@ -51,12 +89,21 @@ const MilestoneItem: React.FC<MilestoneItemProps> = ({
               )}
             </Button>
             <h4 className="font-medium">{milestone.title}</h4>
+            <CollapsibleTrigger asChild>
+              <Button variant="ghost" size="sm" className="ml-auto p-0 h-7 w-7">
+                {isOpen ? (
+                  <ChevronUp className="h-4 w-4 text-muted-foreground" />
+                ) : (
+                  <ChevronDown className="h-4 w-4 text-muted-foreground" />
+                )}
+              </Button>
+            </CollapsibleTrigger>
           </div>
           
           <div className="ml-8">
             {milestone.completed ? (
               <p className="text-sm text-muted-foreground">
-                Achieved on {new Date(milestone.date).toLocaleDateString('en-US', {
+                Achieved on {new Date(milestone.completedDate || milestone.date).toLocaleDateString('en-US', {
                   month: 'short',
                   day: 'numeric',
                   year: 'numeric'
@@ -85,20 +132,77 @@ const MilestoneItem: React.FC<MilestoneItemProps> = ({
         </Button>
       </div>
       
-      {isSelected && (
-        <div className="mt-3 ml-8">
-          <div className="flex gap-2 mb-2">
-            <Input
-              placeholder="Add notes about this milestone"
-              value={milestoneNote}
-              onChange={(e) => onChangeMilestoneNote(e.target.value)}
-              className="text-sm"
-            />
-            <Button size="sm" onClick={onSaveNotes}>Save</Button>
-          </div>
+      <CollapsibleContent>
+        <div className="mt-3 ml-8 space-y-3">
+          <p className="text-sm">{milestone.description}</p>
+          
+          {isSelected ? (
+            <div className="space-y-2">
+              <Textarea
+                placeholder="Add notes about this milestone"
+                value={milestoneNote}
+                onChange={(e) => onChangeMilestoneNote(e.target.value)}
+                className="text-sm min-h-[100px]"
+              />
+              <div className="flex justify-between">
+                <div className="flex gap-2">
+                  <Button 
+                    variant="outline" 
+                    size="sm"
+                    onClick={handleCapturePhoto}
+                  >
+                    <Camera className="h-4 w-4 mr-1" />
+                    Photo
+                  </Button>
+                  <Button 
+                    variant="outline" 
+                    size="sm"
+                    onClick={handleRecordAudio}
+                  >
+                    <Mic className="h-4 w-4 mr-1" />
+                    Audio
+                  </Button>
+                  <Button 
+                    variant="outline" 
+                    size="sm"
+                    onClick={handleSetDate}
+                  >
+                    <Calendar className="h-4 w-4 mr-1" />
+                    Date
+                  </Button>
+                </div>
+                <Button size="sm" onClick={onSaveNotes}>
+                  <Save className="h-4 w-4 mr-1" />
+                  Save
+                </Button>
+              </div>
+            </div>
+          ) : (
+            <div className="flex gap-2">
+              <Button 
+                variant="outline" 
+                size="sm"
+                onClick={() => onEditNotes(milestone.id)}
+              >
+                <Edit className="h-4 w-4 mr-1" />
+                Add Notes
+              </Button>
+              
+              {milestone.completed && (
+                <Button 
+                  variant="outline" 
+                  size="sm"
+                  onClick={handleCapturePhoto}
+                >
+                  <Camera className="h-4 w-4 mr-1" />
+                  Add Media
+                </Button>
+              )}
+            </div>
+          )}
         </div>
-      )}
-    </div>
+      </CollapsibleContent>
+    </Collapsible>
   );
 };
 

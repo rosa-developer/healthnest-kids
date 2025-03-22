@@ -1,7 +1,15 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { cn } from '@/lib/utils';
-import { Camera, Mic, FileText, Calendar } from 'lucide-react';
+import { Camera, Mic, FileText, Calendar, Heart, MoreHorizontal, Edit, Trash } from 'lucide-react';
+import { Button } from "@/components/ui/button";
+import { useToast } from "@/hooks/use-toast";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 interface TimelineCardProps {
   title: string;
@@ -9,6 +17,7 @@ interface TimelineCardProps {
   type: 'memory' | 'health' | 'milestone' | 'appointment';
   description: string;
   className?: string;
+  imageSrc?: string;
 }
 
 const TimelineCard: React.FC<TimelineCardProps> = ({
@@ -17,7 +26,11 @@ const TimelineCard: React.FC<TimelineCardProps> = ({
   type,
   description,
   className,
+  imageSrc
 }) => {
+  const { toast } = useToast();
+  const [liked, setLiked] = useState(false);
+  
   const getTypeProperties = () => {
     switch (type) {
       case 'memory':
@@ -54,6 +67,30 @@ const TimelineCard: React.FC<TimelineCardProps> = ({
   };
 
   const { icon: Icon, color, label } = getTypeProperties();
+  
+  const handleEdit = () => {
+    toast({
+      title: "Edit Timeline Item",
+      description: "This feature will be available in the next update!",
+    });
+  };
+  
+  const handleDelete = () => {
+    toast({
+      title: "Delete Timeline Item",
+      description: "This feature will be available in the next update!",
+    });
+  };
+  
+  const handleLike = () => {
+    setLiked(!liked);
+    toast({
+      title: liked ? "Removed from favorites" : "Added to favorites",
+      description: liked 
+        ? "This item has been removed from your favorites." 
+        : "This item has been added to your favorites!",
+    });
+  };
 
   return (
     <div
@@ -74,13 +111,55 @@ const TimelineCard: React.FC<TimelineCardProps> = ({
               </span>
               <h3 className="font-medium text-lg mt-1">{title}</h3>
             </div>
-            <div className="text-sm text-muted-foreground">
-              {date}
+            <div className="flex items-center gap-2">
+              <div className="text-sm text-muted-foreground">
+                {date}
+              </div>
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" size="icon" className="h-8 w-8">
+                    <MoreHorizontal className="h-4 w-4" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end">
+                  <DropdownMenuItem onClick={handleEdit}>
+                    <Edit className="mr-2 h-4 w-4" />
+                    <span>Edit</span>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={handleDelete} className="text-red-500">
+                    <Trash className="mr-2 h-4 w-4" />
+                    <span>Delete</span>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
             </div>
           </div>
           <p className="text-sm text-muted-foreground mt-2">
             {description}
           </p>
+          
+          {imageSrc && (
+            <div className="mt-3 rounded-lg overflow-hidden">
+              <img src={imageSrc} alt={title} className="w-full h-auto object-cover" />
+            </div>
+          )}
+          
+          <div className="flex justify-end mt-3">
+            <Button 
+              variant="ghost" 
+              size="sm" 
+              className={cn(
+                liked ? "text-pink-500" : "text-muted-foreground"
+              )}
+              onClick={handleLike}
+            >
+              <Heart className={cn(
+                "h-4 w-4 mr-1",
+                liked ? "fill-pink-500" : ""
+              )} />
+              {liked ? "Favorite" : "Add to favorites"}
+            </Button>
+          </div>
         </div>
       </div>
     </div>
