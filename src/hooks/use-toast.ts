@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { toast as sonnerToast, Toast } from 'sonner';
+import { toast as sonnerToast } from 'sonner';
 
 // Create a toast implementation using sonner
 export type ToastProps = {
