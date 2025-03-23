@@ -1,7 +1,7 @@
 
 import React from 'react';
-import { Button } from "@/components/ui/button";
 import { ImageIcon, Upload } from 'lucide-react';
+import { Button } from "@/components/ui/button";
 
 interface EmptyPhotoStateProps {
   searchQuery: string;
@@ -13,21 +13,25 @@ const EmptyPhotoState: React.FC<EmptyPhotoStateProps> = ({
   onUploadClick 
 }) => {
   return (
-    <div className="flex flex-col items-center justify-center py-16 px-4 text-center bg-muted/20 rounded-xl border border-dashed border-muted">
-      <div className="bg-primary/10 rounded-full p-6 mb-6">
-        <ImageIcon className="h-10 w-10 text-primary/80" />
+    <div className="flex flex-col items-center justify-center py-16 px-4 text-center">
+      <div className="bg-muted/40 rounded-full p-4 mb-4">
+        <ImageIcon className="h-8 w-8 text-muted-foreground" />
       </div>
-      <h3 className="text-xl font-semibold mb-3">No photos found</h3>
-      <p className="text-muted-foreground max-w-md mb-8">
+      <h3 className="text-xl font-semibold mb-2">No photos found</h3>
+      <p className="text-muted-foreground max-w-md mb-6">
         {searchQuery 
-          ? `No photos match "${searchQuery}". Try another search term or clear your search.` 
-          : "Start creating your photo collection by uploading your favorite memories."}
+          ? `No photos match "${searchQuery}". Try another search term.` 
+          : "Upload your first photo to get started."}
       </p>
-      <Button 
-        onClick={onUploadClick} 
-        size="lg"
-        className="bg-primary hover:bg-primary/90"
-      >
+      <p className="text-muted-foreground max-w-md mb-6">
+        Drag and drop photos here or use the button below.
+      </p>
+      <div className="flex flex-wrap gap-4 justify-center mb-8">
+        <img src="/1.jpg" alt="Example photo 1" className="w-24 h-24 object-cover rounded-lg shadow-md" />
+        <img src="/2.jpg" alt="Example photo 2" className="w-24 h-24 object-cover rounded-lg shadow-md" />
+        <img src="/3.jpg" alt="Example photo 3" className="w-24 h-24 object-cover rounded-lg shadow-md" />
+      </div>
+      <Button onClick={onUploadClick}>
         <Upload className="h-4 w-4 mr-2" />
         Upload Photos
       </Button>

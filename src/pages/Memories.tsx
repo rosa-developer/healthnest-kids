@@ -1,4 +1,3 @@
-
 import React from 'react';
 import PageTransition from '@/components/common/PageTransition';
 import MemoryCard from '@/components/common/MemoryCard';
@@ -17,11 +16,6 @@ const Memories = () => {
       description: "This feature will be available in the next update!",
     });
   };
-
-  // Placeholder for images - in a real app, these would be real URLs
-  const placeholderImage1 = "https://images.unsplash.com/photo-1555252333-9f8e92e65df9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80";
-  const placeholderImage2 = "https://images.unsplash.com/photo-1557939574-a2cb399f443f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1471&q=80";
-  const placeholderImage3 = "https://images.unsplash.com/photo-1607077792448-17b60bcdb072?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80";
 
   return (
     <div className="main-container">
@@ -73,35 +67,35 @@ const Memories = () => {
                 id="photo1"
                 title="First Smile"
                 date="January 15, 2023"
-                imageSrc={placeholderImage1}
+                imageSrc="/1.jpg"
                 description="Emma's first real smile! Her eyes lit up when I sang to her."
               />
               <MemoryCard
                 id="photo2"
                 title="Bath Time Fun"
                 date="February 8, 2023"
-                imageSrc={placeholderImage2}
+                imageSrc="/2.jpg"
                 description="Emma loves splashing in the bath. So many bubbles and giggles!"
               />
               <MemoryCard
                 id="photo3"
                 title="First Time at the Park"
                 date="March 22, 2023"
-                imageSrc={placeholderImage3}
+                imageSrc="/3.jpg"
                 description="Our first family trip to the park. Emma was fascinated by the trees."
               />
               <MemoryCard
                 id="photo4"
                 title="Playing with Blocks"
                 date="April 10, 2023"
-                imageSrc={placeholderImage1}
+                imageSrc="/1.jpg"
                 description="Emma's getting so good at stacking her blocks! She can stack 3 now."
               />
               <MemoryCard
                 id="photo5"
                 title="Nap Time with Teddy"
                 date="April 18, 2023"
-                imageSrc={placeholderImage2}
+                imageSrc="/2.jpg"
                 description="Emma fell asleep hugging her favorite teddy bear. So precious!"
               />
             </div>
