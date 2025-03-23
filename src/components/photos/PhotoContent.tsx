@@ -26,7 +26,16 @@ const PhotoContent: React.FC<PhotoContentProps> = ({
   onFilesAdded
 }) => {
   return (
-    <div className="bg-card rounded-xl p-6 shadow-sm">
+    <div className="bg-card rounded-xl p-6 shadow-sm relative">
+      {/* Decorative element using the uploaded image */}
+      <div className="absolute -top-4 -right-4 w-24 opacity-20 pointer-events-none">
+        <img 
+          src="/lovable-uploads/40981d4d-5381-44c9-a78f-c22d7a65cdcf.png" 
+          alt="Decorative baby elements" 
+          className="w-full"
+        />
+      </div>
+      
       <Tabs defaultValue="all" className="w-full">
         <TabsContent value="all" className="mt-0">
           <DragDropUpload onFilesAdded={onFilesAdded || (() => {})}>

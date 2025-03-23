@@ -1,3 +1,4 @@
+
 import React from 'react';
 import PageTransition from '@/components/common/PageTransition';
 import MemoryCard from '@/components/common/MemoryCard';
@@ -18,7 +19,13 @@ const Memories = () => {
   };
 
   return (
-    <div className="main-container">
+    <div className="main-container relative">
+      <img 
+        src="/lovable-uploads/40981d4d-5381-44c9-a78f-c22d7a65cdcf.png" 
+        alt="Pastel baby growth chart" 
+        className="absolute top-10 right-0 w-52 opacity-30 pointer-events-none"
+      />
+      
       <PageTransition>
         <div className="flex items-center justify-between mb-6">
           <div className="chip bg-healthnest-soft-blue text-healthnest-primary">Emma's Memories</div>
@@ -88,7 +95,7 @@ const Memories = () => {
                 id="photo4"
                 title="Playing with Blocks"
                 date="April 10, 2023"
-                imageSrc="/1.jpg"
+                imageSrc="/lovable-uploads/09704aa0-0bda-4497-942b-b783bd82f948.png"
                 description="Emma's getting so good at stacking her blocks! She can stack 3 now."
               />
               <MemoryCard
@@ -127,7 +134,15 @@ const Memories = () => {
             </div>
           </TabsContent>
 
-          <TabsContent value="milestones" className="mt-4 animate-fade-in">
+          <TabsContent value="milestones" className="mt-4 animate-fade-in relative">
+            <div className="absolute right-0 bottom-0 opacity-30 pointer-events-none">
+              <img 
+                src="/lovable-uploads/09704aa0-0bda-4497-942b-b783bd82f948.png" 
+                alt="Pastel baby items" 
+                className="w-40"
+              />
+            </div>
+            
             <div className="relative pl-6 border-l-2 border-healthnest-soft-blue">
               <div className="mb-8 relative">
                 <div className="absolute -left-[1.625rem] h-6 w-6 rounded-full bg-healthnest-primary"></div>

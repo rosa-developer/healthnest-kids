@@ -44,7 +44,7 @@ const MemoryCard: React.FC<MemoryCardProps> = ({
     <div
       onClick={handleClick}
       className={cn(
-        'rounded-2xl overflow-hidden bg-card border border-border shadow-soft card-hover cursor-pointer',
+        'rounded-2xl overflow-hidden bg-card border border-border shadow-soft card-hover cursor-pointer relative',
         className
       )}
     >
@@ -55,6 +55,7 @@ const MemoryCard: React.FC<MemoryCardProps> = ({
             alt={title}
             className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
           />
+          <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-black/40 to-transparent"></div>
         </div>
       )}
       <div className="p-4">
@@ -84,6 +85,10 @@ const MemoryCard: React.FC<MemoryCardProps> = ({
           </div>
         )}
       </div>
+      
+      {/* Decorative elements */}
+      <div className="absolute top-2 right-2 w-6 h-6 rounded-full bg-healthnest-soft-pink/30 -z-10"></div>
+      <div className="absolute bottom-2 left-2 w-4 h-4 rounded-full bg-healthnest-soft-blue/30 -z-10"></div>
     </div>
   );
 };
