@@ -1,7 +1,8 @@
+
 @layer components {
   .chip {
     @apply inline-flex items-center px-3.5 py-1.5 rounded-full text-sm font-medium 
-           bg-primary/10 text-primary transition-all duration-300 hover:bg-primary/15;
+           bg-primary/20 text-primary/80 transition-all duration-300 hover:bg-primary/30;
   }
 
   .card-hover {
@@ -24,21 +25,21 @@
     @apply inline-flex items-center justify-center rounded-xl text-sm font-medium transition-colors 
            focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 
            disabled:opacity-50 disabled:pointer-events-none ring-offset-background
-           bg-primary text-primary-foreground hover:bg-primary/90 h-11 px-6 shadow-md;
+           bg-primary text-primary-foreground hover:bg-primary/80 h-11 px-6 shadow-md;
   }
   
   .btn-secondary {
     @apply inline-flex items-center justify-center rounded-xl text-sm font-medium transition-colors 
            focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 
            disabled:opacity-50 disabled:pointer-events-none ring-offset-background
-           bg-secondary text-secondary-foreground hover:bg-secondary/90 h-11 px-6 shadow-md;
+           bg-secondary text-secondary-foreground hover:bg-secondary/80 h-11 px-6 shadow-md;
   }
   
   .btn-outline {
     @apply inline-flex items-center justify-center rounded-xl text-sm font-medium transition-colors 
            focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 
            disabled:opacity-50 disabled:pointer-events-none ring-offset-background
-           border border-input bg-background hover:bg-accent hover:text-accent-foreground h-11 px-6;
+           border border-input bg-background hover:bg-accent/10 hover:text-accent-foreground h-11 px-6;
   }
 
   /* Status indicators */
@@ -47,24 +48,24 @@
   }
   
   .status-active {
-    @apply bg-secondary;
+    @apply bg-healthnest-light-green;
   }
   
   .status-pending {
-    @apply bg-amber-500;
+    @apply bg-healthnest-light-blue;
   }
   
   .status-completed {
-    @apply bg-primary;
+    @apply bg-healthnest-primary;
   }
   
   .status-overdue {
-    @apply bg-accent;
+    @apply bg-healthnest-light-pink;
   }
 
   /* Custom color classes */
   .bg-healthnest-soft-blue {
-    @apply bg-blue-50;
+    @apply bg-healthnest-soft-blue;
   }
   
   .text-healthnest-primary {
@@ -73,7 +74,7 @@
 
   /* Card design styles */
   .card-gradient {
-    @apply bg-gradient-to-br from-white to-blue-50 dark:from-gray-900 dark:to-gray-800 
+    @apply bg-gradient-to-br from-white to-healthnest-neutral dark:from-gray-900 dark:to-gray-800 
            border border-white/30 dark:border-white/5 rounded-xl shadow-soft;
   }
 
@@ -96,7 +97,7 @@
   }
   
   .photo-tag {
-    @apply text-xs font-medium bg-primary/10 text-primary px-2 py-1 rounded-full;
+    @apply text-xs font-medium bg-primary/20 text-primary/80 px-2 py-1 rounded-full;
   }
   
   .photo-grid {
@@ -109,12 +110,12 @@
   }
   
   .photo-album {
-    @apply bg-gradient-to-br from-white to-gray-100 dark:from-gray-800 dark:to-gray-900 
+    @apply bg-gradient-to-br from-white to-healthnest-neutral dark:from-gray-800 dark:to-gray-900 
            p-6 rounded-xl shadow-md hover:shadow-lg transition-all duration-300;
   }
   
   .photo-header {
-    @apply relative h-48 md:h-64 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-xl 
+    @apply relative h-48 md:h-64 bg-gradient-to-r from-healthnest-medium-blue to-healthnest-primary rounded-xl 
            overflow-hidden mb-8 flex items-center justify-center text-white;
   }
   

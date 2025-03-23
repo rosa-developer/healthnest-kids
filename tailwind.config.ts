@@ -64,19 +64,19 @@ export default {
 					ring: 'hsl(var(--sidebar-ring))'
 				},
 				healthnest: {
-					'soft-blue': '#E3F2FD',
-					'light-blue': '#90CAF9',
-					'medium-blue': '#42A5F5',
-					'primary': '#1976D2',
-					'secondary': '#FF8A65',
-					'soft-green': '#E8F5E9',
-					'light-green': '#A5D6A7',
-					'soft-pink': '#FCE4EC',
-					'light-pink': '#F8BBD0',
-					'soft-purple': '#F3E5F5',
-					'light-purple': '#CE93D8',
-					'neutral': '#F5F5F5',
-					'neutral-dark': '#E0E0E0',
+					'soft-blue': '#D3E4FD',
+					'light-blue': '#A4CEFF',
+					'medium-blue': '#80B5FF',
+					'primary': '#CBBFFF', // Pastel purple
+					'secondary': '#FFC8A2', // Pastel peach
+					'soft-green': '#F2FCE2',
+					'light-green': '#C9EBC9',
+					'soft-pink': '#FFDEE2',
+					'light-pink': '#FFB5C0',
+					'soft-purple': '#E5DEFF',
+					'light-purple': '#D3C7FF',
+					'neutral': '#F1F0FB', // Soft gray
+					'neutral-dark': '#E2E1F2',
 				}
 			},
 			borderRadius: {
