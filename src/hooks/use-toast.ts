@@ -32,16 +32,35 @@ export const toast = ({
   
   switch (variant) {
     case 'destructive':
-      style = { backgroundColor: 'rgb(239, 68, 68)', color: 'white' };
+      style = { 
+        backgroundColor: 'rgb(239, 68, 68)', 
+        color: 'white',
+        borderRadius: '0.75rem',
+        border: '1px solid rgba(255, 255, 255, 0.1)'
+      };
       break;
     case 'success':
-      style = { backgroundColor: 'rgb(34, 197, 94)', color: 'white' };
+      style = { 
+        backgroundColor: 'rgb(34, 197, 94)', 
+        color: 'white',
+        borderRadius: '0.75rem',
+        border: '1px solid rgba(255, 255, 255, 0.1)'
+      };
       break;
     case 'warning':
-      style = { backgroundColor: 'rgb(234, 179, 8)', color: 'white' };
+      style = { 
+        backgroundColor: 'rgb(234, 179, 8)', 
+        color: 'white',
+        borderRadius: '0.75rem',
+        border: '1px solid rgba(255, 255, 255, 0.1)'
+      };
       break;
     default:
-      style = {};
+      style = { 
+        borderRadius: '0.75rem',
+        border: '1px solid rgba(0, 0, 0, 0.1)',
+        boxShadow: '0 4px 12px rgba(0, 0, 0, 0.05)'
+      };
   }
   
   // Use sonner toast for actual toast display

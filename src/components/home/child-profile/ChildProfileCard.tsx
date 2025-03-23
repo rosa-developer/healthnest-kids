@@ -13,10 +13,10 @@ const ChildProfileCard = () => {
   console.log("ChildProfileCard rendering with:", activeProfile);
   
   return (
-    <div className="mb-6">
+    <div className="mb-6 animate-fade-in">
       <ChildProfileHeader />
 
-      <Card className="border border-border shadow-sm overflow-hidden">
+      <Card className="border border-border shadow-xl rounded-3xl overflow-hidden hover:shadow-2xl transition-all duration-300">
         <CardContent className="p-0">
           <div className="flex flex-col sm:flex-row">
             <ChildProfileInfo />
