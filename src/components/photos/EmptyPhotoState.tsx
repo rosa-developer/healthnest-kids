@@ -26,11 +26,12 @@ const EmptyPhotoState: React.FC<EmptyPhotoStateProps> = ({
       <p className="text-muted-foreground max-w-md mb-6">
         Drag and drop photos here or use the button below.
       </p>
+      
+      {/* Updated to use the new ideogram image */}
       <div className="flex flex-wrap gap-4 justify-center mb-8">
-        <img src="/1.jpg" alt="Baby photo 1" className="w-24 h-24 object-cover rounded-lg shadow-md" />
-        <img src="/2.jpg" alt="Baby photo 2" className="w-24 h-24 object-cover rounded-lg shadow-md" />
-        <img src="/3.jpg" alt="Baby photo 3" className="w-24 h-24 object-cover rounded-lg shadow-md" />
+        <img src="/ideogram-baby-collage.jpg" alt="Baby photo collage" className="max-w-sm rounded-lg shadow-md" />
       </div>
+      
       <Button onClick={onUploadClick}>
         <Upload className="h-4 w-4 mr-2" />
         Upload Photos

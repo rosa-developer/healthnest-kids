@@ -1,4 +1,3 @@
-
 import React from 'react';
 import PageTransition from '@/components/common/PageTransition';
 import MemoryCard from '@/components/common/MemoryCard';
@@ -74,7 +73,7 @@ const Memories = () => {
                 id="photo1"
                 title="First Smile"
                 date="January 15, 2023"
-                imageSrc="/1.jpg"
+                imageSrc="/ideogram-baby-collage.jpg"
                 description="Emma's first real smile! Her eyes lit up when I sang to her."
               />
               <MemoryCard
