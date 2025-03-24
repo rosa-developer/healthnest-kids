@@ -73,7 +73,7 @@ const Memories = () => {
                 id="photo1"
                 title="First Smile"
                 date="January 15, 2023"
-                imageSrc="/ideogram-baby-collage.jpg"
+                imageSrc="/1.jpg"
                 description="Emma's first real smile! Her eyes lit up when I sang to her."
               />
               <MemoryCard

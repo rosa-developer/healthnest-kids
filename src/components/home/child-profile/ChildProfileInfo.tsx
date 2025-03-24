@@ -15,7 +15,7 @@ const ChildProfileInfo = () => {
         <div className="h-24 w-24 rounded-full bg-white/90 flex items-center justify-center mb-4 overflow-hidden border-2 border-white shadow-md transform hover:scale-105 transition-all duration-300">
           {/* Make sure the image path is correct */}
           <img 
-            src="/baby-emma.jpg" 
+            src="/1.jpg" 
             alt={`Baby ${activeProfile?.name || 'Profile'}`}
             className="w-full h-full object-cover"
             onError={(e) => {
