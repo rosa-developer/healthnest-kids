@@ -5,6 +5,18 @@ export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ['"Bubblegum Sans"', 'sans-serif'], // Default font stack
+      },
+    },
+  },
+  plugins: [],
+};
+/** @type {import('tailwindcss').Config} */
+export default {
+  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
+  theme: {
+    extend: {
       colors: {
         'dark-yellow': '#b8860b', // Dark mustard yellow
       },
