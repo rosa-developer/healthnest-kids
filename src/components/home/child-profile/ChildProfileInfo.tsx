@@ -13,9 +13,8 @@ const ChildProfileInfo = () => {
     <div className="bg-gradient-to-br from-healthnest-soft-blue to-healthnest-neutral p-6 sm:w-1/3">
       <div className="flex flex-col items-center sm:items-start">
         <div className="h-24 w-24 rounded-full bg-white/90 flex items-center justify-center mb-4 overflow-hidden border-2 border-white shadow-md transform hover:scale-105 transition-all duration-300">
-          {/* Make sure the image path is correct */}
           <img 
-            src="/1.jpg" 
+            src="/lovable-uploads/09704aa0-0bda-4497-942b-b783bd82f948.png" 
             alt={`Baby ${activeProfile?.name || 'Profile'}`}
             className="w-full h-full object-cover"
             onError={(e) => {

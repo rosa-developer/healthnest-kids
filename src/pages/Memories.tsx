@@ -23,6 +23,10 @@ const Memories = () => {
         src="/lovable-uploads/40981d4d-5381-44c9-a78f-c22d7a65cdcf.png" 
         alt="Pastel baby growth chart" 
         className="absolute top-10 right-0 w-52 opacity-30 pointer-events-none"
+        onError={(e) => {
+          console.error("Failed to load decorative image");
+          e.currentTarget.style.display = 'none';
+        }}
       />
       
       <PageTransition>
@@ -73,21 +77,21 @@ const Memories = () => {
                 id="photo1"
                 title="First Smile"
                 date="January 15, 2023"
-                imageSrc="/1.jpg"
+                imageSrc="/lovable-uploads/09704aa0-0bda-4497-942b-b783bd82f948.png"
                 description="Emma's first real smile! Her eyes lit up when I sang to her."
               />
               <MemoryCard
                 id="photo2"
                 title="Bath Time Fun"
                 date="February 8, 2023"
-                imageSrc="/2.jpg"
+                imageSrc="/lovable-uploads/40981d4d-5381-44c9-a78f-c22d7a65cdcf.png"
                 description="Emma loves splashing in the bath. So many bubbles and giggles!"
               />
               <MemoryCard
                 id="photo3"
                 title="First Time at the Park"
                 date="March 22, 2023"
-                imageSrc="/3.jpg"
+                imageSrc="/lovable-uploads/09704aa0-0bda-4497-942b-b783bd82f948.png"
                 description="Our first family trip to the park. Emma was fascinated by the trees."
               />
               <MemoryCard
@@ -101,7 +105,7 @@ const Memories = () => {
                 id="photo5"
                 title="Nap Time with Teddy"
                 date="April 18, 2023"
-                imageSrc="/2.jpg"
+                imageSrc="/lovable-uploads/40981d4d-5381-44c9-a78f-c22d7a65cdcf.png"
                 description="Emma fell asleep hugging her favorite teddy bear. So precious!"
               />
             </div>

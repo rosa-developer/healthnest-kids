@@ -13,7 +13,7 @@ const BabyPhotoSection = () => {
           <div className="w-full md:w-1/3 rounded-xl overflow-hidden shadow-md">
             <AspectRatio ratio={4/3}>
               <img 
-                src="/1.jpg" 
+                src="/lovable-uploads/09704aa0-0bda-4497-942b-b783bd82f948.png" 
                 alt="Baby Emma" 
                 className="object-cover w-full h-full rounded-xl"
                 onError={(e) => {
@@ -35,7 +35,14 @@ const BabyPhotoSection = () => {
             </div>
             <div className="flex items-center space-x-3 mt-4">
               <Avatar className="h-12 w-12 border-2 border-white shadow-sm">
-                <AvatarImage src="/1.jpg" alt="Baby Emma" />
+                <AvatarImage 
+                  src="/lovable-uploads/09704aa0-0bda-4497-942b-b783bd82f948.png" 
+                  alt="Baby Emma" 
+                  onError={(e) => {
+                    console.error("Failed to load avatar image");
+                    e.currentTarget.src = "/placeholder.svg";
+                  }}
+                />
                 <AvatarFallback>
                   <Baby className="h-6 w-6 text-purple-500" />
                 </AvatarFallback>
