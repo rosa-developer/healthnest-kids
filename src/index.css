@@ -3,6 +3,6 @@
 @tailwind utilities;
 
 body {
-  @apply bg-pink-200; /* Light gray background */
+  @apply bg-yellow-200; /* Light gray background */
 }
 @import './styles/index.css';
