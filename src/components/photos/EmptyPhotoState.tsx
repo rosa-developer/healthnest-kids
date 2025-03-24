@@ -28,15 +28,17 @@ const EmptyPhotoState: React.FC<EmptyPhotoStateProps> = ({
       </p>
       
       <div className="flex flex-wrap gap-4 justify-center mb-8">
-        <img 
-          src="/lovable-uploads/09704aa0-0bda-4497-942b-b783bd82f948.png" 
-          alt="Baby photo example" 
-          className="max-w-sm rounded-lg shadow-md" 
-          onError={(e) => {
-            console.error("Failed to load baby example image");
-            e.currentTarget.src = "/placeholder.svg";
-          }}
-        />
+        <div className="max-w-sm rounded-lg shadow-md overflow-hidden">
+          <img 
+            src="/lovable-uploads/40981d4d-5381-44c9-a78f-c22d7a65cdcf.png" 
+            alt="Baby photo example" 
+            className="max-w-sm rounded-lg" 
+            onError={(e) => {
+              console.error("Failed to load baby example image");
+              e.currentTarget.src = "/placeholder.svg";
+            }}
+          />
+        </div>
       </div>
       
       <Button onClick={onUploadClick}>
