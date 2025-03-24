@@ -14,3 +14,4 @@ body {
   @apply bg-yellow-200; /* Light gray background */
 }
 @import './styles/index.css';
+@import url('https://fonts.googleapis.com/css2?family=Bubblegum+Sans&display=swap');
