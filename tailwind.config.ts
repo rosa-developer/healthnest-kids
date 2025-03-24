@@ -6,7 +6,7 @@ export default {
   theme: {
     extend: {
       colors: {
-        'light-gray': '#d3d3d3', // Custom light gray (or your preferred hex)
+        'dark-yellow': '#b8860b', // Dark mustard yellow
       },
     },
   },
