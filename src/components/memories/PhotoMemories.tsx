@@ -9,7 +9,7 @@ const PhotoMemories: React.FC = () => {
         id="photo1"
         title="First Smile"
         date="January 15, 2023"
-        imageSrc="/1.jpg"
+        imageSrc="/lovable-uploads/09704aa0-0bda-4497-942b-b783bd82f948.png"
         description="Emma's first real smile! Her eyes lit up when I sang to her."
       />
       <MemoryCard
@@ -23,14 +23,14 @@ const PhotoMemories: React.FC = () => {
         id="photo3"
         title="First Time at the Park"
         date="March 22, 2023"
-        imageSrc="/1.jpg"
+        imageSrc="/lovable-uploads/09704aa0-0bda-4497-942b-b783bd82f948.png"
         description="Our first family trip to the park. Emma was fascinated by the trees."
       />
       <MemoryCard
         id="photo4"
         title="Playing with Blocks"
         date="April 10, 2023"
-        imageSrc="/1.jpg"
+        imageSrc="/lovable-uploads/09704aa0-0bda-4497-942b-b783bd82f948.png"
         description="Emma's getting so good at stacking her blocks! She can stack 3 now."
       />
       <MemoryCard
