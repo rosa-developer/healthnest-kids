@@ -1,6 +1,17 @@
 
 import type { Config } from "tailwindcss";
-
+/** @type {import('tailwindcss').Config} */
+export default {
+  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
+  theme: {
+    extend: {
+      colors: {
+        'light-gray': '#d3d3d3', // Custom light gray (or your preferred hex)
+      },
+    },
+  },
+  plugins: [],
+};
 export default {
 	darkMode: ["class"],
 	content: [
