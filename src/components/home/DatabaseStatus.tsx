@@ -12,7 +12,7 @@ const DatabaseStatus = ({ status }: DatabaseStatusProps) => {
       <div className="flex items-center gap-2">
         <Database className="h-4 w-4 text-muted-foreground" />
         <span className="text-sm">
-          Database: 
+          Firebase: 
           {status === 'connecting' && (
             <span className="ml-1 text-amber-500">Connecting...</span>
           )}
