@@ -16,6 +16,7 @@ const ChildProfileHeader = () => {
   const { profiles, activeProfile, switchProfile } = useChildProfile();
 
   const handleProfileChange = (profileId: string) => {
+    console.log("ChildProfileHeader switching to profile:", profileId);
     switchProfile(profileId);
     
     const selectedProfile = profiles.find(p => p.id === profileId);

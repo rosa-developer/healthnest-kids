@@ -33,6 +33,7 @@ const ChildProfileSelector: React.FC = () => {
   const displayName = activeProfile?.name || 'Select Profile';
 
   const handleProfileChange = (profileId: string) => {
+    console.log("ChildProfileSelector switching to profile:", profileId);
     switchProfile(profileId);
     
     const selectedProfile = profiles.find(p => p.id === profileId);

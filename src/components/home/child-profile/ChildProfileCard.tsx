@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Card, CardContent } from "@/components/ui/card";
 import ChildProfileHeader from './ChildProfileHeader';
 import ChildProfileInfo from './ChildProfileInfo';
@@ -10,7 +10,9 @@ const ChildProfileCard = () => {
   const { activeProfile } = useChildProfile();
   
   // Log to verify component is rendering with correct data
-  console.log("ChildProfileCard rendering with:", activeProfile);
+  useEffect(() => {
+    console.log("ChildProfileCard rendering with profile:", activeProfile);
+  }, [activeProfile]);
   
   return (
     <div className="mb-6 animate-fade-in">

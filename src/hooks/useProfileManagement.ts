@@ -39,15 +39,28 @@ export const useProfileManagement = (): ProfileManagementResult => {
               ...doc.data()
             })) as ChildProfile[];
             
+            // Ensure at least one profile is active
+            let hasActiveProfile = fetchedProfiles.some(p => p.isActive);
+            if (!hasActiveProfile && fetchedProfiles.length > 0) {
+              fetchedProfiles[0].isActive = true;
+              // Update the active profile in Firebase
+              const profileRef = doc(db, 'childProfiles', fetchedProfiles[0].id);
+              await updateDoc(profileRef, { isActive: true });
+            }
+            
             setProfiles(fetchedProfiles);
             console.log('Profiles loaded from Firebase:', fetchedProfiles);
           } else {
             // No profiles found in Firestore, use mock data
             console.log('No profiles found in Firebase, using mock data');
-            setProfiles(mockProfiles);
+            const initializedMockProfiles = mockProfiles.map((profile, index) => ({
+              ...profile,
+              isActive: index === 0 // Set first profile as active
+            }));
+            setProfiles(initializedMockProfiles);
             
             // Save mock profiles to Firestore for future use
-            mockProfiles.forEach(async (profile) => {
+            initializedMockProfiles.forEach(async (profile) => {
               await setDoc(doc(db, 'childProfiles', profile.id), profile);
             });
           }
@@ -56,20 +69,14 @@ export const useProfileManagement = (): ProfileManagementResult => {
           console.error('Firebase connection error:', err);
           setError('Failed to connect to Firebase. Using mock data.');
           // Continue with mock data if Firebase connection fails
-          setProfiles(mockProfiles);
+          const initializedMockProfiles = mockProfiles.map((profile, index) => ({
+            ...profile,
+            isActive: index === 0 // Set first profile as active
+          }));
+          setProfiles(initializedMockProfiles);
         }
         
-        // Ensure at least one profile is active
-        if (!profiles.some(p => p.isActive) && profiles.length > 0 && !initialized) {
-          setProfiles(prevProfiles => 
-            prevProfiles.map((profile, index) => ({
-              ...profile,
-              isActive: index === 0
-            }))
-          );
-          setInitialized(true);
-        }
-        
+        setInitialized(true);
         setIsLoading(false);
       } catch (err) {
         console.error("Error loading profiles:", err);
@@ -80,7 +87,7 @@ export const useProfileManagement = (): ProfileManagementResult => {
     };
 
     loadProfiles();
-  }, [initialized]);
+  }, []);
   
   const switchProfile = async (profileId: string) => {
     console.log("Switching to profile ID:", profileId);
@@ -94,10 +101,11 @@ export const useProfileManagement = (): ProfileManagementResult => {
     
     // Update profile status in Firebase
     try {
-      updatedProfiles.forEach(async (profile) => {
+      for (const profile of updatedProfiles) {
         const profileRef = doc(db, 'childProfiles', profile.id);
         await updateDoc(profileRef, { isActive: profile.isActive });
-      });
+      }
+      console.log("Firebase profiles updated with new active state");
     } catch (err) {
       console.error("Error updating profile status in Firebase:", err);
     }
