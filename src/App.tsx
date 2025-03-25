@@ -1,7 +1,26 @@
 // src/App.tsx
-import './main.css'; // Updated styles
+// src/App.tsx
+import './main.css';
+
 function App() {
-  return <div className="new-design">Redesigned Content</div>;
+  return (
+    <div className="container">
+      <header className="header">
+        <h1>Kindergarten Learning</h1>
+      </header>
+      <main>
+        <section>
+          <h2>Welcome!</h2>
+          <p>Explore fun learning activities.</p>
+          <button className="button">Get Started</button>
+        </section>
+        {/* Add more sections from Figma */}
+      </main>
+    </div>
+  );
+}
+
+export default App;
 }
 export default App;
 import { Toaster } from "@/components/ui/toaster";
