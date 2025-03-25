@@ -25,7 +25,7 @@ const Navigation: React.FC = () => {
   ];
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 bg-background/80 backdrop-blur-xl border-t border-border z-50">
+    <nav className="fixed bottom-0 left-0 right-0 bg-background/80 dark:bg-[#1A1F2C]/90 backdrop-blur-xl border-t border-border dark:border-white/10 z-50">
       <div className="max-w-screen-lg mx-auto px-4 py-3 flex items-center justify-between">
         {navItems.map((item) => {
           const isActive = location.pathname === item.path;
@@ -38,14 +38,14 @@ const Navigation: React.FC = () => {
               className={cn(
                 'flex flex-col items-center justify-center px-3 py-2 rounded-xl transition-all duration-300',
                 isActive 
-                  ? 'text-primary bg-primary/10' 
-                  : 'text-muted-foreground hover:text-primary hover:bg-primary/5'
+                  ? 'text-primary bg-primary/10 dark:bg-primary/5' 
+                  : 'text-muted-foreground hover:text-primary hover:bg-primary/5 dark:hover:text-white/90 dark:hover:bg-white/5'
               )}
             >
               <Icon className={cn('h-5 w-5 mb-1', isActive && 'animate-bounce-in')} />
               <span className="text-xs font-medium">{item.label}</span>
               {isActive && (
-                <div className="h-1 w-6 bg-primary rounded-full mt-1" />
+                <div className="h-1 w-6 bg-primary dark:bg-white/80 rounded-full mt-1" />
               )}
             </Link>
           );
@@ -54,7 +54,7 @@ const Navigation: React.FC = () => {
         <Button 
           onClick={handleAddNew}
           size="icon"
-          className="flex items-center justify-center rounded-full bg-gradient-primary text-primary-foreground h-12 w-12 shadow-medium transition-all duration-300 hover:scale-105 hover:shadow-xl"
+          className="flex items-center justify-center rounded-full bg-gradient-primary dark:bg-primary text-primary-foreground dark:text-primary-foreground h-12 w-12 shadow-medium transition-all duration-300 hover:scale-105 hover:shadow-xl"
         >
           <Plus className="h-6 w-6" />
         </Button>
