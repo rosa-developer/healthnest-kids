@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { useChildProfile } from '../../../contexts/ChildProfileContext';
 import { Badge } from "@/components/ui/badge";
@@ -37,7 +36,7 @@ const ChildProfileInfo = () => {
       <div className="flex flex-col items-center sm:items-start">
         <div className="h-24 w-24 rounded-full bg-white/90 flex items-center justify-center mb-4 overflow-hidden border-2 border-white shadow-md transform hover:scale-105 transition-all duration-300">
           <img 
-            src="/lovable-uploads/09704aa0-0bda-4497-942b-b783bd82f948.png" 
+            src="/baby-emma.jpg" 
             alt={`Baby ${activeProfile.name}`}
             className="w-full h-full object-cover"
             onError={(e) => {
