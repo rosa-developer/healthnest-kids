@@ -60,9 +60,11 @@ export const useProfileManagement = (): ProfileManagementResult => {
             setProfiles(initializedMockProfiles);
             
             // Save mock profiles to Firestore for future use
-            initializedMockProfiles.forEach(async (profile) => {
+            for (const profile of initializedMockProfiles) {
               await setDoc(doc(db, 'childProfiles', profile.id), profile);
-            });
+            }
+            
+            console.log('Mock profiles saved to Firebase');
           }
           
         } catch (err) {
@@ -97,6 +99,7 @@ export const useProfileManagement = (): ProfileManagementResult => {
       isActive: profile.id === profileId
     }));
     
+    console.log("Updated profiles:", updatedProfiles);
     setProfiles(updatedProfiles);
     
     // Update profile status in Firebase
@@ -112,7 +115,7 @@ export const useProfileManagement = (): ProfileManagementResult => {
   };
   
   const addProfile = async (name: string) => {
-    const newProfile = {
+    const newProfile: ChildProfile = {
       id: `${Date.now()}`, // Using timestamp for unique ID
       name,
       age: 'Newborn',
@@ -124,6 +127,7 @@ export const useProfileManagement = (): ProfileManagementResult => {
     // Add new profile to Firebase
     try {
       await setDoc(doc(db, 'childProfiles', newProfile.id), newProfile);
+      console.log("New profile added to Firebase:", newProfile);
     } catch (err) {
       console.error("Error adding profile to Firebase:", err);
     }

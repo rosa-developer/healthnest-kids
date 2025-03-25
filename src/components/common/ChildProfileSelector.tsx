@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { 
   DropdownMenu,
@@ -32,16 +32,26 @@ const ChildProfileSelector: React.FC = () => {
   // Add a fallback for when activeProfile is undefined
   const displayName = activeProfile?.name || 'Select Profile';
 
+  useEffect(() => {
+    console.log("ChildProfileSelector rendering with activeProfile:", activeProfile);
+  }, [activeProfile]);
+
   const handleProfileChange = (profileId: string) => {
-    console.log("ChildProfileSelector switching to profile:", profileId);
-    switchProfile(profileId);
+    console.log("ChildProfileSelector switching to profile ID:", profileId);
     
-    const selectedProfile = profiles.find(p => p.id === profileId);
-    if (selectedProfile) {
-      toast({
-        title: "Profile Changed",
-        description: `Switched to ${selectedProfile.name}'s profile.`
-      });
+    // Check if we're already on this profile
+    if (activeProfile?.id !== profileId) {
+      switchProfile(profileId);
+      
+      const selectedProfile = profiles.find(p => p.id === profileId);
+      if (selectedProfile) {
+        toast({
+          title: "Profile Changed",
+          description: `Switched to ${selectedProfile.name}'s profile.`
+        });
+      }
+    } else {
+      console.log("Already on this profile, no change needed");
     }
   };
 
@@ -79,7 +89,7 @@ const ChildProfileSelector: React.FC = () => {
             <span>{displayName}</span>
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent align="start" className="w-56">
+        <DropdownMenuContent align="start" className="w-56 z-50 bg-white border shadow-md">
           <DropdownMenuLabel>Switch Profile</DropdownMenuLabel>
           <DropdownMenuSeparator />
           {profiles.map(profile => (

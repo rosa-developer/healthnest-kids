@@ -17,14 +17,20 @@ const ChildProfileHeader = () => {
 
   const handleProfileChange = (profileId: string) => {
     console.log("ChildProfileHeader switching to profile:", profileId);
-    switchProfile(profileId);
     
-    const selectedProfile = profiles.find(p => p.id === profileId);
-    if (selectedProfile) {
-      toast({
-        title: "Profile Changed",
-        description: `Switched to ${selectedProfile.name}'s profile.`
-      });
+    // Verify we're not already on this profile to avoid unnecessary state updates
+    if (activeProfile?.id !== profileId) {
+      switchProfile(profileId);
+      
+      const selectedProfile = profiles.find(p => p.id === profileId);
+      if (selectedProfile) {
+        toast({
+          title: "Profile Changed",
+          description: `Switched to ${selectedProfile.name}'s profile.`
+        });
+      }
+    } else {
+      console.log("Already on this profile, no change needed");
     }
   };
 
@@ -46,7 +52,7 @@ const ChildProfileHeader = () => {
             {displayName} <ChevronDown className="ml-1 h-4 w-4" />
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent align="end">
+        <DropdownMenuContent align="end" className="z-50 bg-white border shadow-md">
           {profiles.map(profile => (
             <DropdownMenuItem 
               key={profile.id}
@@ -57,6 +63,9 @@ const ChildProfileHeader = () => {
                 <Baby className="h-3 w-3 text-primary" />
               </div>
               {profile.name}
+              {profile.isActive && (
+                <span className="ml-auto text-primary">•</span>
+              )}
             </DropdownMenuItem>
           ))}
         </DropdownMenuContent>
