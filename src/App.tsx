@@ -1,4 +1,9 @@
-
+// src/App.tsx
+import './main.css'; // Updated styles
+function App() {
+  return <div className="new-design">Redesigned Content</div>;
+}
+export default App;
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
