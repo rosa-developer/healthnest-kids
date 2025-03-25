@@ -5,7 +5,7 @@ import { db, collection, getDocs, doc, setDoc, updateDoc } from '../lib/firebase
 
 export interface ProfileManagementResult {
   profiles: ChildProfile[];
-  activeProfile: ChildProfile;
+  activeProfile: ChildProfile | undefined;
   setProfiles: React.Dispatch<React.SetStateAction<ChildProfile[]>>;
   switchProfile: (profileId: string) => void;
   addProfile: (name: string) => void;

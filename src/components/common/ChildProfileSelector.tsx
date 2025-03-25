@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { 
@@ -28,13 +29,19 @@ const ChildProfileSelector: React.FC = () => {
   const { toast } = useToast();
   const { profiles, activeProfile, switchProfile, addProfile } = useChildProfile();
 
+  // Add a fallback for when activeProfile is undefined
+  const displayName = activeProfile?.name || 'Select Profile';
+
   const handleProfileChange = (profileId: string) => {
     switchProfile(profileId);
     
-    toast({
-      title: "Profile Changed",
-      description: `Switched to ${profiles.find(p => p.id === profileId)?.name}'s profile.`
-    });
+    const selectedProfile = profiles.find(p => p.id === profileId);
+    if (selectedProfile) {
+      toast({
+        title: "Profile Changed",
+        description: `Switched to ${selectedProfile.name}'s profile.`
+      });
+    }
   };
 
   const handleAddChild = () => {
@@ -68,7 +75,7 @@ const ChildProfileSelector: React.FC = () => {
             <div className="h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center">
               <Baby className="h-4 w-4 text-primary" />
             </div>
-            <span>{activeProfile.name}</span>
+            <span>{displayName}</span>
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="start" className="w-56">

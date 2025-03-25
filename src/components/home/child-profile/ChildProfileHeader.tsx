@@ -18,11 +18,17 @@ const ChildProfileHeader = () => {
   const handleProfileChange = (profileId: string) => {
     switchProfile(profileId);
     
-    toast({
-      title: "Profile Changed",
-      description: `Switched to ${profiles.find(p => p.id === profileId)?.name}'s profile.`
-    });
+    const selectedProfile = profiles.find(p => p.id === profileId);
+    if (selectedProfile) {
+      toast({
+        title: "Profile Changed",
+        description: `Switched to ${selectedProfile.name}'s profile.`
+      });
+    }
   };
+
+  // Display a default text if no active profile is available
+  const displayName = activeProfile?.name || 'Select Profile';
 
   return (
     <div className="flex items-center justify-between mb-4">
@@ -36,7 +42,7 @@ const ChildProfileHeader = () => {
             size="sm"
             className="text-sm font-normal"
           >
-            {activeProfile.name} <ChevronDown className="ml-1 h-4 w-4" />
+            {displayName} <ChevronDown className="ml-1 h-4 w-4" />
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
