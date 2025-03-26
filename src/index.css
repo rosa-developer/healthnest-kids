@@ -30,7 +30,7 @@ body {
   }
   
   .kid-category-card {
-    @apply rounded-2xl p-5 shadow-md transition-all duration-300;
+    @apply rounded-2xl p-5 shadow-md transition-all duration-300 cursor-pointer;
   }
   
   .kid-category-card:hover {
@@ -38,7 +38,7 @@ body {
   }
   
   .kid-nav-button {
-    @apply p-2 rounded-full transition-all duration-300;
+    @apply p-2 rounded-full transition-all duration-300 flex flex-col items-center;
   }
   
   .kid-nav-button:hover {
