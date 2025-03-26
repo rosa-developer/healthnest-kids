@@ -1,72 +1,68 @@
 
 import React from 'react';
 import './index.css';
-import { BookOpen, Palette } from 'lucide-react';
+import { BookOpen, Palette, Baby, Heart, Ruler } from 'lucide-react';
 
 function App() {
   return (
     <div className="min-h-screen bg-primary-yellow p-5">
       <header className="kid-header">
-        <h1 className="text-3xl font-bold">Kindergarten Learning</h1>
+        <h1 className="text-3xl font-bold">Baby Growth Tracker</h1>
       </header>
       
       <main className="space-y-6">
         {/* Welcome Section */}
         <section className="kid-card">
-          <h2 className="text-2xl font-bold text-primary-purple mb-3">Welcome, Little Explorer!</h2>
-          <p className="text-gray-700 mb-4">Let's discover fun activities and games today!</p>
+          <h2 className="text-2xl font-bold text-primary-purple mb-3">Welcome to Baby Growth Tracker!</h2>
+          <p className="text-gray-700 mb-4">Track your baby's growth, milestones, and memories in one place.</p>
           <button className="kid-button">
-            Start Learning
+            Start Tracking
           </button>
         </section>
         
-        {/* Learning Categories */}
+        {/* Tracking Categories */}
         <div className="grid grid-cols-2 gap-4">
           <div className="kid-category-card bg-blue-100">
-            <h3 className="text-xl font-bold text-blue-600 mb-2">Letters</h3>
-            <p className="text-gray-700 text-sm mb-3">Learn the alphabet</p>
+            <h3 className="text-xl font-bold text-blue-600 mb-2">Growth</h3>
+            <p className="text-gray-700 text-sm mb-3">Height, weight & more</p>
             <div className="flex justify-center">
-              <BookOpen className="w-16 h-16 text-blue-500" />
+              <Ruler className="w-16 h-16 text-blue-500" />
             </div>
           </div>
           
           <div className="kid-category-card bg-red-100">
-            <h3 className="text-xl font-bold text-red-600 mb-2">Numbers</h3>
-            <p className="text-gray-700 text-sm mb-3">Count and learn math</p>
+            <h3 className="text-xl font-bold text-red-600 mb-2">Milestones</h3>
+            <p className="text-gray-700 text-sm mb-3">Track developmental firsts</p>
             <div className="flex justify-center">
-              <span className="text-5xl text-red-500">123</span>
+              <Baby className="w-16 h-16 text-red-500" />
             </div>
           </div>
           
           <div className="kid-category-card bg-green-100">
-            <h3 className="text-xl font-bold text-green-600 mb-2">Colors</h3>
-            <p className="text-gray-700 text-sm mb-3">Discover colors</p>
+            <h3 className="text-xl font-bold text-green-600 mb-2">Health</h3>
+            <p className="text-gray-700 text-sm mb-3">Vaccinations & check-ups</p>
             <div className="flex justify-center">
-              <Palette className="w-16 h-16 text-green-500" />
+              <Heart className="w-16 h-16 text-green-500" />
             </div>
           </div>
           
           <div className="kid-category-card bg-yellow-100">
-            <h3 className="text-xl font-bold text-yellow-600 mb-2">Shapes</h3>
-            <p className="text-gray-700 text-sm mb-3">Learn geometry</p>
+            <h3 className="text-xl font-bold text-yellow-600 mb-2">Learning</h3>
+            <p className="text-gray-700 text-sm mb-3">Activities & skills</p>
             <div className="flex justify-center">
-              <div className="flex space-x-1">
-                <div className="w-5 h-5 bg-yellow-500 rounded-full"></div>
-                <div className="w-5 h-5 bg-yellow-500"></div>
-                <div className="w-5 h-5 bg-yellow-500 rounded-md transform rotate-45"></div>
-              </div>
+              <BookOpen className="w-16 h-16 text-yellow-500" />
             </div>
           </div>
         </div>
         
-        {/* Daily Activity */}
+        {/* Daily Growth */}
         <section className="kid-card bg-orange-100">
-          <h2 className="text-2xl font-bold text-orange-600 mb-3">Today's Activity</h2>
+          <h2 className="text-2xl font-bold text-orange-600 mb-3">Today's Growth Tip</h2>
           <div className="bg-white rounded-xl p-4">
-            <h3 className="text-xl font-bold text-primary-purple mb-2">Color the Animals</h3>
-            <p className="text-gray-700 mb-3">Learn animal names while coloring them!</p>
+            <h3 className="text-xl font-bold text-primary-purple mb-2">Tummy Time</h3>
+            <p className="text-gray-700 mb-3">Daily tummy time helps strengthen your baby's neck, shoulder, and arm muscles!</p>
             <button className="bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded-full shadow-md transition duration-300">
-              Start Activity
+              Log Activity
             </button>
           </div>
         </section>
