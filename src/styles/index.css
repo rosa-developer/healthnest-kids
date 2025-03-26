@@ -1,8 +1,9 @@
-/* src/main.css */
+
+/* src/styles/index.css */
 body {
   margin: 0;
-  font-family: 'YourFont', sans-serif; /* From Figma */
-  background-color: #f0f4f8; /* Example from Figma */
+  font-family: 'Bubblegum Sans', sans-serif; /* From Figma */
+  background-color: #ffeb99; /* Soft yellow background */
 }
 
 .container {
@@ -12,20 +13,72 @@ body {
 }
 
 .header {
-  background-color: #ffcc00; /* Example primary color */
+  background-color: #9b87f5; /* Kid-friendly purple */
   padding: 15px;
   text-align: center;
   color: white;
+  border-radius: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .button {
-  background-color: #00cc99; /* Example button color */
+  background-color: #66cc99; /* Kid-friendly green */
   border: none;
   padding: 10px 20px;
-  border-radius: 8px;
+  border-radius: 25px;
   color: white;
   cursor: pointer;
+  font-weight: bold;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
 }
+
+.button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Card styles */
+.card {
+  background-color: white;
+  border-radius: 20px;
+  padding: 15px;
+  margin-bottom: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Category cards */
+.category-card {
+  border-radius: 15px;
+  padding: 12px;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.category-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+/* Navigation */
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 8px;
+}
+
+.nav-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 5px;
+}
+
 @import './base.css';
 @import './layout.css';
 @import './components.css';

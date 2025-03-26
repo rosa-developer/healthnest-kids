@@ -1,17 +1,16 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Bubblegum+Sans&display=swap');
 
 @layer base {
   html, body {
     @apply font-sans; /* Applies Bubblegum Sans everywhere */
   }
 }
+
 body {
-  @apply bg-yellow-200; /* Light gray background */
+  @apply bg-yellow-200; /* Light yellow background for kid-friendly feel */
 }
-@import './styles/index.css';
-@import url('https://fonts.googleapis.com/css2?family=Bubblegum+Sans&display=swap');
