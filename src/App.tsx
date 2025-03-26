@@ -1,7 +1,7 @@
 
 import React from 'react';
 import './index.css';
-import { Baby, BookOpen, Ruler, Palette } from 'lucide-react';
+import { BookOpen, Palette } from 'lucide-react';
 
 function App() {
   return (
