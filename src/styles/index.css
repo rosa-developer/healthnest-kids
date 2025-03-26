@@ -79,6 +79,37 @@ body {
   margin-bottom: 5px;
 }
 
+/* Learning category colors */
+.letters-bg {
+  background-color: #d4e4ff; /* Light blue */
+}
+
+.numbers-bg {
+  background-color: #ffd4d4; /* Light red */
+}
+
+.colors-bg {
+  background-color: #d4ffdd; /* Light green */
+}
+
+.shapes-bg {
+  background-color: #fff4d4; /* Light yellow */
+}
+
+/* Animation utilities */
+.bounce-element {
+  animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
 @import './base.css';
 @import './layout.css';
 @import './components.css';
