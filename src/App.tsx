@@ -1,7 +1,7 @@
 
 import React from 'react';
 import './index.css';
-import { Baby, BookABC, Ruler, Palette } from 'lucide-react';
+import { Baby, BookOpen, Ruler, Palette } from 'lucide-react';
 
 function App() {
   return (
@@ -26,7 +26,7 @@ function App() {
             <h3 className="text-xl font-bold text-blue-600 mb-2">Letters</h3>
             <p className="text-gray-700 text-sm mb-3">Learn the alphabet</p>
             <div className="flex justify-center">
-              <BookABC className="w-16 h-16 text-blue-500" />
+              <BookOpen className="w-16 h-16 text-blue-500" />
             </div>
           </div>
           
