@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import './index.css';
 import { BookOpen, Palette, Baby, Heart, Ruler, Home } from 'lucide-react';
+import ProfileSelector from './components/ProfileSelector';
 
 function App() {
   const [activeSection, setActiveSection] = useState('home');
@@ -126,8 +127,9 @@ function App() {
 
   return (
     <div className="min-h-screen bg-primary-yellow p-5 pb-24">
-      <header className="kid-header">
-        <h1 className="text-3xl font-bold">Baby Growth Tracker</h1>
+      <header className="kid-header flex flex-col md:flex-row justify-between items-center">
+        <h1 className="text-3xl font-bold mb-2 md:mb-0">Baby Growth Tracker</h1>
+        <ProfileSelector />
       </header>
       
       <main className="space-y-6">
