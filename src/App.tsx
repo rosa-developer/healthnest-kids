@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import './index.css';
 import { BookOpen, Palette, Baby, Heart, Ruler, Home } from 'lucide-react';
 import ProfileSelector from './components/ProfileSelector';
+import BabyAdviceSection from './components/wordpress/BabyAdviceSection';
 
 function App() {
   const [activeSection, setActiveSection] = useState('home');
@@ -108,6 +109,9 @@ function App() {
                 </div>
               </div>
             </div>
+            
+            {/* WordPress Baby Growth Advice */}
+            <BabyAdviceSection />
             
             {/* Daily Growth */}
             <section className="kid-card bg-orange-100">
