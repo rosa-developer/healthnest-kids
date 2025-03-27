@@ -4,6 +4,7 @@ import './index.css';
 import { BookOpen, Palette, Baby, Heart, Ruler, Home } from 'lucide-react';
 import ProfileSelector from './components/ProfileSelector';
 import BabyAdviceSection from './components/wordpress/BabyAdviceSection';
+import GrowthPage from './components/growth/GrowthPage';
 
 function App() {
   const [activeSection, setActiveSection] = useState('home');
@@ -11,18 +12,7 @@ function App() {
   const renderContent = () => {
     switch(activeSection) {
       case 'growth':
-        return (
-          <section className="kid-card bg-blue-100">
-            <h2 className="text-2xl font-bold text-blue-600 mb-3">Growth Tracking</h2>
-            <p className="text-gray-700 mb-4">Record your baby's height, weight, and other growth measurements.</p>
-            <div className="flex justify-center mb-4">
-              <Ruler className="w-24 h-24 text-blue-500" />
-            </div>
-            <button className="kid-button bg-blue-500 hover:bg-blue-600">
-              Record Growth
-            </button>
-          </section>
-        );
+        return <GrowthPage />;
       case 'milestones':
         return (
           <section className="kid-card bg-red-100">
