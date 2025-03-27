@@ -29,17 +29,22 @@ const BabyAdviceCard: React.FC<BabyAdviceCardProps> = ({
   // Remove HTML tags from excerpt
   const cleanExcerpt = excerpt.replace(/<\/?[^>]+(>|$)/g, "");
   
+  // Default image if none provided
+  const displayImage = imageUrl || '/lovable-uploads/40981d4d-5381-44c9-a78f-c22d7a65cdcf.png';
+  
   return (
     <Card className="h-full flex flex-col hover:shadow-md transition-shadow duration-300">
-      {imageUrl && (
-        <div className="h-40 overflow-hidden rounded-t-lg">
-          <img 
-            src={imageUrl} 
-            alt={title} 
-            className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
-          />
-        </div>
-      )}
+      <div className="h-40 overflow-hidden rounded-t-lg">
+        <img 
+          src={displayImage} 
+          alt={title} 
+          className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+          onError={(e) => {
+            // Fallback image if the provided URL fails to load
+            (e.target as HTMLImageElement).src = '/lovable-uploads/40981d4d-5381-44c9-a78f-c22d7a65cdcf.png';
+          }}
+        />
+      </div>
       <CardHeader className="pb-2">
         <CardTitle className="text-lg font-semibold line-clamp-2">{title}</CardTitle>
         <CardDescription className="text-xs">{formattedDate}</CardDescription>

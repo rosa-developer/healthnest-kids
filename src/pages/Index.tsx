@@ -2,23 +2,28 @@
 import React, { useState, useEffect } from 'react';
 import PageTransition from '@/components/common/PageTransition';
 import { useChildProfile } from '@/contexts/ChildProfileContext';
-import { useToast } from "@/components/ui/use-toast";
+import { useToast } from "@/hooks/use-toast";
 import WelcomeSection from '@/components/home/WelcomeSection';
 import LoadingState from '@/components/home/LoadingState';
 import ErrorState from '@/components/home/ErrorState';
 import DashboardContent from '@/components/home/DashboardContent';
+import { getConnectionStatus } from '@/lib/firebase';
 
 const Index = () => {
   const { activeProfile, isLoading: profileLoading, error: profileError } = useChildProfile();
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const { toast } = useToast();
-  const [dbStatus, setDbStatus] = useState<'connecting' | 'connected' | 'error'>('connecting');
+  const [dbStatus, setDbStatus] = useState<'connecting' | 'connected' | 'error'>(getConnectionStatus());
 
-  // Simulate data loading and handle potential errors
+  // Monitor Firebase connection status and profile loading
   useEffect(() => {
     const loadDashboard = async () => {
       try {
+        // Check Firebase connection
+        const connectionStatus = getConnectionStatus();
+        setDbStatus(connectionStatus);
+        
         // Simulate API/data loading time
         await new Promise(resolve => setTimeout(resolve, 500));
         
@@ -32,14 +37,18 @@ const Index = () => {
           });
         }
         
-        // Update database connection status
-        if (profileError && profileError.includes('MongoDB')) {
-          setDbStatus('error');
-        } else {
-          setDbStatus('connected');
+        // Update database connection status based on Firebase status
+        if (connectionStatus === 'error') {
+          toast({
+            variant: "destructive",
+            title: "Database Error",
+            description: "Using fallback data - changes won't be saved",
+            duration: 5000,
+          });
+        } else if (connectionStatus === 'connected') {
           toast({
             title: "Database connected",
-            description: "MongoDB connection established",
+            description: "Firebase connection established",
             duration: 3000,
           });
         }
@@ -61,10 +70,16 @@ const Index = () => {
 
     loadDashboard();
     
+    const checkConnectionInterval = setInterval(() => {
+      const currentStatus = getConnectionStatus();
+      if (currentStatus !== dbStatus) {
+        setDbStatus(currentStatus);
+      }
+    }, 5000);
+    
     // Cleanup function
     return () => {
-      // Cancel any pending operations if component unmounts
-      setIsLoading(false);
+      clearInterval(checkConnectionInterval);
     };
   }, [activeProfile, toast, profileError]);
 

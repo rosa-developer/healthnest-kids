@@ -27,7 +27,7 @@ const DatabaseStatus = ({ status }: DatabaseStatusProps) => {
       <span className="text-muted-foreground mx-2">|</span>
       <div className="flex items-center gap-2">
         <Shield className="h-4 w-4 text-muted-foreground" />
-        <span className="text-sm text-muted-foreground">Data Secured</span>
+        <span className="text-sm text-muted-foreground">Real-time Sync Active</span>
       </div>
     </div>
   );
