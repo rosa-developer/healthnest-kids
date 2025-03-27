@@ -70,7 +70,10 @@ function App() {
             <section className="kid-card">
               <h2 className="text-2xl font-bold text-primary-purple mb-3">Welcome to Baby Growth Tracker!</h2>
               <p className="text-gray-700 mb-4">Track your baby's growth, milestones, and memories in one place.</p>
-              <button className="kid-button">
+              <button 
+                className="kid-button"
+                onClick={() => setActiveSection('growth')} // Navigate to growth tracking section
+              >
                 Start Tracking
               </button>
             </section>
