@@ -1,10 +1,11 @@
 
 import React, { useState } from 'react';
 import './index.css';
-import { BookOpen, Palette, Baby, Heart, Ruler, Home } from 'lucide-react';
+import { BookOpen, Palette, Baby, Heart, Ruler, Home, Settings } from 'lucide-react';
 import ProfileSelector from './components/ProfileSelector';
 import BabyAdviceSection from './components/wordpress/BabyAdviceSection';
 import GrowthPage from './components/growth/GrowthPage';
+import WordPressSettings from './components/wordpress/WordPressSettings';
 
 function App() {
   const [activeSection, setActiveSection] = useState('home');
@@ -13,6 +14,8 @@ function App() {
     switch(activeSection) {
       case 'growth':
         return <GrowthPage />;
+      case 'settings':
+        return <WordPressSettings />;
       case 'milestones':
         return (
           <section className="kid-card bg-red-100">
@@ -173,6 +176,14 @@ function App() {
         >
           <BookOpen className={`w-8 h-8 ${activeSection === 'learning' ? 'text-yellow-600' : 'text-yellow-400'}`} />
           <span className="text-xs mt-1">Learning</span>
+        </button>
+        
+        <button 
+          className={`kid-nav-button ${activeSection === 'settings' ? 'bg-gray-200' : 'bg-gray-100'}`}
+          onClick={() => setActiveSection('settings')}
+        >
+          <Settings className={`w-8 h-8 ${activeSection === 'settings' ? 'text-gray-600' : 'text-gray-400'}`} />
+          <span className="text-xs mt-1">Settings</span>
         </button>
       </nav>
     </div>

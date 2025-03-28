@@ -4,8 +4,10 @@
  * Provides functions to interact with a WordPress site via the REST API
  */
 
-// Base WordPress API URL - replace with your WordPress site URL
-const WP_API_URL = "https://yourdomain.com/wp-json/wp/v2";
+// Get WordPress API URL from localStorage or use a demo URL
+const getWordPressApiUrl = () => {
+  return localStorage.getItem('wp_api_url') || process.env.WORDPRESS_API_URL || "https://demo.wp-api.org/wp-json/wp/v2";
+};
 
 /**
  * Fetch posts from WordPress
@@ -20,7 +22,7 @@ export const getPosts = async (options: {
 } = {}) => {
   const { page = 1, per_page = 10, categories, search } = options;
   
-  let url = `${WP_API_URL}/posts?_embed&page=${page}&per_page=${per_page}`;
+  let url = `${getWordPressApiUrl()}/posts?_embed&page=${page}&per_page=${per_page}`;
   
   if (categories && categories.length > 0) {
     url += `&categories=${categories.join(',')}`;
@@ -55,7 +57,7 @@ export const getPosts = async (options: {
  */
 export const getPost = async (id: number) => {
   try {
-    const response = await fetch(`${WP_API_URL}/posts/${id}?_embed`);
+    const response = await fetch(`${getWordPressApiUrl()}/posts/${id}?_embed`);
     
     if (!response.ok) {
       throw new Error(`WordPress API error: ${response.status}`);
@@ -74,7 +76,7 @@ export const getPost = async (id: number) => {
  */
 export const getCategories = async () => {
   try {
-    const response = await fetch(`${WP_API_URL}/categories`);
+    const response = await fetch(`${getWordPressApiUrl()}/categories`);
     
     if (!response.ok) {
       throw new Error(`WordPress API error: ${response.status}`);

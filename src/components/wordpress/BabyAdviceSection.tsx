@@ -3,17 +3,47 @@ import React from 'react';
 import { useBabyGrowthAdvice } from '@/hooks/useWordPress';
 import BabyAdviceCard from './BabyAdviceCard';
 import { Skeleton } from "@/components/ui/skeleton";
+import { Button } from "@/components/ui/button";
+import { Settings } from 'lucide-react';
+import { useToast } from "@/hooks/use-toast";
 
 const BabyAdviceSection: React.FC = () => {
   const { advice, isLoading, error } = useBabyGrowthAdvice();
+  const { toast } = useToast();
+  
+  const handleConfigureWordPress = () => {
+    // Open WordPress settings or navigate to settings page
+    const currentUrl = window.location.href;
+    // Store the current URL to return after configuration
+    localStorage.setItem('redirect_after_wp_config', currentUrl);
+    
+    // Show configuration instructions as a toast for now
+    toast({
+      title: "WordPress Configuration",
+      description: "Please configure your WordPress API URL in the settings.",
+      duration: 5000,
+    });
+    
+    // Redirect to WordPress settings component
+    const baseUrl = window.location.origin;
+    window.location.href = `${baseUrl}/settings`;
+  };
   
   if (error) {
     return (
       <div className="rounded-lg bg-red-50 p-4 border border-red-200">
         <h3 className="text-xl font-bold text-red-600 mb-2">Unable to load advice</h3>
-        <p className="text-gray-700">
-          We're having trouble connecting to our WordPress content. Please try again later.
+        <p className="text-gray-700 mb-4">
+          We're having trouble connecting to our WordPress content. This could be because the WordPress site URL is not configured correctly.
         </p>
+        <Button 
+          variant="outline" 
+          onClick={handleConfigureWordPress}
+          className="flex items-center gap-2"
+        >
+          <Settings className="h-4 w-4" />
+          Configure WordPress
+        </Button>
       </div>
     );
   }
