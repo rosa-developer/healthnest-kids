@@ -4,7 +4,7 @@ import { useBabyGrowthAdvice } from '@/hooks/useWordPress';
 import BabyAdviceCard from './BabyAdviceCard';
 import { Skeleton } from "@/components/ui/skeleton";
 import { Button } from "@/components/ui/button";
-import { Settings } from 'lucide-react';
+import { Settings, Globe } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
 
 const BabyAdviceSection: React.FC = () => {
@@ -12,21 +12,19 @@ const BabyAdviceSection: React.FC = () => {
   const { toast } = useToast();
   
   const handleConfigureWordPress = () => {
-    // Open WordPress settings or navigate to settings page
-    const currentUrl = window.location.href;
     // Store the current URL to return after configuration
+    const currentUrl = window.location.href;
     localStorage.setItem('redirect_after_wp_config', currentUrl);
     
-    // Show configuration instructions as a toast for now
+    // Show configuration toast
     toast({
       title: "WordPress Configuration",
-      description: "Please configure your WordPress API URL in the settings.",
-      duration: 5000,
+      description: "Let's set up your WordPress connection for baby advice content.",
+      duration: 3000,
     });
     
-    // Redirect to WordPress settings component
-    const baseUrl = window.location.origin;
-    window.location.href = `${baseUrl}/settings`;
+    // Navigate to settings section
+    window.location.href = `${window.location.origin}/?configure=wordpress`;
   };
   
   if (error) {
@@ -41,7 +39,7 @@ const BabyAdviceSection: React.FC = () => {
           onClick={handleConfigureWordPress}
           className="flex items-center gap-2"
         >
-          <Settings className="h-4 w-4" />
+          <Globe className="h-4 w-4" />
           Configure WordPress
         </Button>
       </div>
@@ -50,7 +48,17 @@ const BabyAdviceSection: React.FC = () => {
   
   return (
     <section className="mt-6">
-      <h2 className="text-2xl font-bold text-primary-purple mb-4">Growth & Development Tips</h2>
+      <div className="flex justify-between items-center mb-4">
+        <h2 className="text-2xl font-bold text-primary-purple">Growth & Development Tips</h2>
+        <Button 
+          variant="ghost" 
+          size="sm" 
+          onClick={handleConfigureWordPress}
+          className="text-gray-500 hover:text-primary-purple"
+        >
+          <Settings className="h-4 w-4" />
+        </Button>
+      </div>
       
       {isLoading ? (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -83,9 +91,18 @@ const BabyAdviceSection: React.FC = () => {
       
       {!isLoading && advice.length === 0 && (
         <div className="bg-yellow-50 rounded-lg p-4 border border-yellow-200">
-          <p className="text-yellow-700">
+          <p className="text-yellow-700 mb-3">
             No baby growth advice articles found. Please make sure you have posts with the appropriate category in your WordPress site.
           </p>
+          <Button 
+            variant="outline" 
+            size="sm"
+            onClick={handleConfigureWordPress}
+            className="flex items-center gap-2"
+          >
+            <Settings className="h-4 w-4" />
+            Configure WordPress
+          </Button>
         </div>
       )}
     </section>

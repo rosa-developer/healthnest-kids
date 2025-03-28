@@ -6,7 +6,14 @@
 
 // Get WordPress API URL from localStorage or use a demo URL
 const getWordPressApiUrl = () => {
-  return localStorage.getItem('wp_api_url') || process.env.WORDPRESS_API_URL || "https://demo.wp-api.org/wp-json/wp/v2";
+  const storedUrl = localStorage.getItem('wp_api_url');
+  if (storedUrl) {
+    // Remove trailing slash if present
+    return storedUrl.replace(/\/$/, '');
+  }
+  
+  // Fallback to environment variable or demo URL
+  return process.env.WORDPRESS_API_URL || "https://demo.wp-api.org";
 };
 
 /**
@@ -22,7 +29,7 @@ export const getPosts = async (options: {
 } = {}) => {
   const { page = 1, per_page = 10, categories, search } = options;
   
-  let url = `${getWordPressApiUrl()}/posts?_embed&page=${page}&per_page=${per_page}`;
+  let url = `${getWordPressApiUrl()}/wp-json/wp/v2/posts?_embed&page=${page}&per_page=${per_page}`;
   
   if (categories && categories.length > 0) {
     url += `&categories=${categories.join(',')}`;
@@ -98,4 +105,3 @@ export const getBabyGrowthAdvice = async () => {
   // Assuming category ID 5 is for "Baby Growth Advice" - change as needed
   return getPosts({ categories: [5], per_page: 5 });
 };
-

@@ -1,7 +1,7 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './index.css';
-import { BookOpen, Palette, Baby, Heart, Ruler, Home, Settings } from 'lucide-react';
+import { BookOpen, Palette, Baby, Heart, Ruler, Home, Settings, Globe } from 'lucide-react';
 import ProfileSelector from './components/ProfileSelector';
 import BabyAdviceSection from './components/wordpress/BabyAdviceSection';
 import GrowthPage from './components/growth/GrowthPage';
@@ -9,6 +9,14 @@ import WordPressSettings from './components/wordpress/WordPressSettings';
 
 function App() {
   const [activeSection, setActiveSection] = useState('home');
+  
+  // Check if redirected from advice section for WordPress configuration
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('configure') === 'wordpress') {
+      setActiveSection('settings');
+    }
+  }, []);
   
   const renderContent = () => {
     switch(activeSection) {
@@ -129,7 +137,16 @@ function App() {
     <div className="min-h-screen bg-primary-yellow p-5 pb-24">
       <header className="kid-header flex flex-col md:flex-row justify-between items-center">
         <h1 className="text-3xl font-bold mb-2 md:mb-0">Baby Growth Tracker</h1>
-        <ProfileSelector />
+        <div className="flex items-center gap-4">
+          <button 
+            onClick={() => setActiveSection('settings')}
+            className="flex items-center gap-1 text-sm font-medium text-primary-purple hover:text-primary-purple/80 transition-colors"
+          >
+            <Globe className="w-4 h-4" />
+            Configure WordPress
+          </button>
+          <ProfileSelector />
+        </div>
       </header>
       
       <main className="space-y-6">
