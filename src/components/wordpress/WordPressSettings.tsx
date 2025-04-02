@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -5,14 +6,12 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Check, AlertTriangle, Globe, ArrowLeft } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
-import { useNavigate } from 'react-router-dom';
 
 const WordPressSettings: React.FC = () => {
   const [wpUrl, setWpUrl] = useState<string>(localStorage.getItem('wp_api_url') || '');
   const [testStatus, setTestStatus] = useState<'idle' | 'testing' | 'success' | 'error'>('idle');
   const [errorMessage, setErrorMessage] = useState<string>('');
   const { toast } = useToast();
-  const navigate = useNavigate();
   
   // Check if we were redirected from another page
   useEffect(() => {
@@ -32,7 +31,8 @@ const WordPressSettings: React.FC = () => {
       window.location.href = redirectUrl;
       localStorage.removeItem('redirect_after_wp_config');
     } else {
-      navigate('/');
+      // Use window.history instead of navigate
+      window.history.back();
     }
   };
   

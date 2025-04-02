@@ -1,4 +1,6 @@
+
 import React, { useState, useEffect } from 'react';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import './index.css';
 import { BookOpen, Palette, Baby, Heart, Ruler, Home, Settings, Globe } from 'lucide-react';
 import ProfileSelector from './components/ProfileSelector';
@@ -8,6 +10,7 @@ import WordPressSettings from './components/wordpress/WordPressSettings';
 
 function App() {
   const [activeSection, setActiveSection] = useState('home');
+  const location = useLocation();
   
   // Check if redirected from advice section for WordPress configuration
   useEffect(() => {
@@ -149,7 +152,10 @@ function App() {
       </header>
       
       <main className="space-y-6">
-        {renderContent()}
+        <Routes>
+          <Route path="/settings" element={<WordPressSettings />} />
+          <Route path="*" element={renderContent()} />
+        </Routes>
       </main>
       
       {/* Navigation Footer */}

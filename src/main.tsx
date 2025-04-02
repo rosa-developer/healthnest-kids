@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { createRoot } from 'react-dom/client';
+import { BrowserRouter } from 'react-router-dom';
 import App from './App';
 import './index.css';
 import { ChildProfileProvider } from './contexts/ChildProfileContext';
@@ -9,8 +10,10 @@ import { ChildProfileProvider } from './contexts/ChildProfileContext';
 const root = createRoot(document.getElementById('root')!);
 root.render(
   <React.StrictMode>
-    <ChildProfileProvider>
-      <App />
-    </ChildProfileProvider>
+    <BrowserRouter>
+      <ChildProfileProvider>
+        <App />
+      </ChildProfileProvider>
+    </BrowserRouter>
   </React.StrictMode>
 );
