@@ -64,7 +64,7 @@ export const getPosts = async (options: {
  */
 export const getPost = async (id: number) => {
   try {
-    const response = await fetch(`${getWordPressApiUrl()}/posts/${id}?_embed`);
+    const response = await fetch(`${getWordPressApiUrl()}/wp-json/wp/v2/posts/${id}?_embed`);
     
     if (!response.ok) {
       throw new Error(`WordPress API error: ${response.status}`);
@@ -83,7 +83,7 @@ export const getPost = async (id: number) => {
  */
 export const getCategories = async () => {
   try {
-    const response = await fetch(`${getWordPressApiUrl()}/categories`);
+    const response = await fetch(`${getWordPressApiUrl()}/wp-json/wp/v2/categories`);
     
     if (!response.ok) {
       throw new Error(`WordPress API error: ${response.status}`);
