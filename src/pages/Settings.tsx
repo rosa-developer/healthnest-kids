@@ -5,12 +5,10 @@ import { Card } from "@/components/ui/card";
 import { Settings as SettingsIcon, User, Bell, Shield, Cog, LogOut } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
-import { useNavigate } from 'react-router-dom';
 import { Separator } from "@/components/ui/separator";
 
 const Settings = () => {
   const { toast } = useToast();
-  const navigate = useNavigate();
   
   const handleAction = (action: string) => {
     toast({
@@ -25,7 +23,7 @@ const Settings = () => {
       description: "You have been logged out successfully!",
     });
     setTimeout(() => {
-      navigate('/');
+      window.location.href = '/';
     }, 1500);
   };
 

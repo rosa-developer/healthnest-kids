@@ -7,6 +7,7 @@ import ProfileSelector from './components/ProfileSelector';
 import BabyAdviceSection from './components/wordpress/BabyAdviceSection';
 import GrowthPage from './components/growth/GrowthPage';
 import WordPressSettings from './components/wordpress/WordPressSettings';
+import SettingsPage from './pages/Settings';
 
 function App() {
   const [activeSection, setActiveSection] = useState('home');
@@ -153,7 +154,8 @@ function App() {
       
       <main className="space-y-6">
         <Routes>
-          <Route path="/settings" element={<WordPressSettings />} />
+          <Route path="/settings" element={<SettingsPage />} />
+          <Route path="/wordpress-settings" element={<WordPressSettings />} />
           <Route path="*" element={renderContent()} />
         </Routes>
       </main>
@@ -202,7 +204,10 @@ function App() {
         
         <button 
           className={`kid-nav-button ${activeSection === 'settings' ? 'bg-gray-200' : 'bg-gray-100'}`}
-          onClick={() => setActiveSection('settings')}
+          onClick={() => {
+            setActiveSection('settings');
+            window.location.href = '/settings';
+          }}
         >
           <Settings className={`w-8 h-8 ${activeSection === 'settings' ? 'text-gray-600' : 'text-gray-400'}`} />
           <span className="text-xs mt-1">Settings</span>
