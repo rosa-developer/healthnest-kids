@@ -1,47 +1,27 @@
 
-import React, { useState } from 'react';
+import React from 'react';
 import { Baby, Plus, Check } from 'lucide-react';
-
-interface BabyProfile {
-  id: string;
-  name: string;
-  age: string;
-  isActive: boolean;
-}
+import { useChildProfile } from '../contexts/ChildProfileContext';
 
 const ProfileSelector: React.FC = () => {
-  const [profiles, setProfiles] = useState<BabyProfile[]>([
-    { id: '1', name: 'Emma', age: '8 months', isActive: true },
-    { id: '2', name: 'Noah', age: '2 years', isActive: false },
-    { id: '3', name: 'Oliver', age: 'Pregnancy (24 weeks)', isActive: false }
-  ]);
+  const { profiles, activeProfile, switchProfile, addProfile } = useChildProfile();
+  const [showProfileMenu, setShowProfileMenu] = React.useState(false);
+  const [showAddForm, setShowAddForm] = React.useState(false);
+  const [newBabyName, setNewBabyName] = React.useState('');
+  const [newBabyAge, setNewBabyAge] = React.useState('');
   
-  const [showProfileMenu, setShowProfileMenu] = useState(false);
-  const [showAddForm, setShowAddForm] = useState(false);
-  const [newBabyName, setNewBabyName] = useState('');
-  const [newBabyAge, setNewBabyAge] = useState('');
-  
-  const activeProfile = profiles.find(p => p.isActive) || profiles[0];
+  // If no active profile is found, use the first profile or show a default
+  const displayProfile = activeProfile || profiles[0] || { name: 'Add Profile', age: '' };
   
   const handleProfileChange = (profileId: string) => {
-    setProfiles(profiles.map(profile => ({
-      ...profile,
-      isActive: profile.id === profileId
-    })));
+    switchProfile(profileId);
     setShowProfileMenu(false);
   };
   
   const handleAddProfile = () => {
     if (newBabyName.trim() === '') return;
     
-    const newProfile: BabyProfile = {
-      id: Date.now().toString(),
-      name: newBabyName,
-      age: newBabyAge || 'Newborn',
-      isActive: false
-    };
-    
-    setProfiles([...profiles, newProfile]);
+    addProfile(newBabyName);
     setNewBabyName('');
     setNewBabyAge('');
     setShowAddForm(false);
@@ -56,7 +36,7 @@ const ProfileSelector: React.FC = () => {
         <div className="h-8 w-8 rounded-full bg-primary-purple/10 flex items-center justify-center">
           <Baby className="h-5 w-5 text-primary-purple" />
         </div>
-        <span className="font-medium">{activeProfile.name}</span>
+        <span className="font-medium">{displayProfile.name}</span>
       </button>
       
       {showProfileMenu && (

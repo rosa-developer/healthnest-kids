@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import './index.css';
 import { BookOpen, Palette, Baby, Heart, Ruler, Home, Settings, Globe } from 'lucide-react';
