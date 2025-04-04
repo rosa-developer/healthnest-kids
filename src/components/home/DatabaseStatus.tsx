@@ -12,9 +12,9 @@ const DatabaseStatus = ({ status }: DatabaseStatusProps) => {
     <div className="mt-4 flex flex-wrap items-center gap-4">
       <div className={cn(
         "flex items-center gap-2 rounded-full px-3 py-1.5 text-xs font-medium shadow-sm",
-        status === 'connected' && "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400 border border-green-200 dark:border-green-800/30",
-        status === 'connecting' && "bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400 border border-amber-200 dark:border-amber-800/30",
-        status === 'error' && "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400 border border-red-200 dark:border-red-800/30"
+        status === 'connected' && "bg-primary-green/20 text-primary-green dark:bg-primary-green/30 dark:text-primary-green border border-primary-green/30",
+        status === 'connecting' && "bg-primary-orange/20 text-primary-orange dark:bg-primary-orange/30 dark:text-primary-orange border border-primary-orange/30",
+        status === 'error' && "bg-primary-pink/20 text-primary-pink dark:bg-primary-pink/30 dark:text-primary-pink border border-primary-pink/30"
       )}>
         <Database className="h-3.5 w-3.5" />
         <span>
@@ -39,7 +39,7 @@ const DatabaseStatus = ({ status }: DatabaseStatusProps) => {
         </span>
       </div>
       
-      <div className="flex items-center gap-2 rounded-full bg-primary-purple/10 text-primary-purple px-3 py-1.5 text-xs font-medium border border-primary-purple/20 shadow-sm dark:bg-primary-purple/5 dark:border-primary-purple/10">
+      <div className="flex items-center gap-2 rounded-full bg-primary-blue/20 text-primary-blue px-3 py-1.5 text-xs font-medium border border-primary-blue/30 shadow-sm dark:bg-primary-blue/30 dark:border-primary-blue/40">
         <Shield className="h-3.5 w-3.5" />
         <span>Real-time Sync</span>
       </div>
