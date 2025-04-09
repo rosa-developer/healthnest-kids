@@ -30,7 +30,7 @@ export const useGrowthRecords = (childId: string) => {
             const recordsSnapshot = await getDocs(recordsCollection);
             
             if (!recordsSnapshot.empty) {
-              const fetchedRecords = recordsSnapshot.docs.map((doc: DocumentData) => ({
+              const fetchedRecords = recordsSnapshot.docs.map((doc) => ({
                 id: doc.id,
                 ...doc.data(),
                 date: doc.data().date.toDate() // Convert Firestore timestamp to JS Date

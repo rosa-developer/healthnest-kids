@@ -15,7 +15,7 @@ import {
   orderBy,
   limit,
   Firestore,
-  DocumentData,
+  DocumentData as FirestoreDocumentData,
   CollectionReference,
   DocumentReference
 } from 'firebase/firestore';
@@ -95,7 +95,7 @@ setTimeout(() => {
 const getConnectionStatus = () => connectionStatus;
 
 // Type-safe collection helper function
-const safeCollection = (path: string): CollectionReference<DocumentData> => {
+const safeCollection = (path: string): CollectionReference<FirestoreDocumentData> => {
   if (!db) {
     throw new Error('Firestore not initialized');
   }
@@ -103,12 +103,15 @@ const safeCollection = (path: string): CollectionReference<DocumentData> => {
 };
 
 // Type-safe document helper function
-const safeDoc = (path: string, ...pathSegments: string[]): DocumentReference<DocumentData> => {
+const safeDoc = (path: string, ...pathSegments: string[]): DocumentReference<FirestoreDocumentData> => {
   if (!db) {
     throw new Error('Firestore not initialized');
   }
   return doc(db, path, ...pathSegments);
 };
+
+// Re-export types for other files to use
+type DocumentData = FirestoreDocumentData;
 
 export { 
   app, 
