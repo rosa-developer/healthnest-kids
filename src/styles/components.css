@@ -1,7 +1,8 @@
+
 @layer components {
   .chip {
     @apply inline-flex items-center px-3.5 py-1.5 rounded-full text-sm font-medium 
-           bg-primary/20 text-primary/80 transition-all duration-300 hover:bg-primary/30;
+           bg-primary/20 text-primary transition-all duration-300 hover:bg-primary/30;
   }
 
   .card-hover {
@@ -153,6 +154,63 @@
     @apply text-sm text-muted-foreground;
   }
 
+  /* Modern UI additions */
+  .modern-input-group {
+    @apply relative flex items-center w-full;
+  }
+  
+  .modern-input-icon {
+    @apply absolute left-3 text-muted-foreground pointer-events-none;
+  }
+  
+  .modern-search-input {
+    @apply pl-10 pr-12 py-2 rounded-lg border border-border/50 w-full;
+  }
+  
+  .modern-chip {
+    @apply inline-flex items-center px-3 py-1.5 text-xs font-medium rounded-full
+           border border-border/50 transition-all duration-300;
+  }
+  
+  .card-badge {
+    @apply absolute top-3 right-3 px-2.5 py-1 text-xs font-semibold rounded-full;
+  }
+  
+  .modern-avatar {
+    @apply h-10 w-10 rounded-full flex items-center justify-center bg-primary/10 text-primary font-medium;
+  }
+
+  .modern-tabs {
+    @apply flex space-x-2 p-1 bg-background/80 backdrop-blur-sm rounded-full border border-border/20;
+  }
+  
+  .modern-tabs-item {
+    @apply px-4 py-2 rounded-full text-sm font-medium transition-all duration-300;
+  }
+  
+  .modern-tabs-item-active {
+    @apply bg-white text-primary shadow-sm;
+  }
+  
+  .blur-backdrop {
+    @apply backdrop-blur-md bg-white/60 dark:bg-black/40 border border-white/20 dark:border-white/5;
+  }
+  
+  .gradient-border {
+    @apply border border-transparent bg-origin-border bg-clip-padding;
+    background-image: linear-gradient(to right, #fff, #fff), 
+                      linear-gradient(to right, rgba(156, 163, 175, 0.2), rgba(156, 163, 175, 0.4), rgba(156, 163, 175, 0.2));
+    background-clip: padding-box, border-box;
+  }
+  
+  .animate-on-scroll {
+    @apply opacity-0 translate-y-4 transition-all duration-700;
+  }
+  
+  .animate-on-scroll.in-view {
+    @apply opacity-100 translate-y-0;
+  }
+  
   .bg-grid-white\/10 {
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Cpath opacity='.5' d='M96 95h4v1h-4v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9zm-1 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9z'/%3E%3Cpath d='M6 5V0H5v5H0v1h5v94h1V6h94V5H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
   }

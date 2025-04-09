@@ -23,7 +23,7 @@
   }
   
   .glass-panel {
-    @apply bg-white/90 backdrop-blur-lg border border-white/30 shadow-lg rounded-2xl p-6 md:p-8 transition-all duration-300 hover:shadow-xl;
+    @apply bg-white/90 backdrop-blur-lg border border-white/30 shadow-lg rounded-2xl p-6 md:p-8 transition-all duration-300 hover:shadow-xl dark:bg-black/20 dark:border-white/10;
   }
   
   .glass-panel-dark {
@@ -104,5 +104,40 @@
     @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8;
   }
   
-  /* ... keep existing code */
+  /* Modern UI components */
+  .modern-card {
+    @apply rounded-xl border border-border/50 bg-white dark:bg-gray-900 shadow-sm transition-all duration-300;
+  }
+  
+  .modern-card-hover {
+    @apply hover:shadow-md hover:-translate-y-1;
+  }
+  
+  .modern-header {
+    @apply bg-gradient-to-br from-primary/10 to-transparent py-12 rounded-xl mb-8;
+  }
+  
+  .modern-container {
+    @apply max-w-5xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+  
+  .modern-section {
+    @apply py-12;
+  }
+  
+  .modern-button {
+    @apply rounded-xl px-6 py-2.5 font-medium transition-all duration-300;
+  }
+  
+  .modern-input {
+    @apply rounded-xl border-border bg-white/50 dark:bg-black/20 backdrop-blur-sm;
+  }
+  
+  .modern-input-container {
+    @apply relative rounded-xl overflow-hidden;
+  }
+  
+  .modern-divider {
+    @apply h-px w-full bg-gradient-to-r from-transparent via-border to-transparent my-8;
+  }
 }

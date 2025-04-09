@@ -5,7 +5,7 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/componen
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Search, ArrowRight, Brain, Baby, Heart, Moon, Apple, Calendar } from 'lucide-react';
+import { Search, ArrowRight, Brain, Baby, Heart, Moon, Apple, Calendar, Sparkles } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
 
 const Advice = () => {
@@ -29,58 +29,67 @@ const Advice = () => {
   return (
     <div className="main-container">
       <PageTransition>
-        <section className="mb-6">
-          <div className="chip bg-healthnest-soft-blue text-healthnest-primary mb-4">
-            Advice for 8-Month-Olds
+        <section className="mb-8">
+          <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-6 mb-6">
+            <div className="flex-1">
+              <div className="chip bg-primary/20 text-primary mb-4 font-medium">
+                Advice for 8-Month-Olds
+              </div>
+              <div className="glass-panel bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 p-6 rounded-2xl mb-6 border border-blue-100 dark:border-blue-800/30">
+                <h2 className="text-xl font-semibold mb-3 flex items-center">
+                  <Sparkles className="h-5 w-5 mr-2 text-primary" />
+                  What to expect this month
+                </h2>
+                <p className="text-muted-foreground mb-4">
+                  Your baby is becoming more mobile and curious. They may be crawling, 
+                  pulling up to stand, and exploring their environment.
+                </p>
+                <Button 
+                  onClick={handleReadMore}
+                  className="bg-white text-primary hover:bg-white/90 dark:bg-white/10 dark:text-white dark:hover:bg-white/20 shadow-sm"
+                >
+                  Learn More <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
+              </div>
+            </div>
+            
+            <div className="flex-1 md:max-w-xs">
+              <form onSubmit={handleSearch} className="relative mb-0">
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                <Input
+                  placeholder="Search for parenting advice..."
+                  className="pl-10 bg-card border-border rounded-xl"
+                />
+                <Button type="submit" size="sm" className="absolute right-1 top-1/2 -translate-y-1/2 h-8 rounded-lg">
+                  Search
+                </Button>
+              </form>
+            </div>
           </div>
-          <div className="bg-gradient-to-br from-healthnest-soft-blue to-healthnest-light-blue p-6 rounded-2xl mb-6">
-            <h2 className="text-xl font-semibold mb-2">What to expect this month</h2>
-            <p className="text-muted-foreground mb-4">
-              Your baby is becoming more mobile and curious. They may be crawling, 
-              pulling up to stand, and exploring their environment.
-            </p>
-            <Button 
-              onClick={handleReadMore}
-              className="bg-white text-healthnest-primary hover:bg-white/90"
-            >
-              Learn More <ArrowRight className="ml-2 h-4 w-4" />
-            </Button>
-          </div>
-
-          <form onSubmit={handleSearch} className="relative mb-6">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-            <Input
-              placeholder="Search for parenting advice..."
-              className="pl-10 bg-card border-border"
-            />
-            <Button type="submit" className="absolute right-1 top-1/2 -translate-y-1/2 h-8">
-              Search
-            </Button>
-          </form>
         </section>
 
-        <Tabs defaultValue="development" className="mb-6">
-          <TabsList className="grid grid-cols-4 w-full bg-muted rounded-lg p-1">
-            <TabsTrigger value="development" className="rounded-md data-[state=active]:bg-white data-[state=active]:shadow-soft">
+        <Tabs defaultValue="development" className="mb-8">
+          <TabsList className="grid grid-cols-4 w-full bg-muted/50 rounded-xl p-1 mb-2">
+            <TabsTrigger value="development" className="rounded-lg data-[state=active]:bg-white data-[state=active]:shadow-sm">
               Development
             </TabsTrigger>
-            <TabsTrigger value="health" className="rounded-md data-[state=active]:bg-white data-[state=active]:shadow-soft">
+            <TabsTrigger value="health" className="rounded-lg data-[state=active]:bg-white data-[state=active]:shadow-sm">
               Health
             </TabsTrigger>
-            <TabsTrigger value="sleep" className="rounded-md data-[state=active]:bg-white data-[state=active]:shadow-soft">
+            <TabsTrigger value="sleep" className="rounded-lg data-[state=active]:bg-white data-[state=active]:shadow-sm">
               Sleep
             </TabsTrigger>
-            <TabsTrigger value="nutrition" className="rounded-md data-[state=active]:bg-white data-[state=active]:shadow-soft">
+            <TabsTrigger value="nutrition" className="rounded-lg data-[state=active]:bg-white data-[state=active]:shadow-sm">
               Nutrition
             </TabsTrigger>
           </TabsList>
 
-          <TabsContent value="development" className="mt-4 animate-fade-in">
-            <div className="space-y-4">
-              <Card className="border border-border shadow-soft overflow-hidden">
-                <CardHeader className="pb-2 bg-healthnest-soft-purple/50">
+          <TabsContent value="development" className="mt-6 animate-fade-in">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <Card className="border border-border shadow-soft overflow-hidden card-hover">
+                <CardHeader className="pb-2 bg-gradient-to-r from-purple-50/80 to-purple-50/20 dark:from-purple-900/20 dark:to-transparent">
                   <div className="flex items-start gap-3">
-                    <div className="h-10 w-10 rounded-full bg-white flex items-center justify-center">
+                    <div className="h-10 w-10 rounded-full bg-white flex items-center justify-center shadow-sm">
                       <Brain className="h-5 w-5 text-purple-500" />
                     </div>
                     <div>
@@ -114,11 +123,11 @@ const Advice = () => {
                 </CardFooter>
               </Card>
 
-              <Card className="border border-border shadow-soft overflow-hidden">
-                <CardHeader className="pb-2 bg-healthnest-soft-blue/50">
+              <Card className="border border-border shadow-soft overflow-hidden card-hover">
+                <CardHeader className="pb-2 bg-gradient-to-r from-blue-50/80 to-blue-50/20 dark:from-blue-900/20 dark:to-transparent">
                   <div className="flex items-start gap-3">
-                    <div className="h-10 w-10 rounded-full bg-white flex items-center justify-center">
-                      <Baby className="h-5 w-5 text-healthnest-primary" />
+                    <div className="h-10 w-10 rounded-full bg-white flex items-center justify-center shadow-sm">
+                      <Baby className="h-5 w-5 text-blue-500" />
                     </div>
                     <div>
                       <CardTitle className="text-lg">Motor Skills at 8 Months</CardTitle>
@@ -153,11 +162,11 @@ const Advice = () => {
             </div>
           </TabsContent>
 
-          <TabsContent value="health" className="mt-4 animate-fade-in">
-            <Card className="border border-border shadow-soft overflow-hidden">
-              <CardHeader className="pb-2 bg-healthnest-soft-pink/50">
+          <TabsContent value="health" className="mt-6 animate-fade-in">
+            <Card className="border border-border shadow-soft overflow-hidden card-hover">
+              <CardHeader className="pb-2 bg-gradient-to-r from-pink-50/80 to-pink-50/20 dark:from-pink-900/20 dark:to-transparent">
                 <div className="flex items-start gap-3">
-                  <div className="h-10 w-10 rounded-full bg-white flex items-center justify-center">
+                  <div className="h-10 w-10 rounded-full bg-white flex items-center justify-center shadow-sm">
                     <Heart className="h-5 w-5 text-pink-500" />
                   </div>
                   <div>
@@ -192,12 +201,12 @@ const Advice = () => {
             </Card>
           </TabsContent>
 
-          <TabsContent value="sleep" className="mt-4 animate-fade-in">
-            <Card className="border border-border shadow-soft overflow-hidden">
-              <CardHeader className="pb-2 bg-healthnest-soft-purple/50">
+          <TabsContent value="sleep" className="mt-6 animate-fade-in">
+            <Card className="border border-border shadow-soft overflow-hidden card-hover">
+              <CardHeader className="pb-2 bg-gradient-to-r from-indigo-50/80 to-indigo-50/20 dark:from-indigo-900/20 dark:to-transparent">
                 <div className="flex items-start gap-3">
-                  <div className="h-10 w-10 rounded-full bg-white flex items-center justify-center">
-                    <Moon className="h-5 w-5 text-purple-500" />
+                  <div className="h-10 w-10 rounded-full bg-white flex items-center justify-center shadow-sm">
+                    <Moon className="h-5 w-5 text-indigo-500" />
                   </div>
                   <div>
                     <CardTitle className="text-lg">Sleep Patterns at 8 Months</CardTitle>
@@ -231,11 +240,11 @@ const Advice = () => {
             </Card>
           </TabsContent>
 
-          <TabsContent value="nutrition" className="mt-4 animate-fade-in">
-            <Card className="border border-border shadow-soft overflow-hidden">
-              <CardHeader className="pb-2 bg-healthnest-soft-green/50">
+          <TabsContent value="nutrition" className="mt-6 animate-fade-in">
+            <Card className="border border-border shadow-soft overflow-hidden card-hover">
+              <CardHeader className="pb-2 bg-gradient-to-r from-green-50/80 to-green-50/20 dark:from-green-900/20 dark:to-transparent">
                 <div className="flex items-start gap-3">
-                  <div className="h-10 w-10 rounded-full bg-white flex items-center justify-center">
+                  <div className="h-10 w-10 rounded-full bg-white flex items-center justify-center shadow-sm">
                     <Apple className="h-5 w-5 text-green-500" />
                   </div>
                   <div>
@@ -271,60 +280,63 @@ const Advice = () => {
           </TabsContent>
         </Tabs>
 
-        <section>
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="text-xl font-semibold">Upcoming Milestones</h2>
-            <Button variant="link" className="text-healthnest-primary">
+        <section className="animate-fade-in">
+          <div className="flex items-center justify-between mb-6">
+            <h2 className="text-xl font-semibold flex items-center">
+              <Calendar className="h-5 w-5 mr-2 text-primary" />
+              Upcoming Milestones
+            </h2>
+            <Button variant="ghost" className="text-primary">
               See All <ArrowRight className="ml-1 h-4 w-4" />
             </Button>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            <Card className="border border-border shadow-soft card-hover">
-              <CardContent className="pt-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            <Card className="border border-border shadow-soft card-hover bg-gradient-to-br from-white to-blue-50/30 dark:from-gray-900 dark:to-blue-900/5">
+              <CardContent className="pt-5">
                 <div className="flex items-center justify-between mb-3">
-                  <div className="h-10 w-10 rounded-full bg-healthnest-soft-blue flex items-center justify-center">
-                    <Baby className="h-5 w-5 text-healthnest-primary" />
+                  <div className="h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center">
+                    <Baby className="h-5 w-5 text-blue-500" />
                   </div>
-                  <div className="chip bg-healthnest-soft-blue text-healthnest-primary">
+                  <div className="chip bg-blue-100/80 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400">
                     9-10 months
                   </div>
                 </div>
-                <h3 className="font-medium">Standing with Support</h3>
+                <h3 className="font-medium text-base">Standing with Support</h3>
                 <p className="text-sm text-muted-foreground mt-1">
                   Your baby may soon begin pulling up to stand while holding onto furniture.
                 </p>
               </CardContent>
             </Card>
 
-            <Card className="border border-border shadow-soft card-hover">
-              <CardContent className="pt-4">
+            <Card className="border border-border shadow-soft card-hover bg-gradient-to-br from-white to-pink-50/30 dark:from-gray-900 dark:to-pink-900/5">
+              <CardContent className="pt-5">
                 <div className="flex items-center justify-between mb-3">
-                  <div className="h-10 w-10 rounded-full bg-healthnest-soft-pink flex items-center justify-center">
+                  <div className="h-10 w-10 rounded-full bg-pink-100 flex items-center justify-center">
                     <Brain className="h-5 w-5 text-pink-500" />
                   </div>
-                  <div className="chip bg-healthnest-soft-pink text-pink-500">
+                  <div className="chip bg-pink-100/80 text-pink-600 dark:bg-pink-900/30 dark:text-pink-400">
                     9-10 months
                   </div>
                 </div>
-                <h3 className="font-medium">First Words</h3>
+                <h3 className="font-medium text-base">First Words</h3>
                 <p className="text-sm text-muted-foreground mt-1">
                   Your baby may soon start saying simple words like "mama" or "dada".
                 </p>
               </CardContent>
             </Card>
 
-            <Card className="border border-border shadow-soft card-hover">
-              <CardContent className="pt-4">
+            <Card className="border border-border shadow-soft card-hover bg-gradient-to-br from-white to-green-50/30 dark:from-gray-900 dark:to-green-900/5">
+              <CardContent className="pt-5">
                 <div className="flex items-center justify-between mb-3">
-                  <div className="h-10 w-10 rounded-full bg-healthnest-soft-green flex items-center justify-center">
+                  <div className="h-10 w-10 rounded-full bg-green-100 flex items-center justify-center">
                     <Calendar className="h-5 w-5 text-green-500" />
                   </div>
-                  <div className="chip bg-healthnest-soft-green text-green-500">
+                  <div className="chip bg-green-100/80 text-green-600 dark:bg-green-900/30 dark:text-green-400">
                     9 months
                   </div>
                 </div>
-                <h3 className="font-medium">9-Month Checkup</h3>
+                <h3 className="font-medium text-base">9-Month Checkup</h3>
                 <p className="text-sm text-muted-foreground mt-1">
                   Prepare for your baby's 9-month well-visit and vaccinations.
                 </p>

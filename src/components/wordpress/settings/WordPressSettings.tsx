@@ -34,27 +34,27 @@ const WordPressSettings: React.FC = () => {
   }, [toast]);
   
   return (
-    <div className="max-w-md mx-auto my-8">
+    <div className="max-w-md mx-auto my-8 animate-fade-in">
       <Button 
         variant="ghost" 
-        className="mb-4 flex items-center gap-2"
+        className="mb-6 flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors"
         onClick={handleReturn}
       >
         <ArrowLeft className="h-4 w-4" />
         Back to App
       </Button>
       
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <Globe className="h-5 w-5 text-primary-purple" />
+      <Card className="border border-border/50 shadow-sm overflow-hidden">
+        <CardHeader className="bg-gradient-to-r from-primary/10 to-transparent pb-6">
+          <CardTitle className="flex items-center gap-2 text-xl">
+            <Globe className="h-5 w-5 text-primary" />
             WordPress Integration
           </CardTitle>
-          <CardDescription>
+          <CardDescription className="text-sm leading-relaxed mt-1">
             Connect your app to a WordPress site to display baby growth advice and tips.
           </CardDescription>
         </CardHeader>
-        <CardContent className="space-y-4">
+        <CardContent className="space-y-6 pt-6">
           <WordPressConnectionForm
             wpUrl={wpUrl}
             setWpUrl={setWpUrl}
@@ -67,7 +67,7 @@ const WordPressSettings: React.FC = () => {
         </CardContent>
       </Card>
       
-      <div className="mt-8">
+      <div className="mt-10">
         <WordPressInfoBox />
       </div>
     </div>
