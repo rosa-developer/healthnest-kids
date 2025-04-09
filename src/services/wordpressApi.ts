@@ -17,6 +17,41 @@ const getWordPressApiUrl = () => {
 };
 
 /**
+ * Test connection to WordPress site
+ * @param url WordPress site URL
+ * @returns Promise that resolves if connection is successful
+ */
+export const testWordPressConnection = async (url: string): Promise<void> => {
+  // Normalize URL (remove trailing slash)
+  const normalizedUrl = url.replace(/\/$/, '');
+  
+  try {
+    // Try to fetch the WP API root
+    const response = await fetch(`${normalizedUrl}/wp-json/`);
+    
+    if (!response.ok) {
+      throw new Error(`WordPress site not reachable (Status: ${response.status})`);
+    }
+    
+    // Check if response contains expected WordPress API data
+    const data = await response.json();
+    
+    if (!data.namespaces || !data.namespaces.includes('wp/v2')) {
+      throw new Error('URL does not appear to be a WordPress site with REST API enabled');
+    }
+    
+    // Connection successful
+    return;
+  } catch (error) {
+    if (error instanceof Error) {
+      throw error;
+    } else {
+      throw new Error('Could not connect to WordPress site');
+    }
+  }
+};
+
+/**
  * Fetch posts from WordPress
  * @param options Query parameters
  * @returns Promise with posts data

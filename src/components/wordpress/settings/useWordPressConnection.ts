@@ -37,6 +37,10 @@ export const useWordPressConnection = () => {
     setWpUrl('https://demo.wp-api.org');
   };
 
+  const handleReturn = () => {
+    window.history.back();
+  };
+
   return {
     wpUrl,
     setWpUrl,
@@ -44,6 +48,7 @@ export const useWordPressConnection = () => {
     errorMessage,
     testConnection,
     saveSettings,
-    provideSampleUrl
+    provideSampleUrl,
+    handleReturn
   };
 };
