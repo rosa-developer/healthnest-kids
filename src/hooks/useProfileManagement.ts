@@ -1,7 +1,7 @@
 
 import { useState, useEffect } from 'react';
 import { ChildProfile, mockProfiles } from '../types/ChildProfile';
-import { db, collection, getDocs, doc, setDoc, updateDoc } from '../lib/firebase';
+import { safeCollection, safeDoc, getDocs, setDoc, updateDoc, getConnectionStatus } from '../lib/firebase';
 
 export interface ProfileManagementResult {
   profiles: ChildProfile[];
@@ -30,8 +30,9 @@ export const useProfileManagement = (): ProfileManagementResult => {
         
         try {
           // Fetch profiles from Firestore if available
-          if (db) {
-            const profilesCollection = collection(db, 'childProfiles');
+          const connectionStatus = getConnectionStatus();
+          if (connectionStatus === 'connected') {
+            const profilesCollection = safeCollection('childProfiles');
             const profileSnapshot = await getDocs(profilesCollection);
             
             if (!profileSnapshot.empty) {
@@ -45,10 +46,8 @@ export const useProfileManagement = (): ProfileManagementResult => {
               if (!hasActiveProfile && fetchedProfiles.length > 0) {
                 fetchedProfiles[0].isActive = true;
                 // Update the active profile in Firebase
-                if (db) {
-                  const profileRef = doc(db, 'childProfiles', fetchedProfiles[0].id);
-                  await updateDoc(profileRef, { isActive: true });
-                }
+                const profileRef = safeDoc('childProfiles', fetchedProfiles[0].id);
+                await updateDoc(profileRef, { isActive: true });
               }
               
               setProfiles(fetchedProfiles);
@@ -63,10 +62,8 @@ export const useProfileManagement = (): ProfileManagementResult => {
               setProfiles(initializedMockProfiles);
               
               // Save mock profiles to Firestore for future use
-              if (db) {
-                for (const profile of initializedMockProfiles) {
-                  await setDoc(doc(db, 'childProfiles', profile.id), profile);
-                }
+              for (const profile of initializedMockProfiles) {
+                await setDoc(safeDoc('childProfiles', profile.id), profile);
               }
               
               console.log('Mock profiles saved to Firebase');
@@ -118,9 +115,10 @@ export const useProfileManagement = (): ProfileManagementResult => {
     
     // Update profile status in Firebase
     try {
-      if (db) {
+      const connectionStatus = getConnectionStatus();
+      if (connectionStatus === 'connected') {
         for (const profile of updatedProfiles) {
-          const profileRef = doc(db, 'childProfiles', profile.id);
+          const profileRef = safeDoc('childProfiles', profile.id);
           await updateDoc(profileRef, { isActive: profile.isActive });
         }
         console.log("Firebase profiles updated with new active state");
@@ -144,8 +142,9 @@ export const useProfileManagement = (): ProfileManagementResult => {
     
     // Add new profile to Firebase
     try {
-      if (db) {
-        await setDoc(doc(db, 'childProfiles', newProfile.id), newProfile);
+      const connectionStatus = getConnectionStatus();
+      if (connectionStatus === 'connected') {
+        await setDoc(safeDoc('childProfiles', newProfile.id), newProfile);
         console.log("New profile added to Firebase:", newProfile);
       } else {
         console.log("Firebase db not available, new profile not synced to cloud");

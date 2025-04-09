@@ -1,7 +1,7 @@
 
 import { useState, useEffect } from 'react';
 import { GrowthRecord, mockGrowthRecords } from '../types/GrowthRecord';
-import { db, collection, getDocs, doc, setDoc, updateDoc, getConnectionStatus } from '../lib/firebase';
+import { safeCollection, safeDoc, getConnectionStatus } from '../lib/firebase';
 import { useToast } from './use-toast';
 
 export const useGrowthRecords = (childId: string) => {
@@ -16,10 +16,10 @@ export const useGrowthRecords = (childId: string) => {
         setIsLoading(true);
         const connectionStatus = getConnectionStatus();
         
-        if (connectionStatus === 'connected' && db) {
+        if (connectionStatus === 'connected') {
           try {
             // Fetch records from Firestore
-            const recordsCollection = collection(db, `childProfiles/${childId}/growthRecords`);
+            const recordsCollection = safeCollection(`childProfiles/${childId}/growthRecords`);
             const recordsSnapshot = await getDocs(recordsCollection);
             
             if (!recordsSnapshot.empty) {
@@ -37,10 +37,8 @@ export const useGrowthRecords = (childId: string) => {
               setRecords(mockGrowthRecords);
               
               // Save mock records to Firestore for future use
-              if (db) {
-                for (const record of mockGrowthRecords) {
-                  await setDoc(doc(db, `childProfiles/${childId}/growthRecords`, record.id), record);
-                }
+              for (const record of mockGrowthRecords) {
+                await setDoc(safeDoc(`childProfiles/${childId}/growthRecords`, record.id), record);
               }
             }
           } catch (error) {
@@ -79,8 +77,8 @@ export const useGrowthRecords = (childId: string) => {
       setRecords(prev => [record, ...prev].sort((a, b) => b.date.getTime() - a.date.getTime()));
       
       // Try to save to Firebase if connected
-      if (getConnectionStatus() === 'connected' && db) {
-        await setDoc(doc(db, `childProfiles/${childId}/growthRecords`, recordId), record);
+      if (getConnectionStatus() === 'connected') {
+        await setDoc(safeDoc(`childProfiles/${childId}/growthRecords`, recordId), record);
         toast({
           title: "Growth record saved",
           description: "Your baby's growth data has been recorded.",
