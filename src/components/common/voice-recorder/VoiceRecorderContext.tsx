@@ -1,5 +1,6 @@
+
 import React, { createContext, useContext } from 'react';
-import { toast } from "@/hooks/use-toast";
+import { useToast } from "@/hooks/use-toast";
 import { formatTime } from './utils';
 import { VoiceRecorderContextProps, VoiceRecorderProviderProps } from './types';
 import { useRecorder } from './hooks/useRecorder';
@@ -8,13 +9,17 @@ import { useAudioPlayer } from './hooks/useAudioPlayer';
 const VoiceRecorderContext = createContext<VoiceRecorderContextProps | undefined>(undefined);
 
 export const VoiceRecorderProvider: React.FC<VoiceRecorderProviderProps> = ({ children, onSave }) => {
+  const { toast } = useToast();
+  
   const { 
     isRecording, 
     recordingTime, 
     audioBlob, 
     startRecording: startRec, 
     stopRecording, 
-    reset: resetRecording 
+    reset: resetRecording,
+    hasPermission,
+    isRequestingPermission
   } = useRecorder();
   
   const { 
@@ -30,10 +35,18 @@ export const VoiceRecorderProvider: React.FC<VoiceRecorderProviderProps> = ({ ch
     if (audioBlob) {
       setupAudioSource(audioBlob);
     }
-  }, [audioBlob]);
+  }, [audioBlob, setupAudioSource]);
 
   const startRecording = async () => {
-    await startRec();
+    try {
+      await startRec();
+    } catch (error) {
+      toast({
+        title: "Microphone Error",
+        description: "Please make sure your microphone is connected and you've granted permission.",
+        variant: "destructive"
+      });
+    }
   };
 
   const handleSave = () => {
@@ -71,7 +84,9 @@ export const VoiceRecorderProvider: React.FC<VoiceRecorderProviderProps> = ({ ch
     stopRecording,
     handlePlayPause,
     handleSave,
-    handleDiscard
+    handleDiscard,
+    hasPermission,
+    isRequestingPermission
   };
 
   return (

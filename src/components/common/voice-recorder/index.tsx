@@ -5,6 +5,8 @@ import { VoiceRecorderProvider, useVoiceRecorder } from './VoiceRecorderContext'
 import RecordingTimer from './RecordingTimer';
 import AudioPreview from './AudioPreview';
 import RecordingControls from './RecordingControls';
+import { Mic, MicOff, AlertTriangle } from 'lucide-react';
+import { Alert, AlertDescription } from '@/components/ui/alert';
 
 interface VoiceRecorderProps {
   onSave: (audioBlob: Blob, duration: number) => void;
@@ -23,7 +25,9 @@ const VoiceRecorderContent: React.FC = () => {
     stopRecording,
     handlePlayPause,
     handleSave,
-    handleDiscard
+    handleDiscard,
+    hasPermission,
+    isRequestingPermission
   } = useVoiceRecorder();
 
   return (
@@ -42,8 +46,20 @@ const VoiceRecorderContent: React.FC = () => {
               formatTime={formatTime}
             />
           ) : (
-            <div className="text-center text-muted-foreground text-sm">
-              Tap the microphone to start recording
+            <div className="text-center text-muted-foreground text-sm flex flex-col items-center gap-2 py-2">
+              {hasPermission === false ? (
+                <Alert variant="destructive" className="bg-destructive/10 text-destructive border-destructive/20 p-2">
+                  <AlertTriangle className="h-4 w-4" />
+                  <AlertDescription className="text-xs ml-2">
+                    Microphone access is required
+                  </AlertDescription>
+                </Alert>
+              ) : (
+                <>
+                  <Mic className="h-5 w-5 text-muted-foreground mb-1" />
+                  Tap the microphone to start recording
+                </>
+              )}
             </div>
           )}
         </div>
@@ -55,6 +71,8 @@ const VoiceRecorderContent: React.FC = () => {
           onStopRecording={stopRecording}
           onSave={handleSave}
           onDiscard={handleDiscard}
+          hasPermission={hasPermission}
+          isRequestingPermission={isRequestingPermission}
         />
       </div>
     </>

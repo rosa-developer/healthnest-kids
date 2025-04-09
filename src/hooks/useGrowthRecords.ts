@@ -26,7 +26,7 @@ export const useGrowthRecords = (childId: string) => {
         if (connectionStatus === 'connected') {
           try {
             // Fetch records from Firestore
-            const recordsCollection = safeCollection(`childProfiles/${childId}/growthRecords`);
+            const recordsCollection = safeCollection<GrowthRecord>(`childProfiles/${childId}/growthRecords`);
             const recordsSnapshot = await getDocs(recordsCollection);
             
             if (!recordsSnapshot.empty) {
@@ -36,6 +36,7 @@ export const useGrowthRecords = (childId: string) => {
                 date: doc.data().date.toDate() // Convert Firestore timestamp to JS Date
               })) as GrowthRecord[];
               
+              // Sort records by date (newest first)
               setRecords(fetchedRecords.sort((a, b) => b.date.getTime() - a.date.getTime()));
               console.log('Growth records loaded from Firebase:', fetchedRecords);
             } else {
@@ -44,20 +45,37 @@ export const useGrowthRecords = (childId: string) => {
               setRecords(mockGrowthRecords);
               
               // Save mock records to Firestore for future use
-              for (const record of mockGrowthRecords) {
-                await setDoc(safeDoc(`childProfiles/${childId}/growthRecords`, record.id), record);
-              }
+              await Promise.all(mockGrowthRecords.map(record => 
+                setDoc(safeDoc(`childProfiles/${childId}/growthRecords`, record.id), record)
+              ));
+              
+              toast({
+                title: "Demo data loaded",
+                description: "Using sample growth records for demonstration.",
+              });
             }
           } catch (error) {
             console.error('Firebase error:', error);
             setRecords(mockGrowthRecords);
             setError('Failed to fetch growth records from database');
+            
+            toast({
+              title: "Connection issue",
+              description: "Using offline data temporarily.",
+              variant: "destructive"
+            });
           }
         } else {
           // Not connected to Firebase, use mock data
           setRecords(mockGrowthRecords);
           if (connectionStatus === 'error') {
             setError('Using offline data - changes will not be saved');
+            
+            toast({
+              title: "Offline mode",
+              description: "Using local data. Changes won't sync to the cloud.",
+              variant: "destructive"
+            });
           }
         }
       } catch (err) {
@@ -70,7 +88,7 @@ export const useGrowthRecords = (childId: string) => {
     };
 
     loadGrowthRecords();
-  }, [childId]);
+  }, [childId, toast]);
 
   const addGrowthRecord = async (newRecord: Omit<GrowthRecord, 'id'>) => {
     try {

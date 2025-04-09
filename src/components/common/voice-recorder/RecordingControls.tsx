@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Button } from "@/components/ui/button";
-import { Mic, Square, Save, Trash } from 'lucide-react';
+import { Mic, Square, Save, Trash, MicOff, Loader2 } from 'lucide-react';
 
 interface RecordingControlsProps {
   isRecording: boolean;
@@ -10,6 +10,8 @@ interface RecordingControlsProps {
   onStopRecording: () => void;
   onSave: () => void;
   onDiscard: () => void;
+  hasPermission?: boolean;
+  isRequestingPermission?: boolean;
 }
 
 const RecordingControls: React.FC<RecordingControlsProps> = ({
@@ -18,7 +20,9 @@ const RecordingControls: React.FC<RecordingControlsProps> = ({
   onStartRecording,
   onStopRecording,
   onSave,
-  onDiscard
+  onDiscard,
+  hasPermission = true,
+  isRequestingPermission = false
 }) => {
   return (
     <div className="flex items-center justify-center space-x-4">
@@ -38,8 +42,15 @@ const RecordingControls: React.FC<RecordingControlsProps> = ({
             size="icon"
             className="h-12 w-12 rounded-full bg-healthnest-primary hover:bg-healthnest-primary/90"
             onClick={onStartRecording}
+            disabled={isRequestingPermission || !hasPermission}
           >
-            <Mic className="h-5 w-5" />
+            {isRequestingPermission ? (
+              <Loader2 className="h-5 w-5 animate-spin" />
+            ) : hasPermission ? (
+              <Mic className="h-5 w-5" />
+            ) : (
+              <MicOff className="h-5 w-5" />
+            )}
           </Button>
         )
       ) : (
@@ -61,6 +72,12 @@ const RecordingControls: React.FC<RecordingControlsProps> = ({
             <Save className="h-5 w-5" />
           </Button>
         </>
+      )}
+
+      {!hasPermission && !isRecording && !audioBlob && (
+        <div className="text-xs text-destructive ml-2">
+          Microphone access denied. Please check browser permissions.
+        </div>
       )}
     </div>
   );

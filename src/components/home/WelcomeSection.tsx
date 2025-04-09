@@ -1,9 +1,10 @@
 
 import React from 'react';
-import DatabaseStatus from './DatabaseStatus';
-import { useChildProfile } from '@/contexts/ChildProfileContext';
-import { CalendarClock, Heart, LineChart, Star } from "lucide-react";
+import { CalendarClock, Heart, LineChart, Star, Cloud } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useChildProfile } from '@/contexts/ChildProfileContext';
+import DatabaseStatus from './DatabaseStatus';
+import { Badge } from "@/components/ui/badge";
 
 interface WelcomeSectionProps {
   dbStatus: 'connecting' | 'connected' | 'error';
@@ -17,9 +18,18 @@ const WelcomeSection = ({ dbStatus }: WelcomeSectionProps) => {
     <div className="relative">
       <div className="flex flex-col lg:flex-row justify-between gap-6">
         <div className="space-y-4">
-          <h1 className="text-4xl font-bold tracking-tight bg-gradient-to-r from-primary-purple via-primary-pink to-primary-purple bg-clip-text text-transparent animate-fade-in">
-            Welcome Back
-          </h1>
+          <div className="flex items-center gap-3">
+            <h1 className="text-4xl font-bold tracking-tight bg-gradient-to-r from-primary-purple via-primary-pink to-primary-purple bg-clip-text text-transparent animate-fade-in">
+              Welcome Back
+            </h1>
+            {dbStatus === 'error' && (
+              <Badge variant="outline" className="bg-amber-500/10 text-amber-500 border-amber-500/30">
+                <Cloud className="h-3 w-3 mr-1" />
+                Offline
+              </Badge>
+            )}
+          </div>
+          
           <p className="text-lg text-foreground/80 max-w-lg animate-slide-up" style={{ animationDelay: "0.1s" }}>
             Track {childName}'s growth journey, milestones, and create lasting memories all in one place.
           </p>
