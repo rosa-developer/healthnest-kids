@@ -16,7 +16,7 @@ export const useGrowthRecords = (childId: string) => {
         setIsLoading(true);
         const connectionStatus = getConnectionStatus();
         
-        if (connectionStatus === 'connected') {
+        if (connectionStatus === 'connected' && db) {
           try {
             // Fetch records from Firestore
             const recordsCollection = collection(db, `childProfiles/${childId}/growthRecords`);
@@ -37,8 +37,10 @@ export const useGrowthRecords = (childId: string) => {
               setRecords(mockGrowthRecords);
               
               // Save mock records to Firestore for future use
-              for (const record of mockGrowthRecords) {
-                await setDoc(doc(db, `childProfiles/${childId}/growthRecords`, record.id), record);
+              if (db) {
+                for (const record of mockGrowthRecords) {
+                  await setDoc(doc(db, `childProfiles/${childId}/growthRecords`, record.id), record);
+                }
               }
             }
           } catch (error) {
@@ -77,7 +79,7 @@ export const useGrowthRecords = (childId: string) => {
       setRecords(prev => [record, ...prev].sort((a, b) => b.date.getTime() - a.date.getTime()));
       
       // Try to save to Firebase if connected
-      if (getConnectionStatus() === 'connected') {
+      if (getConnectionStatus() === 'connected' && db) {
         await setDoc(doc(db, `childProfiles/${childId}/growthRecords`, recordId), record);
         toast({
           title: "Growth record saved",

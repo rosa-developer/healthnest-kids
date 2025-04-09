@@ -29,42 +29,56 @@ export const useProfileManagement = (): ProfileManagementResult => {
         setIsLoading(true);
         
         try {
-          // Fetch profiles from Firestore
-          const profilesCollection = collection(db, 'childProfiles');
-          const profileSnapshot = await getDocs(profilesCollection);
-          
-          if (!profileSnapshot.empty) {
-            const fetchedProfiles = profileSnapshot.docs.map(doc => ({
-              id: doc.id,
-              ...doc.data()
-            })) as ChildProfile[];
+          // Fetch profiles from Firestore if available
+          if (db) {
+            const profilesCollection = collection(db, 'childProfiles');
+            const profileSnapshot = await getDocs(profilesCollection);
             
-            // Ensure at least one profile is active
-            let hasActiveProfile = fetchedProfiles.some(p => p.isActive);
-            if (!hasActiveProfile && fetchedProfiles.length > 0) {
-              fetchedProfiles[0].isActive = true;
-              // Update the active profile in Firebase
-              const profileRef = doc(db, 'childProfiles', fetchedProfiles[0].id);
-              await updateDoc(profileRef, { isActive: true });
+            if (!profileSnapshot.empty) {
+              const fetchedProfiles = profileSnapshot.docs.map(doc => ({
+                id: doc.id,
+                ...doc.data()
+              })) as ChildProfile[];
+              
+              // Ensure at least one profile is active
+              let hasActiveProfile = fetchedProfiles.some(p => p.isActive);
+              if (!hasActiveProfile && fetchedProfiles.length > 0) {
+                fetchedProfiles[0].isActive = true;
+                // Update the active profile in Firebase
+                if (db) {
+                  const profileRef = doc(db, 'childProfiles', fetchedProfiles[0].id);
+                  await updateDoc(profileRef, { isActive: true });
+                }
+              }
+              
+              setProfiles(fetchedProfiles);
+              console.log('Profiles loaded from Firebase:', fetchedProfiles);
+            } else {
+              // No profiles found in Firestore, use mock data
+              console.log('No profiles found in Firebase, using mock data');
+              const initializedMockProfiles = mockProfiles.map((profile, index) => ({
+                ...profile,
+                isActive: index === 0 // Set first profile as active
+              }));
+              setProfiles(initializedMockProfiles);
+              
+              // Save mock profiles to Firestore for future use
+              if (db) {
+                for (const profile of initializedMockProfiles) {
+                  await setDoc(doc(db, 'childProfiles', profile.id), profile);
+                }
+              }
+              
+              console.log('Mock profiles saved to Firebase');
             }
-            
-            setProfiles(fetchedProfiles);
-            console.log('Profiles loaded from Firebase:', fetchedProfiles);
           } else {
-            // No profiles found in Firestore, use mock data
-            console.log('No profiles found in Firebase, using mock data');
+            // Firebase not available, use mock data
+            console.log('Firebase db not available, using mock data');
             const initializedMockProfiles = mockProfiles.map((profile, index) => ({
               ...profile,
               isActive: index === 0 // Set first profile as active
             }));
             setProfiles(initializedMockProfiles);
-            
-            // Save mock profiles to Firestore for future use
-            for (const profile of initializedMockProfiles) {
-              await setDoc(doc(db, 'childProfiles', profile.id), profile);
-            }
-            
-            console.log('Mock profiles saved to Firebase');
           }
           
         } catch (err) {
@@ -104,11 +118,15 @@ export const useProfileManagement = (): ProfileManagementResult => {
     
     // Update profile status in Firebase
     try {
-      for (const profile of updatedProfiles) {
-        const profileRef = doc(db, 'childProfiles', profile.id);
-        await updateDoc(profileRef, { isActive: profile.isActive });
+      if (db) {
+        for (const profile of updatedProfiles) {
+          const profileRef = doc(db, 'childProfiles', profile.id);
+          await updateDoc(profileRef, { isActive: profile.isActive });
+        }
+        console.log("Firebase profiles updated with new active state");
+      } else {
+        console.log("Firebase db not available, changes not synced to cloud");
       }
-      console.log("Firebase profiles updated with new active state");
     } catch (err) {
       console.error("Error updating profile status in Firebase:", err);
     }
@@ -126,8 +144,12 @@ export const useProfileManagement = (): ProfileManagementResult => {
     
     // Add new profile to Firebase
     try {
-      await setDoc(doc(db, 'childProfiles', newProfile.id), newProfile);
-      console.log("New profile added to Firebase:", newProfile);
+      if (db) {
+        await setDoc(doc(db, 'childProfiles', newProfile.id), newProfile);
+        console.log("New profile added to Firebase:", newProfile);
+      } else {
+        console.log("Firebase db not available, new profile not synced to cloud");
+      }
     } catch (err) {
       console.error("Error adding profile to Firebase:", err);
     }
