@@ -1,7 +1,14 @@
 
 import { useState, useEffect } from 'react';
 import { GrowthRecord, mockGrowthRecords } from '../types/GrowthRecord';
-import { safeCollection, safeDoc, getConnectionStatus } from '../lib/firebase';
+import { 
+  safeCollection, 
+  safeDoc, 
+  getConnectionStatus, 
+  getDocs, 
+  setDoc,
+  DocumentData
+} from '../lib/firebase';
 import { useToast } from './use-toast';
 
 export const useGrowthRecords = (childId: string) => {
@@ -23,7 +30,7 @@ export const useGrowthRecords = (childId: string) => {
             const recordsSnapshot = await getDocs(recordsCollection);
             
             if (!recordsSnapshot.empty) {
-              const fetchedRecords = recordsSnapshot.docs.map(doc => ({
+              const fetchedRecords = recordsSnapshot.docs.map((doc: DocumentData) => ({
                 id: doc.id,
                 ...doc.data(),
                 date: doc.data().date.toDate() // Convert Firestore timestamp to JS Date

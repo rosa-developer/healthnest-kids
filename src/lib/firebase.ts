@@ -129,5 +129,6 @@ export {
   limit,
   getConnectionStatus,
   safeCollection,
-  safeDoc
+  safeDoc,
+  DocumentData
 };
