@@ -1,9 +1,8 @@
 
 import React from 'react';
 import { Button } from "@/components/ui/button";
-import { Filter, Camera, Upload } from 'lucide-react';
+import { Filter, Camera, Upload, Mic, PlusCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { useToast } from "@/hooks/use-toast";
 
 interface MemoriesHeaderProps {
   handleAddMemory: () => void;
@@ -11,8 +10,11 @@ interface MemoriesHeaderProps {
 
 const MemoriesHeader: React.FC<MemoriesHeaderProps> = ({ handleAddMemory }) => {
   return (
-    <div className="flex items-center justify-between mb-6">
-      <div className="chip bg-healthnest-soft-blue text-healthnest-primary">Emma's Memories</div>
+    <div className="flex items-center justify-between mb-4">
+      <div>
+        <h1 className="text-2xl font-bold tracking-tight mb-1">Memories</h1>
+        <p className="text-muted-foreground">Capture and cherish precious moments with Emma</p>
+      </div>
       <div className="flex gap-2">
         <Button variant="outline" size="sm">
           <Filter className="h-4 w-4 mr-2" />
@@ -23,8 +25,8 @@ const MemoriesHeader: React.FC<MemoriesHeaderProps> = ({ handleAddMemory }) => {
           size="sm"
           className="bg-healthnest-primary text-white hover:bg-healthnest-primary/90"
         >
-          <Camera className="h-4 w-4 mr-2" />
-          Add Memory
+          <Mic className="h-4 w-4 mr-2" />
+          Record
         </Button>
         <Button 
           size="sm"
@@ -32,8 +34,8 @@ const MemoriesHeader: React.FC<MemoriesHeaderProps> = ({ handleAddMemory }) => {
           asChild
         >
           <Link to="/photos">
-            <Upload className="h-4 w-4 mr-2" />
-            Photo Gallery
+            <Camera className="h-4 w-4 mr-2" />
+            Photos
           </Link>
         </Button>
       </div>
