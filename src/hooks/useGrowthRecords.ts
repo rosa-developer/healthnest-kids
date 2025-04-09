@@ -10,7 +10,7 @@ import {
   type DocumentData,
   type Timestamp
 } from '../lib/firebase';
-import { useToast } from '@/components/ui/use-toast';
+import { useToast } from '../hooks/use-toast';
 
 // Define a more specific type for Firestore Timestamp
 interface FirestoreTimestampLike {
