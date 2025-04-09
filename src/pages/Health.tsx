@@ -24,45 +24,49 @@ const Health = () => {
   return (
     <div className="main-container">
       <PageTransition>
-        <HealthHeader handleAddRecord={handleAddRecord} />
+        <div className="max-w-5xl mx-auto">
+          <HealthHeader handleAddRecord={handleAddRecord} />
 
-        <Tabs defaultValue="growth" className="mb-8">
-          <TabsList className="grid grid-cols-3 w-full bg-muted/60 rounded-xl p-1 mb-6">
-            <TabsTrigger 
-              value="growth" 
-              className="rounded-lg data-[state=active]:bg-white data-[state=active]:shadow-soft data-[state=active]:text-healthnest-primary"
-            >
-              <TrendingUp className="h-4 w-4 mr-2" />
-              Growth
-            </TabsTrigger>
-            <TabsTrigger 
-              value="vaccines" 
-              className="rounded-lg data-[state=active]:bg-white data-[state=active]:shadow-soft data-[state=active]:text-healthnest-primary"
-            >
-              <ShieldCheck className="h-4 w-4 mr-2" />
-              Vaccines
-            </TabsTrigger>
-            <TabsTrigger 
-              value="visits" 
-              className="rounded-lg data-[state=active]:bg-white data-[state=active]:shadow-soft data-[state=active]:text-healthnest-primary"
-            >
-              <Calendar className="h-4 w-4 mr-2" />
-              Visits
-            </TabsTrigger>
-          </TabsList>
+          <Tabs defaultValue="growth" className="mb-8">
+            <TabsList className="grid grid-cols-3 w-full bg-gradient-to-r from-muted/80 to-muted/40 rounded-xl p-1.5 mb-8">
+              <TabsTrigger 
+                value="growth" 
+                className="rounded-lg py-2.5 data-[state=active]:bg-white data-[state=active]:shadow-md data-[state=active]:text-healthnest-primary transition-all duration-300"
+              >
+                <TrendingUp className="h-4 w-4 mr-2" />
+                Growth
+              </TabsTrigger>
+              <TabsTrigger 
+                value="vaccines" 
+                className="rounded-lg py-2.5 data-[state=active]:bg-white data-[state=active]:shadow-md data-[state=active]:text-healthnest-primary transition-all duration-300"
+              >
+                <ShieldCheck className="h-4 w-4 mr-2" />
+                Vaccines
+              </TabsTrigger>
+              <TabsTrigger 
+                value="visits" 
+                className="rounded-lg py-2.5 data-[state=active]:bg-white data-[state=active]:shadow-md data-[state=active]:text-healthnest-primary transition-all duration-300"
+              >
+                <Calendar className="h-4 w-4 mr-2" />
+                Visits
+              </TabsTrigger>
+            </TabsList>
 
-          <TabsContent value="growth" className="animate-fade-in">
-            <GrowthTab />
-          </TabsContent>
+            <div className="overflow-hidden rounded-2xl border border-border/50 shadow-xl bg-gradient-to-br from-white to-muted/20">
+              <TabsContent value="growth" className="animate-fade-in m-0">
+                <GrowthTab />
+              </TabsContent>
 
-          <TabsContent value="vaccines" className="animate-fade-in">
-            <VaccinesTab />
-          </TabsContent>
+              <TabsContent value="vaccines" className="animate-fade-in m-0">
+                <VaccinesTab />
+              </TabsContent>
 
-          <TabsContent value="visits" className="animate-fade-in">
-            <VisitsTab handleAddRecord={handleAddRecord} />
-          </TabsContent>
-        </Tabs>
+              <TabsContent value="visits" className="animate-fade-in m-0">
+                <VisitsTab handleAddRecord={handleAddRecord} />
+              </TabsContent>
+            </div>
+          </Tabs>
+        </div>
       </PageTransition>
     </div>
   );

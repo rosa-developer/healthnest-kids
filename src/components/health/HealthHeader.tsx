@@ -10,23 +10,23 @@ interface HealthHeaderProps {
 
 const HealthHeader: React.FC<HealthHeaderProps> = ({ handleAddRecord }) => {
   return (
-    <div className="flex items-center justify-between mb-8">
+    <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-10">
       <div className="flex items-center">
-        <div className="h-10 w-10 rounded-full bg-healthnest-soft-pink flex items-center justify-center mr-3">
-          <Activity className="h-5 w-5 text-pink-500" />
+        <div className="h-12 w-12 rounded-full bg-gradient-to-r from-healthnest-soft-pink to-pink-300 flex items-center justify-center mr-4 shadow-md">
+          <Activity className="h-6 w-6 text-white" />
         </div>
         <div>
-          <h1 className="text-2xl font-bold">Emma's Health</h1>
-          <p className="text-sm text-muted-foreground">Track growth, vaccines & medical visits</p>
+          <h1 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-healthnest-primary to-healthnest-medium-blue bg-clip-text text-transparent">Emma's Health</h1>
+          <p className="text-sm md:text-base text-muted-foreground mt-1">Track growth, vaccines & medical visits</p>
         </div>
       </div>
       <Button 
         onClick={handleAddRecord} 
         size="sm" 
-        className="bg-gradient-to-r from-healthnest-primary to-healthnest-medium-blue text-white hover:opacity-90 shadow-md"
+        className="bg-gradient-to-r from-healthnest-primary to-healthnest-medium-blue text-white hover:opacity-90 shadow-lg px-5 py-2 h-auto rounded-xl transition-all duration-300"
       >
         <FilePlus className="h-4 w-4 mr-2" />
-        Add Record
+        Add Health Record
       </Button>
     </div>
   );

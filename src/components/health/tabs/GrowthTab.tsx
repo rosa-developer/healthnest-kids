@@ -9,7 +9,8 @@ import {
   TrendingUp,
   ZoomIn,
   ZoomOut,
-  Calendar
+  Calendar,
+  CalendarDays
 } from 'lucide-react';
 import { useGrowthRecords } from '@/hooks/useGrowthRecords';
 import { GrowthRecord } from '@/types/GrowthRecord';
@@ -89,12 +90,12 @@ const GrowthTab = () => {
   };
 
   return (
-    <div className="space-y-8">
-      <Card className="border border-border shadow-soft overflow-hidden">
-        <CardHeader className="pb-2 border-b bg-gradient-to-r from-healthnest-soft-blue/50 to-muted">
+    <div className="p-6 space-y-8">
+      <Card className="border-none shadow-none overflow-hidden bg-transparent">
+        <CardHeader className="pb-4 border-b bg-gradient-to-r from-blue-50/80 to-transparent">
           <div className="flex items-center justify-between">
             <CardTitle className="text-lg flex items-center">
-              <TrendingUp className="h-5 w-5 mr-2 text-healthnest-primary" />
+              <TrendingUp className="h-5 w-5 mr-2 text-blue-500" />
               Growth Chart
             </CardTitle>
             <div className="flex space-x-2">
@@ -102,7 +103,7 @@ const GrowthTab = () => {
                 variant={zoomMode === '3m' ? 'default' : 'outline'} 
                 size="sm"
                 onClick={() => setZoomMode('3m')}
-                className={zoomMode === '3m' ? 'bg-healthnest-primary text-white' : ''}
+                className={zoomMode === '3m' ? 'bg-blue-500 text-white hover:bg-blue-600' : 'border-blue-200 text-blue-700 hover:bg-blue-50'}
               >
                 3M
               </Button>
@@ -110,7 +111,7 @@ const GrowthTab = () => {
                 variant={zoomMode === '6m' ? 'default' : 'outline'} 
                 size="sm"
                 onClick={() => setZoomMode('6m')}
-                className={zoomMode === '6m' ? 'bg-healthnest-primary text-white' : ''}
+                className={zoomMode === '6m' ? 'bg-blue-500 text-white hover:bg-blue-600' : 'border-blue-200 text-blue-700 hover:bg-blue-50'}
               >
                 6M
               </Button>
@@ -118,7 +119,7 @@ const GrowthTab = () => {
                 variant={zoomMode === '1y' ? 'default' : 'outline'} 
                 size="sm"
                 onClick={() => setZoomMode('1y')}
-                className={zoomMode === '1y' ? 'bg-healthnest-primary text-white' : ''}
+                className={zoomMode === '1y' ? 'bg-blue-500 text-white hover:bg-blue-600' : 'border-blue-200 text-blue-700 hover:bg-blue-50'}
               >
                 1Y
               </Button>
@@ -126,43 +127,32 @@ const GrowthTab = () => {
                 variant={zoomMode === 'all' ? 'default' : 'outline'} 
                 size="sm"
                 onClick={() => setZoomMode('all')}
-                className={zoomMode === 'all' ? 'bg-healthnest-primary text-white' : ''}
+                className={zoomMode === 'all' ? 'bg-blue-500 text-white hover:bg-blue-600' : 'border-blue-200 text-blue-700 hover:bg-blue-50'}
               >
                 All
-              </Button>
-              <Button 
-                variant="outline" 
-                size="icon"
-                className="h-9 w-9"
-              >
-                <ZoomIn className="h-4 w-4" />
-              </Button>
-              <Button 
-                variant="outline" 
-                size="icon"
-                className="h-9 w-9"
-              >
-                <ZoomOut className="h-4 w-4" />
               </Button>
             </div>
           </div>
         </CardHeader>
-        <CardContent className="p-6">
+        <CardContent className="p-4 pt-6">
           {isLoading ? (
-            <div className="h-64 flex items-center justify-center">
-              <div className="animate-spin h-8 w-8 border-4 border-healthnest-primary border-t-transparent rounded-full"></div>
+            <div className="h-72 flex items-center justify-center">
+              <div className="animate-spin h-8 w-8 border-4 border-blue-500 border-t-transparent rounded-full"></div>
             </div>
           ) : records.length === 0 ? (
-            <div className="h-64 flex items-center justify-center bg-muted/30 rounded-xl border border-healthnest-neutral-dark/30">
-              <div className="text-center p-4">
-                <Calendar className="h-12 w-12 mx-auto text-muted-foreground opacity-40" />
-                <p className="mt-3 text-muted-foreground">
-                  No growth records found. Add your first record to see the chart.
+            <div className="h-72 flex items-center justify-center bg-muted/20 rounded-xl border border-border">
+              <div className="text-center p-6">
+                <CalendarDays className="h-14 w-14 mx-auto text-muted-foreground opacity-40" />
+                <p className="mt-4 text-muted-foreground font-medium">
+                  No growth records found
+                </p>
+                <p className="text-sm text-muted-foreground/70">
+                  Add your first record to see the chart
                 </p>
               </div>
             </div>
           ) : (
-            <div className="h-64">
+            <div className="h-72 bg-gradient-to-br from-white to-blue-50/40 rounded-xl border border-blue-100/50 p-4">
               <ChartContainer 
                 className="h-full w-full"
                 config={chartConfig}
@@ -184,6 +174,7 @@ const GrowthTab = () => {
                       fontSize={12}
                       tickMargin={8}
                       domain={['dataMin - 1', 'dataMax + 1']}
+                      stroke="#3b82f6"
                     />
                     <YAxis 
                       yAxisId="right"
@@ -191,6 +182,7 @@ const GrowthTab = () => {
                       fontSize={12}
                       tickMargin={8}
                       domain={['dataMin - 5', 'dataMax + 5']}
+                      stroke="#10b981"
                     />
                     <ChartTooltip
                       content={<ChartTooltipContent />}
@@ -201,9 +193,9 @@ const GrowthTab = () => {
                       type="monotone"
                       dataKey="weight"
                       stroke="var(--color-weight)"
-                      strokeWidth={2}
-                      dot={{ r: 4 }}
-                      activeDot={{ r: 6 }}
+                      strokeWidth={2.5}
+                      dot={{ r: 4, fill: "#3b82f6", strokeWidth: 1, stroke: "#fff" }}
+                      activeDot={{ r: 6, fill: "#3b82f6", stroke: "#fff", strokeWidth: 2 }}
                       name="Weight (kg)"
                     />
                     <Line
@@ -211,9 +203,9 @@ const GrowthTab = () => {
                       type="monotone"
                       dataKey="height"
                       stroke="var(--color-height)"
-                      strokeWidth={2}
-                      dot={{ r: 4 }}
-                      activeDot={{ r: 6 }}
+                      strokeWidth={2.5}
+                      dot={{ r: 4, fill: "#10b981", strokeWidth: 1, stroke: "#fff" }}
+                      activeDot={{ r: 6, fill: "#10b981", stroke: "#fff", strokeWidth: 2 }}
                       name="Height (cm)"
                     />
                   </LineChart>
@@ -226,21 +218,25 @@ const GrowthTab = () => {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
         <GrowthStatCard 
-          title="Weight Tracking"
-          icon={<Weight className="h-5 w-5 mr-2 text-healthnest-primary" />}
+          title="Weight"
+          icon={<Weight className="h-6 w-6 text-white" />}
           currentValue={currentWeight ? `${currentWeight} kg` : "N/A"}
           change={weightChange ? `${weightChange.startsWith('-') ? '' : '+'}${weightChange} kg` : "N/A"}
           percentage={75}
-          colorClass="from-healthnest-primary to-blue-400"
+          colorClass="from-blue-500 to-blue-400"
+          bgColorClass="from-blue-100 to-blue-50"
+          iconBgClass="from-blue-500 to-blue-400"
         />
 
         <GrowthStatCard 
-          title="Height Tracking"
-          icon={<Ruler className="h-5 w-5 mr-2 text-healthnest-primary" />}
+          title="Height"
+          icon={<Ruler className="h-6 w-6 text-white" />}
           currentValue={currentHeight ? `${currentHeight} cm` : "N/A"}
           change={heightChange ? `${heightChange.startsWith('-') ? '' : '+'}${heightChange} cm` : "N/A"}
           percentage={80}
-          colorClass="from-healthnest-secondary to-yellow-400"
+          colorClass="from-emerald-500 to-green-400"
+          bgColorClass="from-emerald-100 to-green-50"
+          iconBgClass="from-emerald-500 to-green-400"
         />
       </div>
     </div>
@@ -254,6 +250,8 @@ interface GrowthStatCardProps {
   change: string;
   percentage: number;
   colorClass: string;
+  bgColorClass: string;
+  iconBgClass: string;
 }
 
 const GrowthStatCard: React.FC<GrowthStatCardProps> = ({ 
@@ -262,46 +260,44 @@ const GrowthStatCard: React.FC<GrowthStatCardProps> = ({
   currentValue, 
   change, 
   percentage, 
-  colorClass 
+  colorClass,
+  bgColorClass,
+  iconBgClass
 }) => {
   return (
-    <Card className="border border-border shadow-soft overflow-hidden">
-      <CardHeader className="pb-2 bg-gradient-to-r from-healthnest-soft-blue/40 to-transparent border-b">
-        <CardTitle className="text-base flex items-center">
-          {icon}
-          {title}
-        </CardTitle>
-      </CardHeader>
-      <CardContent className="p-6">
-        <div className="flex justify-between items-end">
-          <div>
-            <p className="text-3xl font-semibold bg-gradient-to-br from-healthnest-primary to-blue-500 bg-clip-text text-transparent">{currentValue}</p>
-            <p className="text-sm text-muted-foreground">Current {title.toLowerCase().replace(' tracking', '')}</p>
+    <Card className="overflow-hidden border border-border/50 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+      <div className={`bg-gradient-to-r ${bgColorClass} p-6`}>
+        <div className="flex justify-between items-start mb-4">
+          <div className={`h-12 w-12 rounded-lg bg-gradient-to-r ${iconBgClass} flex items-center justify-center shadow-md`}>
+            {icon}
           </div>
-          <div className="text-right">
-            <p className="text-healthnest-primary font-medium flex items-center justify-end">
-              <TrendingUp className="h-4 w-4 mr-1" />
-              {change}
-            </p>
-            <p className="text-sm text-muted-foreground">from last measurement</p>
+          <div className={`px-3 py-1 rounded-full text-xs font-semibold bg-white/80 backdrop-blur-sm shadow-sm`}>
+            <TrendingUp className={`h-3.5 w-3.5 inline-block mr-1 text-green-500`} />
+            {change}
           </div>
         </div>
-        <div className="mt-4 pt-4 border-t border-muted">
-          <div className="relative h-2 bg-muted rounded-full overflow-hidden">
+        <div>
+          <p className="text-sm font-medium text-gray-500 mb-1">Current {title}</p>
+          <p className={`text-3xl font-bold bg-gradient-to-r ${colorClass} bg-clip-text text-transparent`}>
+            {currentValue}
+          </p>
+        </div>
+        <div className="mt-4 pt-4 border-t border-gray-100">
+          <div className="relative h-2 bg-white/70 rounded-full overflow-hidden shadow-inner">
             <div 
               className={`absolute top-0 left-0 h-full bg-gradient-to-r ${colorClass} rounded-full`}
               style={{ width: `${percentage}%` }}
             ></div>
           </div>
-          <div className="flex justify-between mt-1">
-            <span className="text-xs text-muted-foreground">6 months</span>
-            <span className="text-xs text-muted-foreground">18 months</span>
+          <div className="flex justify-between mt-2">
+            <span className="text-xs text-gray-500">6 months</span>
+            <span className="text-xs text-gray-500">18 months</span>
           </div>
         </div>
-        <Button variant="link" size="sm" className="px-0 mt-3 text-healthnest-primary">
+        <Button variant="ghost" size="sm" className="mt-4 text-gray-600 hover:text-gray-900 p-0 h-auto">
           View History <ArrowRight className="ml-1 h-4 w-4" />
         </Button>
-      </CardContent>
+      </div>
     </Card>
   );
 };
