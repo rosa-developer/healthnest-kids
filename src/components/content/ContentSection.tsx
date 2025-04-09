@@ -2,7 +2,7 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import GrowthPage from '../growth/GrowthPage';
-import WordPressSettings from '../wordpress/WordPressSettings';
+import WordPressSettings from '../wordpress/settings/WordPressSettings';
 import SettingsPage from '../../pages/Settings';
 import HomeContent from './HomeContent';
 import { Baby, Heart, BookOpen } from 'lucide-react';
