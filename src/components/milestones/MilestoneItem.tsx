@@ -1,5 +1,6 @@
 
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -13,7 +14,8 @@ import {
   Save,
   ChevronDown,
   ChevronUp,
-  Calendar
+  Calendar,
+  Eye
 } from 'lucide-react';
 import { Milestone } from '@/types/milestone';
 import { useToast } from "@/hooks/use-toast";
@@ -39,6 +41,7 @@ const MilestoneItem: React.FC<MilestoneItemProps> = ({
   onSaveNotes
 }) => {
   const { toast } = useToast();
+  const navigate = useNavigate();
   const isSelected = selectedMilestoneId === milestone.id;
   const [isOpen, setIsOpen] = useState(false);
   
@@ -61,6 +64,10 @@ const MilestoneItem: React.FC<MilestoneItemProps> = ({
       title: "Set Achievement Date",
       description: "Date picker will be available in the next update!"
     });
+  };
+  
+  const handleViewMilestone = () => {
+    navigate(`/milestone/${milestone.id}`);
   };
   
   return (
@@ -186,6 +193,15 @@ const MilestoneItem: React.FC<MilestoneItemProps> = ({
               >
                 <Edit className="h-4 w-4 mr-1" />
                 Add Notes
+              </Button>
+              
+              <Button 
+                variant="outline" 
+                size="sm"
+                onClick={handleViewMilestone}
+              >
+                <Eye className="h-4 w-4 mr-1" />
+                View
               </Button>
               
               {milestone.completed && (

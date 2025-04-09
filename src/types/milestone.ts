@@ -18,6 +18,13 @@ export interface Milestone {
   completedDate?: string;
 }
 
+export interface MilestoneCategory {
+  id: string;
+  name: string;
+  icon: LucideIcon;
+  color: string;
+}
+
 export const milestoneCategories = [
   { id: 'all', name: 'All Milestones' },
   { id: 'physical', name: 'Physical Development' },
