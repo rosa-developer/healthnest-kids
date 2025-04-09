@@ -1,9 +1,9 @@
 
-import React, { useState } from 'react';
+import React from 'react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Check, AlertTriangle } from 'lucide-react';
+import { Check, AlertTriangle, Loader } from 'lucide-react';
 
 interface WordPressConnectionFormProps {
   wpUrl: string;
@@ -46,6 +46,13 @@ const WordPressConnectionForm: React.FC<WordPressConnectionFormProps> = ({
         </Button>
       </div>
       
+      {testStatus === 'testing' && (
+        <div className="flex items-center gap-2 text-blue-600 bg-blue-50 p-3 rounded-lg">
+          <Loader className="h-5 w-5 animate-spin" />
+          <span>Testing connection...</span>
+        </div>
+      )}
+      
       {testStatus === 'success' && (
         <div className="flex items-center gap-2 text-green-600 bg-green-50 p-3 rounded-lg">
           <Check className="h-5 w-5" />
@@ -76,8 +83,14 @@ const WordPressConnectionForm: React.FC<WordPressConnectionFormProps> = ({
           variant="outline" 
           onClick={testConnection}
           disabled={testStatus === 'testing' || !wpUrl}
+          className="flex items-center gap-2"
         >
-          {testStatus === 'testing' ? 'Testing...' : 'Test Connection'}
+          {testStatus === 'testing' ? (
+            <>
+              <Loader className="h-4 w-4 animate-spin" />
+              Testing...
+            </>
+          ) : 'Test Connection'}
         </Button>
         <Button 
           onClick={saveSettings}
