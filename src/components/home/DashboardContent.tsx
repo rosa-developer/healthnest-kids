@@ -20,53 +20,66 @@ const CardError = ({ title }: { title: string }) => (
 
 const DashboardContent = () => {
   return (
-    <>
+    <div id="home" className="section-container content-spacing">
       <BabyPhotoSection />
       
       {/* Profile Section */}
       <div className="animate-scale-in">
-        <div className="glass-panel p-6">
+        <div className="glass-panel">
           <ChildProfileCard />
         </div>
       </div>
       
       {/* Stats Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div className="content-card card-hover card-expand animate-slide-up overflow-hidden">
+      <div className="card-grid-2">
+        <div 
+          className="content-card rounded-3xl overflow-hidden group animate-slide-in-fade-up delay-100 hover:transform hover:-translate-y-2 transition-all duration-500"
+        >
           <ErrorBoundary fallback={<CardError title="Appointments" />}>
             <div className="p-6">
               <UpcomingAppointments />
             </div>
+            <div className="h-1 w-full bg-gradient-to-r from-primary-purple to-primary-blue transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
           </ErrorBoundary>
         </div>
         
-        <div className="content-card card-hover card-expand animate-slide-up overflow-hidden" style={{animationDelay: "0.1s"}}>
+        <div 
+          className="content-card rounded-3xl overflow-hidden group animate-slide-in-fade-up delay-200 hover:transform hover:-translate-y-2 transition-all duration-500"
+        >
           <ErrorBoundary fallback={<CardError title="Timeline" />}>
             <div className="p-6">
               <RecentTimeline />
             </div>
+            <div className="h-1 w-full bg-gradient-to-r from-primary-pink to-primary-purple transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
           </ErrorBoundary>
         </div>
       </div>
       
       {/* Reminders Section */}
-      <div className="content-card card-hover card-expand animate-slide-up" style={{animationDelay: "0.15s"}}>
+      <div 
+        className="content-card rounded-3xl group animate-slide-in-fade-up delay-300 hover:transform hover:-translate-y-2 transition-all duration-500"
+      >
         <div className="p-6">
           <ErrorBoundary fallback={<CardError title="Reminders" />}>
             <RemindersSection />
           </ErrorBoundary>
         </div>
+        <div className="h-1 w-full bg-gradient-to-r from-primary-green to-primary-blue transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
       </div>
       
       {/* Health Overview Section */}
-      <div className="content-card card-hover card-expand animate-slide-up" style={{animationDelay: "0.2s"}}>
+      <div 
+        id="health"
+        className="content-card rounded-3xl group animate-slide-in-fade-up delay-400 hover:transform hover:-translate-y-2 transition-all duration-500"
+      >
         <div className="p-6">
           <ErrorBoundary fallback={<CardError title="Health Overview" />}>
             <HealthOverview />
           </ErrorBoundary>
         </div>
+        <div className="h-1 w-full bg-gradient-to-r from-primary-blue to-primary-green transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
       </div>
-    </>
+    </div>
   );
 };
 

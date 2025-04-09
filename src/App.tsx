@@ -1,37 +1,38 @@
 
 import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, Routes, Route } from 'react-router-dom';
 import './index.css';
-import AppHeader from './components/layout/AppHeader';
-import MainNavigation from './components/navigation/MainNavigation';
-import ContentSection from './components/content/ContentSection';
+import Header from './components/layout/Header';
+import Navigation from './components/layout/Navigation';
+import Index from './pages/Index';
+import Health from './pages/Health';
+import Memories from './pages/Memories';
+import Advice from './pages/Advice';
+import Settings from './pages/Settings';
+import NotFound from './pages/NotFound';
 
 function App() {
-  const [activeSection, setActiveSection] = useState('home');
   const location = useLocation();
   
-  // Check if redirected from advice section for WordPress configuration
+  // Smooth scroll to top on route change
   useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.get('configure') === 'wordpress') {
-      setActiveSection('settings');
-    }
-  }, []);
-
-  // Update activeSection based on location
-  useEffect(() => {
-    if (location.pathname === '/settings') {
-      setActiveSection('settings');
-    } else if (location.pathname === '/wordpress-settings') {
-      setActiveSection('settings');
-    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [location.pathname]);
 
   return (
-    <div className="min-h-screen bg-primary-yellow p-5 pb-24">
-      <AppHeader setActiveSection={setActiveSection} />
-      <ContentSection activeSection={activeSection} setActiveSection={setActiveSection} />
-      <MainNavigation activeSection={activeSection} setActiveSection={setActiveSection} />
+    <div className="min-h-screen bg-background">
+      <Header />
+      <div className="pb-24">
+        <Routes>
+          <Route path="/" element={<Index />} />
+          <Route path="/health" element={<Health />} />
+          <Route path="/memories" element={<Memories />} />
+          <Route path="/advice" element={<Advice />} />
+          <Route path="/settings" element={<Settings />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </div>
+      <Navigation />
     </div>
   );
 }

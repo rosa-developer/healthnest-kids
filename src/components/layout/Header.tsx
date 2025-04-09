@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Bell, Settings } from 'lucide-react';
 import { Button } from "@/components/ui/button";
@@ -9,6 +9,23 @@ import ChildProfileSelector from '@/components/common/ChildProfileSelector';
 const Header: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const [scrolled, setScrolled] = useState(false);
+  
+  // Monitor scroll position to add shadow when scrolled
+  useEffect(() => {
+    const handleScroll = () => {
+      const isScrolled = window.scrollY > 20;
+      if (isScrolled !== scrolled) {
+        setScrolled(isScrolled);
+      }
+    };
+    
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [scrolled]);
   
   const getPageTitle = (pathname: string) => {
     switch (pathname) {
@@ -39,8 +56,12 @@ const Header: React.FC = () => {
   };
 
   return (
-    <header className="fixed top-0 left-0 right-0 bg-background/80 dark:bg-[#1A1F2C]/90 backdrop-blur-xl border-b border-border dark:border-white/10 z-50 transition-all duration-400">
-      <div className="max-w-screen-lg mx-auto px-5 py-4 flex items-center justify-between">
+    <header 
+      className={`fixed top-0 left-0 right-0 bg-background/95 dark:bg-[#1A1F2C]/95 backdrop-blur-xl border-b ${
+        scrolled ? 'border-border shadow-md' : 'border-transparent'
+      } dark:border-white/10 z-50 transition-all duration-400`}
+    >
+      <div className="max-w-screen-xl mx-auto px-5 py-4 flex items-center justify-between">
         <div className="flex items-center gap-4">
           <ChildProfileSelector />
           <div className="flex flex-col">
@@ -59,7 +80,7 @@ const Header: React.FC = () => {
             variant="ghost" 
             size="icon"
             onClick={handleNotification}
-            className="transition-all duration-300 hover:bg-primary/10 dark:hover:bg-white/5 text-foreground dark:text-white/80 rounded-full"
+            className="transition-all duration-300 hover:bg-primary/10 dark:hover:bg-white/5 text-foreground dark:text-white/80 rounded-full hover:scale-105"
           >
             <Bell className="h-5 w-5" />
           </Button>
@@ -67,7 +88,7 @@ const Header: React.FC = () => {
             variant="ghost"
             size="icon"
             onClick={handleSettingsClick}
-            className="transition-all duration-300 hover:bg-primary/10 dark:hover:bg-white/5 text-foreground dark:text-white/80 rounded-full"
+            className="transition-all duration-300 hover:bg-primary/10 dark:hover:bg-white/5 text-foreground dark:text-white/80 rounded-full hover:scale-105"
           >
             <Settings className="h-5 w-5" />
           </Button>
