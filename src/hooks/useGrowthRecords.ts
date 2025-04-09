@@ -10,7 +10,7 @@ import {
   type DocumentData,
   type Timestamp
 } from '../lib/firebase';
-import { useToast } from './use-toast';
+import { useToast } from '@/hooks/use-toast';
 
 // Define a more specific type for Firestore Timestamp
 interface FirestoreTimestampLike {
@@ -49,6 +49,7 @@ export const useGrowthRecords = (childId: string) => {
       if (dateValue instanceof Date) {
         date = dateValue;
       } else if (isFirestoreTimestamp(dateValue)) {
+        // Since we've verified it's a FirestoreTimestampLike with our type guard
         date = dateValue.toDate();
       } else {
         date = new Date();
