@@ -14,7 +14,10 @@ import {
   where,
   orderBy,
   limit,
-  Firestore
+  Firestore,
+  DocumentData,
+  CollectionReference,
+  DocumentReference
 } from 'firebase/firestore';
 import { 
   getAuth, 
@@ -91,6 +94,22 @@ setTimeout(() => {
 // Get the current connection status
 const getConnectionStatus = () => connectionStatus;
 
+// Type-safe collection helper function
+const safeCollection = (path: string): CollectionReference<DocumentData> => {
+  if (!db) {
+    throw new Error('Firestore not initialized');
+  }
+  return collection(db, path);
+};
+
+// Type-safe document helper function
+const safeDoc = (path: string, ...pathSegments: string[]): DocumentReference<DocumentData> => {
+  if (!db) {
+    throw new Error('Firestore not initialized');
+  }
+  return doc(db, path, ...pathSegments);
+};
+
 export { 
   app, 
   db, 
@@ -108,5 +127,7 @@ export {
   where,
   orderBy,
   limit,
-  getConnectionStatus
+  getConnectionStatus,
+  safeCollection,
+  safeDoc
 };
