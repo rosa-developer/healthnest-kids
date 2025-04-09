@@ -25,43 +25,66 @@ import {
 import { getStorage } from 'firebase/storage';
 
 // Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY", // Replace with your Firebase API key
-  authDomain: "your-app.firebaseapp.com",
-  projectId: "your-app",
-  storageBucket: "your-app.appspot.com",
-  messagingSenderId: "your-sender-id",
-  appId: "your-app-id",
-  measurementId: "your-measurement-id"
+  // Using mock config that will work in development mode
+  apiKey: "mock-api-key",
+  authDomain: "mock-auth-domain",
+  projectId: "mock-project-id",
+  storageBucket: "mock-storage-bucket",
+  messagingSenderId: "mock-sender-id",
+  appId: "mock-app-id"
 };
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-const auth = getAuth(app);
-const storage = getStorage(app);
+// Initialize Firebase - with error handling
+let app;
+let db;
+let auth;
+let storage;
 
 // Connection status monitor
 let connectionStatus: 'connected' | 'connecting' | 'error' = 'connecting';
+
+try {
+  app = initializeApp(firebaseConfig);
+  db = getFirestore(app);
+  auth = getAuth(app);
+  storage = getStorage(app);
+} catch (error) {
+  console.error("Firebase initialization error:", error);
+  connectionStatus = 'error';
+}
 
 // Test database connection
 const testConnection = async () => {
   try {
     connectionStatus = 'connecting';
-    await getDocs(collection(db, 'test-connection'));
-    connectionStatus = 'connected';
-    console.log('Firebase connection successful');
-    return true;
+    if (!db) {
+      connectionStatus = 'error';
+      return false;
+    }
+    
+    try {
+      // Just test the connection, don't actually need to get docs
+      await getDocs(collection(db, 'test-connection'));
+      connectionStatus = 'connected';
+      console.log('Firebase connection successful');
+      return true;
+    } catch (error) {
+      connectionStatus = 'error';
+      console.error('Firebase connection error:', error);
+      return false;
+    }
   } catch (error) {
     connectionStatus = 'error';
-    console.error('Firebase connection error:', error);
+    console.error('Firebase test connection error:', error);
     return false;
   }
 };
 
-// Initialize connection test
-testConnection();
+// Initialize connection test with timeout
+setTimeout(() => {
+  testConnection();
+}, 1000);
 
 // Get the current connection status
 const getConnectionStatus = () => connectionStatus;
