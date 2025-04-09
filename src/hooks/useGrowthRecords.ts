@@ -12,8 +12,8 @@ import {
 } from '../lib/firebase';
 import { useToast } from './use-toast';
 
-// Define a type guard for Firestore Timestamp
-const isFirestoreTimestamp = (value: any): value is Timestamp => {
+// Define a stronger type guard for Firestore Timestamp
+const isFirestoreTimestamp = (value: any): value is { toDate(): Date } => {
   return value && typeof value === 'object' && 'toDate' in value && typeof value.toDate === 'function';
 };
 
@@ -46,7 +46,7 @@ export const useGrowthRecords = (childId: string) => {
                 if (dateValue instanceof Date) {
                   date = dateValue;
                 } else if (isFirestoreTimestamp(dateValue)) {
-                  // The type guard ensures dateValue has toDate method
+                  // With our improved type guard, TypeScript now knows dateValue has toDate method
                   date = dateValue.toDate();
                 } else {
                   // Default to current date if neither Date nor Timestamp
