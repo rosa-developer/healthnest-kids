@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
-import { ThemeProvider } from './components/ThemeProvider';
+import { ThemeProvider } from '@/components/ThemeProvider';
 import MainLayout from './components/layout/MainLayout';
 import MilestoneTracker from './pages/MilestoneTracker';
 import GrowthTracker from './pages/GrowthTracker';
