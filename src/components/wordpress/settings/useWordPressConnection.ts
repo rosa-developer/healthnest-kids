@@ -1,7 +1,7 @@
 
 import { useState } from 'react';
-import { testWordPressConnection } from '@/services/wordpressApi';
-import { useToast } from "@/hooks/use-toast";
+import { testWordPressConnection } from '../../../services/wordpressApi';
+import { useToast } from "../../../hooks/use-toast";
 
 export const useWordPressConnection = () => {
   const [wpUrl, setWpUrl] = useState<string>('');
