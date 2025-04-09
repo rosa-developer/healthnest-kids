@@ -5,12 +5,14 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Check, AlertTriangle, Globe, ArrowLeft } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
+import { useNavigate } from 'react-router-dom';
 
 const WordPressSettings: React.FC = () => {
   const [wpUrl, setWpUrl] = useState<string>(localStorage.getItem('wp_api_url') || '');
   const [testStatus, setTestStatus] = useState<'idle' | 'testing' | 'success' | 'error'>('idle');
   const [errorMessage, setErrorMessage] = useState<string>('');
   const { toast } = useToast();
+  const navigate = useNavigate();
   
   // Check if we were redirected from another page
   useEffect(() => {
@@ -27,11 +29,11 @@ const WordPressSettings: React.FC = () => {
   const handleReturn = () => {
     const redirectUrl = localStorage.getItem('redirect_after_wp_config');
     if (redirectUrl) {
-      window.location.href = redirectUrl;
+      navigate(redirectUrl);
       localStorage.removeItem('redirect_after_wp_config');
     } else {
-      // Use window.history instead of navigate
-      window.history.back();
+      // Use React Router navigation
+      navigate(-1);
     }
   };
   
@@ -49,7 +51,7 @@ const WordPressSettings: React.FC = () => {
     // Return to previous page if there's a redirect URL stored
     const redirectUrl = localStorage.getItem('redirect_after_wp_config');
     if (redirectUrl) {
-      window.location.href = redirectUrl;
+      navigate(redirectUrl);
       localStorage.removeItem('redirect_after_wp_config');
     } else {
       // Otherwise just reload the application to use the new settings

@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { Routes, Route, useLocation } from 'react-router-dom';
+import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import './index.css';
 import { BookOpen, Palette, Baby, Heart, Ruler, Home, Settings, Globe } from 'lucide-react';
 import ProfileSelector from './components/ProfileSelector';
@@ -12,6 +12,7 @@ import SettingsPage from './pages/Settings';
 function App() {
   const [activeSection, setActiveSection] = useState('home');
   const location = useLocation();
+  const navigate = useNavigate();
   
   // Check if redirected from advice section for WordPress configuration
   useEffect(() => {
@@ -20,6 +21,15 @@ function App() {
       setActiveSection('settings');
     }
   }, []);
+
+  // Update activeSection based on location
+  useEffect(() => {
+    if (location.pathname === '/settings') {
+      setActiveSection('settings');
+    } else if (location.pathname === '/wordpress-settings') {
+      setActiveSection('settings');
+    }
+  }, [location.pathname]);
   
   const renderContent = () => {
     switch(activeSection) {
@@ -142,7 +152,10 @@ function App() {
         <h1 className="text-3xl font-bold mb-2 md:mb-0">Baby Growth Tracker</h1>
         <div className="flex items-center gap-4">
           <button 
-            onClick={() => setActiveSection('settings')}
+            onClick={() => {
+              setActiveSection('settings');
+              navigate('/wordpress-settings');
+            }}
             className="flex items-center gap-1 text-sm font-medium text-primary-purple hover:text-primary-purple/80 transition-colors"
           >
             <Globe className="w-4 h-4" />
@@ -164,7 +177,10 @@ function App() {
       <nav className="fixed bottom-0 left-0 right-0 bg-white p-4 rounded-t-3xl shadow-lg flex justify-around">
         <button 
           className={`kid-nav-button ${activeSection === 'home' ? 'bg-primary-purple/20' : 'bg-purple-100'}`}
-          onClick={() => setActiveSection('home')}
+          onClick={() => {
+            setActiveSection('home');
+            navigate('/');
+          }}
         >
           <Home className={`w-8 h-8 ${activeSection === 'home' ? 'text-primary-purple' : 'text-primary-purple/60'}`} />
           <span className="text-xs mt-1">Home</span>
@@ -206,7 +222,7 @@ function App() {
           className={`kid-nav-button ${activeSection === 'settings' ? 'bg-gray-200' : 'bg-gray-100'}`}
           onClick={() => {
             setActiveSection('settings');
-            window.location.href = '/settings';
+            navigate('/settings');
           }}
         >
           <Settings className={`w-8 h-8 ${activeSection === 'settings' ? 'text-gray-600' : 'text-gray-400'}`} />

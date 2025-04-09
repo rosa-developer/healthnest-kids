@@ -21,7 +21,7 @@ const ActionButtonsSection = () => {
       title: "Logging Out",
       description: "You have been logged out successfully!",
     });
-    // Navigate to home after logout
+    // Use React Router navigation instead of direct window location change
     setTimeout(() => {
       navigate('/');
     }, 1500);
