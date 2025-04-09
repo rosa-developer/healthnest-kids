@@ -7,6 +7,7 @@ import WelcomeSection from '@/components/home/WelcomeSection';
 import LoadingState from '@/components/home/LoadingState';
 import ErrorState from '@/components/home/ErrorState';
 import DashboardContent from '@/components/home/DashboardContent';
+import HeroSection from '@/components/home/HeroSection';
 import { getConnectionStatus } from '@/lib/firebase';
 import { useBabyGrowthAdvice } from '@/hooks/useWordPress';
 import { Card, CardContent } from '@/components/ui/card';
@@ -105,6 +106,9 @@ const Index = () => {
     <div className="main-container bg-gradient-to-b from-background via-primary-yellow/10 to-muted/20">
       <PageTransition>
         <div className="space-y-8 animate-fade-in">
+          {/* Hero Section - Added at the top */}
+          <HeroSection />
+          
           {/* Welcome Hero Section with glassmorphism effect */}
           <div className="relative rounded-3xl overflow-hidden group">
             <div className="absolute inset-0 bg-gradient-to-r from-primary-purple/20 via-primary-pink/10 to-primary-blue/20 z-0 transition-all duration-500 group-hover:opacity-80"></div>
