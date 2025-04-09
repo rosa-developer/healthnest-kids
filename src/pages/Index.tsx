@@ -11,6 +11,7 @@ import HeroSection from '@/components/home/HeroSection';
 import { getConnectionStatus } from '@/lib/firebase';
 import { useBabyGrowthAdvice } from '@/hooks/useWordPress';
 import { Card, CardContent } from '@/components/ui/card';
+import ConnectionStatusBadge from '@/components/common/ConnectionStatusBadge';
 
 const Index = () => {
   const { activeProfile, isLoading: profileLoading, error: profileError } = useChildProfile();
@@ -108,6 +109,11 @@ const Index = () => {
         <div className="space-y-12 animate-fade-in">
           {/* Hero Section - Added at the top */}
           <HeroSection />
+          
+          {/* Connection Status Badge */}
+          <div className="fixed top-16 right-4 z-50">
+            <ConnectionStatusBadge />
+          </div>
           
           {/* Welcome Hero Section with glassmorphism effect */}
           <div className="relative rounded-3xl overflow-hidden group transition-all duration-300 hover:shadow-xl">

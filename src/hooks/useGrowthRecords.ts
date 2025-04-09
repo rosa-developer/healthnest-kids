@@ -7,7 +7,8 @@ import {
   getConnectionStatus, 
   getDocs, 
   setDoc,
-  DocumentData
+  DocumentData,
+  type Timestamp
 } from '../lib/firebase';
 import { useToast } from './use-toast';
 
@@ -30,11 +31,21 @@ export const useGrowthRecords = (childId: string) => {
             const recordsSnapshot = await getDocs(recordsCollection);
             
             if (!recordsSnapshot.empty) {
-              const fetchedRecords = recordsSnapshot.docs.map((doc) => ({
-                id: doc.id,
-                ...doc.data(),
-                date: doc.data().date.toDate() // Convert Firestore timestamp to JS Date
-              })) as GrowthRecord[];
+              const fetchedRecords = recordsSnapshot.docs.map((doc) => {
+                const data = doc.data();
+                // Handle Firestore timestamp to JS Date conversion
+                const date = data.date instanceof Date ? data.date : (
+                  // Check if it's a Firestore Timestamp
+                  data.date && typeof data.date.toDate === 'function' ? 
+                  data.date.toDate() : new Date()
+                );
+                
+                return {
+                  id: doc.id,
+                  ...data,
+                  date
+                } as GrowthRecord;
+              });
               
               // Sort records by date (newest first)
               setRecords(fetchedRecords.sort((a, b) => b.date.getTime() - a.date.getTime()));

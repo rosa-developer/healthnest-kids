@@ -37,7 +37,9 @@ const VoiceRecorderContent: React.FC = () => {
       <div className="flex flex-col items-center">
         <div className="w-full mb-4 flex justify-center">
           {isRecording ? (
-            <RecordingTimer recordingTime={recordingTime} />
+            <div className="animate-pulse">
+              <RecordingTimer recordingTime={recordingTime} />
+            </div>
           ) : audioBlob ? (
             <AudioPreview 
               recordingTime={recordingTime}
@@ -56,8 +58,10 @@ const VoiceRecorderContent: React.FC = () => {
                 </Alert>
               ) : (
                 <>
-                  <Mic className="h-5 w-5 text-muted-foreground mb-1" />
-                  Tap the microphone to start recording
+                  <div className="rounded-full bg-muted/30 p-3 mb-1">
+                    <Mic className="h-5 w-5 text-muted-foreground" />
+                  </div>
+                  <span className="text-sm text-muted-foreground">Tap the microphone to start recording</span>
                 </>
               )}
             </div>
@@ -81,7 +85,7 @@ const VoiceRecorderContent: React.FC = () => {
 
 const VoiceRecorder: React.FC<VoiceRecorderProps> = ({ onSave, className }) => {
   return (
-    <div className={cn('rounded-lg bg-card border border-border p-4', className)}>
+    <div className={cn('rounded-lg bg-card border border-border p-4 backdrop-blur-sm', className)}>
       <VoiceRecorderProvider onSave={onSave}>
         <VoiceRecorderContent />
       </VoiceRecorderProvider>

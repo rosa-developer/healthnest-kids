@@ -15,9 +15,10 @@ import {
   orderBy,
   limit,
   Firestore,
-  DocumentData,
+  DocumentData as FirestoreDocumentData,
   CollectionReference,
-  DocumentReference
+  DocumentReference,
+  Timestamp as FirestoreTimestamp
 } from 'firebase/firestore';
 import { 
   getAuth, 
@@ -102,7 +103,7 @@ setInterval(() => {
 const getConnectionStatus = () => connectionStatus;
 
 // Type-safe collection helper function
-const safeCollection = <T = DocumentData>(path: string): CollectionReference<T> => {
+const safeCollection = <T = FirestoreDocumentData>(path: string): CollectionReference<T> => {
   if (!db) {
     throw new Error('Firestore not initialized');
   }
@@ -110,12 +111,15 @@ const safeCollection = <T = DocumentData>(path: string): CollectionReference<T> 
 };
 
 // Type-safe document helper function
-const safeDoc = <T = DocumentData>(path: string, ...pathSegments: string[]): DocumentReference<T> => {
+const safeDoc = <T = FirestoreDocumentData>(path: string, ...pathSegments: string[]): DocumentReference<T> => {
   if (!db) {
     throw new Error('Firestore not initialized');
   }
   return doc(db, path, ...pathSegments) as DocumentReference<T>;
 };
+
+// Re-export types
+export type { FirestoreDocumentData as DocumentData, FirestoreTimestamp as Timestamp };
 
 export { 
   app, 
@@ -136,6 +140,5 @@ export {
   limit,
   getConnectionStatus,
   safeCollection,
-  safeDoc,
-  DocumentData
+  safeDoc
 };

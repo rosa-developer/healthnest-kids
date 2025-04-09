@@ -2,17 +2,7 @@
 import React from 'react';
 import { Button } from "@/components/ui/button";
 import { Mic, Square, Save, Trash, MicOff, Loader2 } from 'lucide-react';
-
-interface RecordingControlsProps {
-  isRecording: boolean;
-  audioBlob: Blob | null;
-  onStartRecording: () => void;
-  onStopRecording: () => void;
-  onSave: () => void;
-  onDiscard: () => void;
-  hasPermission?: boolean;
-  isRequestingPermission?: boolean;
-}
+import { RecordingControlsProps } from './types';
 
 const RecordingControls: React.FC<RecordingControlsProps> = ({
   isRecording,
@@ -31,7 +21,7 @@ const RecordingControls: React.FC<RecordingControlsProps> = ({
           <Button
             variant="destructive"
             size="icon"
-            className="h-12 w-12 rounded-full"
+            className="h-12 w-12 rounded-full animate-pulse transition-all duration-300"
             onClick={onStopRecording}
           >
             <Square className="h-5 w-5" />
@@ -40,7 +30,7 @@ const RecordingControls: React.FC<RecordingControlsProps> = ({
           <Button
             variant="default"
             size="icon"
-            className="h-12 w-12 rounded-full bg-healthnest-primary hover:bg-healthnest-primary/90"
+            className="h-12 w-12 rounded-full bg-healthnest-primary hover:bg-healthnest-primary/90 transition-all duration-300 hover:scale-105"
             onClick={onStartRecording}
             disabled={isRequestingPermission || !hasPermission}
           >
@@ -58,7 +48,7 @@ const RecordingControls: React.FC<RecordingControlsProps> = ({
           <Button
             variant="outline"
             size="icon"
-            className="h-10 w-10 rounded-full"
+            className="h-10 w-10 rounded-full hover:bg-destructive/10 transition-all duration-300"
             onClick={onDiscard}
           >
             <Trash className="h-4 w-4 text-destructive" />
@@ -66,7 +56,7 @@ const RecordingControls: React.FC<RecordingControlsProps> = ({
           <Button
             variant="default"
             size="icon"
-            className="h-12 w-12 rounded-full bg-healthnest-primary hover:bg-healthnest-primary/90"
+            className="h-12 w-12 rounded-full bg-healthnest-primary hover:bg-healthnest-primary/90 transition-all duration-300 hover:scale-105"
             onClick={onSave}
           >
             <Save className="h-5 w-5" />
@@ -75,7 +65,7 @@ const RecordingControls: React.FC<RecordingControlsProps> = ({
       )}
 
       {!hasPermission && !isRecording && !audioBlob && (
-        <div className="text-xs text-destructive ml-2">
+        <div className="text-xs text-destructive ml-2 bg-destructive/5 px-2 py-1 rounded-md">
           Microphone access denied. Please check browser permissions.
         </div>
       )}
