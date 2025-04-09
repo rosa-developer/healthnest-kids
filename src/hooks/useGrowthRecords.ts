@@ -46,8 +46,10 @@ export const useGrowthRecords = (childId: string) => {
                 if (dateValue instanceof Date) {
                   date = dateValue;
                 } else if (isFirestoreTimestamp(dateValue)) {
+                  // The type guard ensures dateValue has toDate method
                   date = dateValue.toDate();
                 } else {
+                  // Default to current date if neither Date nor Timestamp
                   date = new Date();
                 }
                 
