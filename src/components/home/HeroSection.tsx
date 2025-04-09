@@ -74,14 +74,18 @@ const HeroSection = () => {
           </div>
         </div>
         
-        {/* Illustration */}
+        {/* Illustration - Updated with a family image */}
         <div className="md:w-2/5 flex justify-center md:justify-end animate-scale-in group" style={{ animationDelay: "0.4s" }}>
           <div className="relative transition-all duration-500 group-hover:scale-105">
             <div className="absolute -inset-1 bg-gradient-to-r from-primary-purple via-primary-blue to-primary-pink rounded-full blur-lg opacity-70 animate-pulse-slow"></div>
             <img 
-              src="/baby-emma.jpg" 
-              alt="Happy baby with family" 
+              src="https://images.unsplash.com/photo-1609220136736-443140cffec6?q=80&w=1000" 
+              alt="Happy family with baby" 
               className="relative w-full max-w-sm object-cover rounded-2xl shadow-xl border-2 border-white/50 transform rotate-2 transition-all duration-500 group-hover:rotate-0 group-hover:shadow-2xl"
+              onError={(e) => {
+                console.error("Failed to load family image");
+                e.currentTarget.src = "/baby-emma.jpg";
+              }}
             />
             <div className="absolute -bottom-3 -right-3 bg-white rounded-full p-2 shadow-lg border border-primary-purple/30 animate-bounce-slow group-hover:animate-swing transition-all duration-300">
               <Star className="h-8 w-8 text-primary-purple" />
