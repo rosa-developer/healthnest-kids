@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { ArrowRight, Heart, Star } from 'lucide-react';
+import { ArrowRight, Heart, Star, Calendar } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { useNavigate } from 'react-router-dom';
 
@@ -18,10 +18,14 @@ const HeroSection = () => {
   };
 
   return (
-    <div className="relative overflow-hidden rounded-3xl mb-8 transition-all duration-500 hover:shadow-xl group">
-      {/* Background with gradient overlay */}
+    <div className="relative overflow-hidden rounded-3xl mb-8 transition-all duration-500 hover:shadow-xl group bg-gradient-to-r from-primary-purple/10 to-primary-blue/10">
+      {/* Enhanced background with animated gradient overlay */}
       <div className="absolute inset-0 bg-gradient-to-br from-primary-purple/40 via-primary-blue/30 to-primary-pink/30 z-0 transition-all duration-500 group-hover:opacity-80"></div>
       <div className="absolute inset-0 bg-grid-white/10 z-0"></div>
+      
+      {/* Decorative elements */}
+      <div className="absolute top-8 right-8 w-24 h-24 bg-primary-yellow/30 rounded-full blur-xl animate-pulse-slow"></div>
+      <div className="absolute bottom-8 left-8 w-16 h-16 bg-primary-green/20 rounded-full blur-lg animate-float"></div>
       
       {/* Hero content */}
       <div className="relative z-10 p-8 md:p-12 flex flex-col md:flex-row items-center gap-8 md:gap-12">
@@ -55,6 +59,18 @@ const HeroSection = () => {
                 <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary-purple group-hover:w-full transition-all duration-300"></span>
               </span>
             </Button>
+            
+            <Button 
+              variant="ghost" 
+              className="hover:bg-primary-blue/10 text-primary-blue shadow-sm transition-all duration-500 hover:shadow-md hover:translate-y-[-2px] rounded-full group"
+              onClick={() => navigate('/memories')}
+            >
+              <Calendar className="mr-2 h-4 w-4 group-hover:rotate-12 transition-transform duration-300" />
+              <span className="relative inline-block">
+                Create Memories
+                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary-blue group-hover:w-full transition-all duration-300"></span>
+              </span>
+            </Button>
           </div>
           
           {/* Feature badges */}
@@ -74,7 +90,7 @@ const HeroSection = () => {
           </div>
         </div>
         
-        {/* Illustration - Updated with a family image */}
+        {/* Illustration - Enhanced family image */}
         <div className="md:w-2/5 flex justify-center md:justify-end animate-scale-in group" style={{ animationDelay: "0.4s" }}>
           <div className="relative transition-all duration-500 group-hover:scale-105">
             <div className="absolute -inset-1 bg-gradient-to-r from-primary-purple via-primary-blue to-primary-pink rounded-full blur-lg opacity-70 animate-pulse-slow"></div>
@@ -89,6 +105,11 @@ const HeroSection = () => {
             />
             <div className="absolute -bottom-3 -right-3 bg-white rounded-full p-2 shadow-lg border border-primary-purple/30 animate-bounce-slow group-hover:animate-swing transition-all duration-300">
               <Star className="h-8 w-8 text-primary-purple" />
+            </div>
+            
+            {/* Added decorative elements */}
+            <div className="absolute -top-2 -left-2 bg-white rounded-full p-1.5 shadow-md border border-primary-pink/30 animate-float transition-all duration-300">
+              <Heart className="h-5 w-5 text-primary-pink" />
             </div>
           </div>
         </div>

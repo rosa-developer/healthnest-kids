@@ -2,44 +2,54 @@
 import React from 'react';
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
-import { Baby, ChevronRight } from 'lucide-react';
+import { Baby, ChevronRight, Heart, Camera } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { useNavigate } from 'react-router-dom';
 
 const BabyPhotoSection = () => {
   const navigate = useNavigate();
   
-  // Family photos array - you can add more images to this array
+  // Enhanced family photos array with more images
   const familyPhotos = [
     { src: "/baby-emma.jpg", alt: "Baby Emma" },
     { src: "https://images.unsplash.com/photo-1603710673131-a49917c03b6f?q=80&w=1000", alt: "Happy family outdoors" },
     { src: "https://images.unsplash.com/photo-1535572290543-960a8046f5af?q=80&w=1000", alt: "Parents with baby" },
+    { src: "https://images.unsplash.com/photo-1607400201515-c2c41c07d307?q=80&w=1000", alt: "Mother with baby" },
+    { src: "https://images.unsplash.com/photo-1492725764893-90b379c2b6e7?q=80&w=1000", alt: "Father and baby" },
+    { src: "https://images.unsplash.com/photo-1518571744034-9cd6bf1eb9f5?q=80&w=1000", alt: "Family portrait" },
   ];
 
   return (
     <div className="animate-scale-in mb-8" id="memories">
-      <div className="glass-panel p-6">
+      <div className="glass-panel p-6 relative overflow-hidden">
+        {/* Decorative elements */}
+        <div className="absolute -top-16 -right-16 w-32 h-32 bg-primary-pink/10 rounded-full blur-xl"></div>
+        <div className="absolute -bottom-8 -left-8 w-24 h-24 bg-primary-blue/10 rounded-full blur-lg"></div>
+        
         <div className="flex justify-between items-center mb-6">
-          <h2 className="text-2xl font-semibold">Family Memories</h2>
+          <h2 className="text-2xl font-semibold font-heading flex items-center gap-2">
+            <Heart className="h-5 w-5 text-primary-pink" />
+            Family Memories
+          </h2>
           <Button 
             variant="ghost" 
             size="sm" 
-            className="text-primary flex items-center"
+            className="text-primary flex items-center group"
             onClick={() => navigate('/memories')}
           >
-            View all <ChevronRight className="h-4 w-4 ml-1" />
+            View all <ChevronRight className="h-4 w-4 ml-1 group-hover:translate-x-1 transition-all duration-300" />
           </Button>
         </div>
         
-        <div className="flex flex-col space-y-6">
+        <div className="flex flex-col space-y-6 relative z-10">
           {/* Baby profile section */}
           <div className="flex flex-col md:flex-row gap-6">
-            <div className="w-full md:w-1/3 rounded-xl overflow-hidden shadow-md transition-all duration-300 hover:shadow-xl">
+            <div className="w-full md:w-1/3 rounded-xl overflow-hidden shadow-md transition-all duration-300 hover:shadow-xl group">
               <AspectRatio ratio={4/3}>
                 <img 
                   src="/baby-emma.jpg" 
                   alt="Baby Emma" 
-                  className="object-cover w-full h-full rounded-xl"
+                  className="object-cover w-full h-full rounded-xl transform transition-all duration-500 group-hover:scale-105"
                   onError={(e) => {
                     console.error("Failed to load baby image");
                     e.currentTarget.src = "/placeholder.svg";
@@ -51,7 +61,7 @@ const BabyPhotoSection = () => {
               <p className="text-muted-foreground">
                 Track your baby's growth, milestones, health records, and cherish every moment with photos and memories.
               </p>
-              <div className="bg-muted/30 p-4 rounded-lg">
+              <div className="bg-muted/30 p-4 rounded-lg border border-primary-purple/10">
                 <p className="font-medium text-sm">Did you know?</p>
                 <p className="text-sm text-muted-foreground">
                   Babies typically triple their birth weight by their first birthday.
@@ -79,28 +89,43 @@ const BabyPhotoSection = () => {
             </div>
           </div>
           
-          {/* Family photos gallery */}
+          {/* Family photos gallery - Enhanced with better styling */}
           <div className="mt-6">
-            <h3 className="text-lg font-medium mb-4">Happy Family Moments</h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+            <h3 className="text-lg font-medium mb-4 flex items-center">
+              <Camera className="h-4 w-4 mr-2 text-primary-blue" />
+              Happy Family Moments
+            </h3>
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-6 gap-3">
               {familyPhotos.map((photo, index) => (
                 <div 
                   key={index} 
-                  className="rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
+                  className="rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 group"
                 >
-                  <AspectRatio ratio={4/3}>
+                  <AspectRatio ratio={1/1}>
                     <img 
                       src={photo.src} 
                       alt={photo.alt} 
-                      className="object-cover w-full h-full"
+                      className="object-cover w-full h-full transition-all duration-500 group-hover:scale-110"
                       onError={(e) => {
                         console.error(`Failed to load image: ${photo.src}`);
                         e.currentTarget.src = "/placeholder.svg";
                       }}
                     />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-end p-2">
+                      <p className="text-white text-xs font-medium truncate w-full">{photo.alt}</p>
+                    </div>
                   </AspectRatio>
                 </div>
               ))}
+            </div>
+            <div className="flex justify-center mt-6">
+              <Button 
+                className="bg-primary-pink/90 hover:bg-primary-pink text-white shadow-md transition-all duration-300 hover:shadow-lg rounded-full group"
+                onClick={() => navigate('/memories')}
+              >
+                <Camera className="mr-2 h-4 w-4 group-hover:rotate-12 transition-transform duration-300" />
+                Add New Photos
+              </Button>
             </div>
           </div>
         </div>
