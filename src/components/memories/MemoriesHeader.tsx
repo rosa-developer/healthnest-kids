@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Button } from "@/components/ui/button";
-import { Filter, Camera, Upload, Mic, PlusCircle } from 'lucide-react';
+import { Filter, Camera, Upload, Mic, PlusCircle, Image } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 interface MemoriesHeaderProps {
@@ -34,7 +34,7 @@ const MemoriesHeader: React.FC<MemoriesHeaderProps> = ({ handleAddMemory }) => {
           asChild
         >
           <Link to="/photos">
-            <Camera className="h-4 w-4 mr-2" />
+            <Image className="h-4 w-4 mr-2" />
             Photos
           </Link>
         </Button>

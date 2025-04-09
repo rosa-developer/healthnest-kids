@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import MemoryCard from '@/components/common/MemoryCard';
 import { Button } from "@/components/ui/button";
-import { PlusCircle } from 'lucide-react';
+import { PlusCircle, Upload } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
 
 const PhotoMemories: React.FC = () => {
@@ -12,7 +12,7 @@ const PhotoMemories: React.FC = () => {
       id: "photo1",
       title: "First Smile",
       date: "January 15, 2023",
-      imageSrc: "/lovable-uploads/40981d4d-5381-44c9-a78f-c22d7a65cdcf.png",
+      imageSrc: "/lovable-uploads/09704aa0-0bda-4497-942b-b783bd82f948.png",
       description: "Emma's first real smile! Her eyes lit up when I sang to her."
     },
     {
@@ -26,7 +26,7 @@ const PhotoMemories: React.FC = () => {
       id: "photo3",
       title: "First Time at the Park",
       date: "March 22, 2023",
-      imageSrc: "/lovable-uploads/40981d4d-5381-44c9-a78f-c22d7a65cdcf.png",
+      imageSrc: "/lovable-uploads/09704aa0-0bda-4497-942b-b783bd82f948.png",
       description: "Our first family trip to the park. Emma was fascinated by the trees."
     },
     {
@@ -40,7 +40,7 @@ const PhotoMemories: React.FC = () => {
       id: "photo5",
       title: "Nap Time with Teddy",
       date: "April 18, 2023",
-      imageSrc: "/lovable-uploads/40981d4d-5381-44c9-a78f-c22d7a65cdcf.png",
+      imageSrc: "/lovable-uploads/09704aa0-0bda-4497-942b-b783bd82f948.png",
       description: "Emma fell asleep hugging her favorite teddy bear. So precious!"
     }
   ]);
@@ -86,7 +86,7 @@ const PhotoMemories: React.FC = () => {
           onClick={handleAddPhotoMemory}
           className="mt-2"
         >
-          <PlusCircle className="h-4 w-4 mr-2" />
+          <Upload className="h-4 w-4 mr-2" />
           Upload New Photos
         </Button>
       </div>
