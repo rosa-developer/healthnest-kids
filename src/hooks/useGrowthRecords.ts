@@ -1,3 +1,4 @@
+
 import { useState, useEffect, useRef } from 'react';
 import { GrowthRecord, mockGrowthRecords } from '../types/GrowthRecord';
 import { 
@@ -6,13 +7,20 @@ import {
   getConnectionStatus, 
   getDocs, 
   setDoc,
-  type DocumentData
+  type DocumentData,
+  type Timestamp
 } from '../lib/firebase';
 import { useToast } from './use-toast';
 
-// Type guard for Firestore Timestamps
-const isFirestoreTimestamp = (value: any): value is { toDate(): Date } =>
-  value && typeof value === 'object' && 'toDate' in value && typeof value.toDate === 'function';
+// Define a more specific type for Firestore Timestamp
+interface FirestoreTimestampLike {
+  toDate: () => Date;
+}
+
+// Type guard for Firestore Timestamps with more specific return type
+const isFirestoreTimestamp = (value: any): value is FirestoreTimestampLike => {
+  return value && typeof value === 'object' && 'toDate' in value && typeof value.toDate === 'function';
+};
 
 // Utility to sort records by date (newest first)
 const sortByDateDesc = (a: GrowthRecord, b: GrowthRecord) => b.date.getTime() - a.date.getTime();
@@ -35,12 +43,16 @@ export const useGrowthRecords = (childId: string) => {
     const fetchedRecords = snapshot.docs.map((doc: any) => {
       const data = doc.data();
       const dateValue = data.date;
-      const date =
-        dateValue instanceof Date
-          ? dateValue
-          : isFirestoreTimestamp(dateValue)
-          ? dateValue.toDate()
-          : new Date();
+      
+      // Handle date conversion with proper type checking
+      let date: Date;
+      if (dateValue instanceof Date) {
+        date = dateValue;
+      } else if (isFirestoreTimestamp(dateValue)) {
+        date = dateValue.toDate();
+      } else {
+        date = new Date();
+      }
 
       return { ...data, id: doc.id, date } as GrowthRecord;
     });
