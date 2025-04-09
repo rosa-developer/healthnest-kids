@@ -1,5 +1,5 @@
 
-import { initializeApp } from 'firebase/app';
+import { initializeApp, FirebaseApp } from 'firebase/app';
 import { 
   getFirestore, 
   collection, 
@@ -13,16 +13,18 @@ import {
   query,
   where,
   orderBy,
-  limit
+  limit,
+  Firestore
 } from 'firebase/firestore';
 import { 
   getAuth, 
   signInWithEmailAndPassword, 
   createUserWithEmailAndPassword, 
   signOut, 
-  onAuthStateChanged 
+  onAuthStateChanged,
+  Auth 
 } from 'firebase/auth';
-import { getStorage } from 'firebase/storage';
+import { getStorage, FirebaseStorage } from 'firebase/storage';
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -36,10 +38,10 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase - with error handling
-let app;
-let db;
-let auth;
-let storage;
+let app: FirebaseApp | undefined;
+let db: Firestore | undefined;
+let auth: Auth | undefined;
+let storage: FirebaseStorage | undefined;
 
 // Connection status monitor
 let connectionStatus: 'connected' | 'connecting' | 'error' = 'connecting';
