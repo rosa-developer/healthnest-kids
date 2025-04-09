@@ -29,19 +29,21 @@ const GrowthPage: React.FC = () => {
   };
 
   return (
-    <div className="space-y-6 p-6 rounded-xl bg-gradient-to-br from-healthnest-soft-blue to-blue-50 dark:from-blue-900/20 dark:to-blue-800/10">
+    <div className="space-y-6 p-6 rounded-xl bg-gradient-to-br from-blue-100 to-purple-50 dark:from-blue-900/30 dark:to-purple-900/20 shadow-lg">
       <div className="flex justify-between items-center">
-        <h2 className="text-2xl font-bold text-primary-blue">{activeProfile?.name}'s Growth</h2>
+        <h2 className="text-2xl font-bold text-primary-purple bg-white/50 px-4 py-2 rounded-lg shadow-sm backdrop-blur-sm">
+          {activeProfile?.name}'s Growth Journey
+        </h2>
         <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
           <DialogTrigger asChild>
-            <Button className="bg-primary-green hover:bg-primary-green/90 text-white">
+            <Button className="bg-primary-green hover:bg-primary-green/90 text-white shadow-md">
               <Plus className="mr-2 h-4 w-4" />
               Add Growth Record
             </Button>
           </DialogTrigger>
-          <DialogContent className="sm:max-w-[600px]">
+          <DialogContent className="sm:max-w-[600px] border-primary-purple/20 bg-white/95 backdrop-blur-md">
             <DialogHeader>
-              <DialogTitle>Record Growth Data</DialogTitle>
+              <DialogTitle className="text-primary-purple">Record Growth Data</DialogTitle>
             </DialogHeader>
             <GrowthRecordForm onSubmit={handleAddRecord} childId={childId} />
           </DialogContent>
@@ -49,25 +51,25 @@ const GrowthPage: React.FC = () => {
       </div>
 
       <Tabs defaultValue="records">
-        <TabsList className="bg-white/70 dark:bg-black/20">
+        <TabsList className="bg-white/70 dark:bg-black/20 p-1 shadow-sm">
           <TabsTrigger 
             value="records" 
-            className="data-[state=active]:bg-primary-green/20 data-[state=active]:text-primary-green"
+            className="data-[state=active]:bg-primary-green/20 data-[state=active]:text-primary-green font-medium"
           >
             Growth Records
           </TabsTrigger>
           <TabsTrigger 
             value="charts"
-            className="data-[state=active]:bg-primary-blue/20 data-[state=active]:text-primary-blue"
+            className="data-[state=active]:bg-primary-purple/20 data-[state=active]:text-primary-purple font-medium"
           >
             Growth Charts
           </TabsTrigger>
         </TabsList>
         
-        <TabsContent value="records" className="mt-6">
-          <Card className="border border-primary-blue/10 bg-white/80 backdrop-blur-sm dark:bg-black/20">
-            <CardHeader className="pb-2">
-              <CardTitle className="text-lg">Growth History</CardTitle>
+        <TabsContent value="records" className="mt-6 animate-fade-in">
+          <Card className="border border-primary-green/10 bg-white/90 backdrop-blur-sm dark:bg-black/20 shadow-lg">
+            <CardHeader className="pb-2 bg-primary-green/5 rounded-t-lg">
+              <CardTitle className="text-lg text-primary-green">Growth History</CardTitle>
             </CardHeader>
             <CardContent>
               <GrowthRecordList records={records} isLoading={isLoading} />
@@ -75,11 +77,11 @@ const GrowthPage: React.FC = () => {
           </Card>
         </TabsContent>
         
-        <TabsContent value="charts" className="mt-6">
+        <TabsContent value="charts" className="mt-6 animate-fade-in">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <Card className="border border-primary-pink/10 bg-white/80 backdrop-blur-sm dark:bg-black/20">
-              <CardHeader className="flex flex-row items-center justify-between pb-2">
-                <CardTitle className="text-lg">Weight Over Time</CardTitle>
+            <Card className="border border-primary-pink/10 bg-white/90 backdrop-blur-sm dark:bg-black/20 shadow-lg hover:shadow-xl transition-all duration-300">
+              <CardHeader className="flex flex-row items-center justify-between pb-2 bg-primary-pink/5 rounded-t-lg">
+                <CardTitle className="text-lg text-primary-pink">Weight Over Time</CardTitle>
                 <LineChart className="h-5 w-5 text-primary-pink" />
               </CardHeader>
               <CardContent>
@@ -94,10 +96,10 @@ const GrowthPage: React.FC = () => {
               </CardContent>
             </Card>
             
-            <Card className="border border-primary-green/10 bg-white/80 backdrop-blur-sm dark:bg-black/20">
-              <CardHeader className="flex flex-row items-center justify-between pb-2">
-                <CardTitle className="text-lg">Height Over Time</CardTitle>
-                <LineChart className="h-5 w-5 text-primary-green" />
+            <Card className="border border-primary-purple/10 bg-white/90 backdrop-blur-sm dark:bg-black/20 shadow-lg hover:shadow-xl transition-all duration-300">
+              <CardHeader className="flex flex-row items-center justify-between pb-2 bg-primary-purple/5 rounded-t-lg">
+                <CardTitle className="text-lg text-primary-purple">Height Over Time</CardTitle>
+                <LineChart className="h-5 w-5 text-primary-purple" />
               </CardHeader>
               <CardContent>
                 <div className="h-64 flex items-center justify-center bg-muted rounded-md border">
