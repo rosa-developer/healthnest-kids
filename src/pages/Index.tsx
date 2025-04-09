@@ -102,15 +102,15 @@ const Index = () => {
   }
 
   return (
-    <div className="main-container bg-gradient-to-b from-background to-muted/20">
+    <div className="main-container bg-gradient-to-b from-background via-primary-yellow/10 to-muted/20">
       <PageTransition>
         <div className="space-y-8 animate-fade-in">
-          {/* Welcome Hero Section with glass morphism */}
-          <div className="relative rounded-3xl overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-r from-primary/30 to-secondary/30 z-0"></div>
+          {/* Welcome Hero Section with glassmorphism effect */}
+          <div className="relative rounded-3xl overflow-hidden group">
+            <div className="absolute inset-0 bg-gradient-to-r from-primary-purple/20 via-primary-pink/10 to-primary-blue/20 z-0 transition-all duration-500 group-hover:opacity-80"></div>
             <div className="absolute inset-0 bg-grid-white/10 z-0"></div>
             <Card className="border-none bg-transparent shadow-none">
-              <CardContent className="p-8 relative z-10">
+              <CardContent className="p-8 relative z-10 backdrop-blur-sm border border-white/20 dark:border-white/5 rounded-3xl bg-white/30 dark:bg-black/20">
                 <WelcomeSection dbStatus={dbStatus} />
               </CardContent>
             </Card>
@@ -125,12 +125,12 @@ const Index = () => {
           {/* Featured Advice Section */}
           {advice && advice.length > 0 && (
             <div className="mt-8 animate-slide-up" style={{ animationDelay: "0.3s" }}>
-              <Card className="overflow-hidden border-none shadow-xl bg-gradient-to-br from-purple-50 to-blue-50 dark:from-purple-900/20 dark:to-blue-900/20">
+              <Card className="overflow-hidden border-white/20 dark:border-white/5 shadow-xl bg-gradient-to-br from-purple-50 to-blue-50 dark:from-purple-900/20 dark:to-blue-900/20 backdrop-blur-sm hover:shadow-2xl transition-all duration-300">
                 <CardContent className="p-6">
-                  <h2 className="text-2xl font-semibold mb-4 text-foreground">Expert Growth Tips</h2>
+                  <h2 className="text-2xl font-semibold mb-4 text-foreground bg-gradient-to-r from-primary-purple to-primary-blue bg-clip-text text-transparent">Expert Growth Tips</h2>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {advice.slice(0, 2).map((post) => (
-                      <div key={post.id} className="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-all">
+                      <div key={post.id} className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 border border-white/20 dark:border-white/5">
                         <div className="p-5">
                           <h3 className="font-medium text-lg mb-2" dangerouslySetInnerHTML={{ __html: post.title.rendered }} />
                           <div className="text-sm text-muted-foreground line-clamp-3" dangerouslySetInnerHTML={{ __html: post.excerpt.rendered }} />
@@ -138,7 +138,7 @@ const Index = () => {
                             href={post.link} 
                             target="_blank" 
                             rel="noopener noreferrer"
-                            className="inline-flex items-center mt-3 text-primary hover:text-primary/80 text-sm font-medium"
+                            className="inline-flex items-center mt-3 text-primary hover:text-primary/80 text-sm font-medium relative after:absolute after:bottom-0 after:left-0 after:bg-primary after:h-0.5 after:w-0 hover:after:w-full after:transition-all after:duration-300"
                           >
                             Read more
                           </a>

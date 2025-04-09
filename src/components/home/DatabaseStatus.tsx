@@ -11,10 +11,10 @@ const DatabaseStatus = ({ status }: DatabaseStatusProps) => {
   return (
     <div className="mt-4 flex flex-wrap items-center gap-4">
       <div className={cn(
-        "flex items-center gap-2 rounded-full px-4 py-2 text-xs font-medium shadow-sm transition-all duration-300 hover:shadow-md",
-        status === 'connected' && "bg-primary-green/20 text-primary-green dark:bg-primary-green/30 dark:text-primary-green border border-primary-green/30",
-        status === 'connecting' && "bg-primary-orange/20 text-primary-orange dark:bg-primary-orange/30 dark:text-primary-orange border border-primary-orange/30",
-        status === 'error' && "bg-primary-pink/20 text-primary-pink dark:bg-primary-pink/30 dark:text-primary-pink border border-primary-pink/30"
+        "flex items-center gap-2 rounded-full px-4 py-2 text-xs font-medium shadow-md transition-all duration-300 hover:shadow-xl transform hover:-translate-y-1",
+        status === 'connected' && "bg-gradient-to-r from-primary-green/30 to-primary-green/10 text-primary-green dark:from-primary-green/40 dark:to-primary-green/20 border border-primary-green/30",
+        status === 'connecting' && "bg-gradient-to-r from-primary-orange/30 to-primary-orange/10 text-primary-orange dark:from-primary-orange/40 dark:to-primary-orange/20 border border-primary-orange/30",
+        status === 'error' && "bg-gradient-to-r from-primary-pink/30 to-primary-pink/10 text-primary-pink dark:from-primary-pink/40 dark:to-primary-pink/20 border border-primary-pink/30"
       )}>
         <Database className="h-4 w-4" />
         <span>
@@ -39,7 +39,7 @@ const DatabaseStatus = ({ status }: DatabaseStatusProps) => {
         </span>
       </div>
       
-      <div className="flex items-center gap-2 rounded-full bg-primary-blue/20 text-primary-blue px-4 py-2 text-xs font-medium border border-primary-blue/30 shadow-sm dark:bg-primary-blue/30 dark:border-primary-blue/40 transition-all duration-300 hover:shadow-md">
+      <div className="flex items-center gap-2 rounded-full bg-gradient-to-r from-primary-blue/30 to-primary-blue/10 text-primary-blue px-4 py-2 text-xs font-medium border border-primary-blue/30 shadow-md dark:from-primary-blue/40 dark:to-primary-blue/20 transition-all duration-300 hover:shadow-xl transform hover:-translate-y-1">
         <Shield className="h-4 w-4" />
         <span>Real-time Sync</span>
       </div>
