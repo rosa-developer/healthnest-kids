@@ -1,4 +1,3 @@
-
 import type { Config } from "tailwindcss";
 
 export default {
@@ -6,7 +5,9 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['"Bubblegum Sans"', 'sans-serif'], // Fun, kid-friendly font
+        sans: ['Inter', 'Bubblegum Sans', 'sans-serif'], // Add Inter as primary font
+        heading: ['"Poppins"', 'sans-serif'], // Modern font for headings
+        playful: ['"Bubblegum Sans"', 'sans-serif'], // Keep the kid-friendly font for specific elements
       },
       colors: {
         'primary-purple': '#9b87f5', // Kid-friendly purple
@@ -29,6 +30,18 @@ export default {
       },
       animation: {
         'bounce-slow': 'bounce 3s infinite',
+      },
+      lineHeight: {
+        'relaxed': '1.75',
+        'spacious': '2',
+      },
+      typography: {
+        DEFAULT: {
+          css: {
+            maxWidth: '65ch',
+            lineHeight: 1.75,
+          },
+        },
       },
     },
   },
