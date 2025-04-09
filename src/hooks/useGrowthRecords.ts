@@ -12,6 +12,11 @@ import {
 } from '../lib/firebase';
 import { useToast } from './use-toast';
 
+// Define a type guard for Firestore Timestamp
+const isFirestoreTimestamp = (value: any): value is Timestamp => {
+  return value && typeof value === 'object' && 'toDate' in value && typeof value.toDate === 'function';
+};
+
 export const useGrowthRecords = (childId: string) => {
   const [records, setRecords] = useState<GrowthRecord[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -35,11 +40,16 @@ export const useGrowthRecords = (childId: string) => {
                 const data = doc.data();
                 // Handle Firestore timestamp to JS Date conversion
                 const dateValue = data.date;
-                // Check if it's a Firestore Timestamp
-                const date = dateValue instanceof Date ? dateValue : 
-                  // Use type guard to check if it's a Firebase Timestamp with toDate method
-                  (dateValue && typeof dateValue === 'object' && 'toDate' in dateValue && typeof dateValue.toDate === 'function') ? 
-                  dateValue.toDate() : new Date();
+                // Check if it's a Date, Firestore Timestamp, or fallback to current date
+                let date: Date;
+                
+                if (dateValue instanceof Date) {
+                  date = dateValue;
+                } else if (isFirestoreTimestamp(dateValue)) {
+                  date = dateValue.toDate();
+                } else {
+                  date = new Date();
+                }
                 
                 return {
                   ...data,
