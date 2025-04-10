@@ -11,6 +11,7 @@ import SettingsPage from './pages/Settings';
 import MilestoneView from './pages/MilestoneView';
 import Index from './pages/Index';
 import Memories from './pages/Memories';
+import WordPressSettings from './components/wordpress/settings/WordPressSettings';
 
 const App: React.FC = () => {
   const [activeSection, setActiveSection] = useState('home');
@@ -28,6 +29,7 @@ const App: React.FC = () => {
             <Route path="settings" element={<SettingsPage />} />
             <Route path="memories" element={<Memories />} />
             <Route path="/milestone/:id" element={<MilestoneView />} />
+            <Route path="wordpress-settings" element={<WordPressSettings />} />
           </Route>
         </Routes>
       </Router>

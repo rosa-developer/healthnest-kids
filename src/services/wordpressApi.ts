@@ -6,7 +6,7 @@
 
 // Get WordPress API URL from localStorage or use a demo URL
 const getWordPressApiUrl = () => {
-  const storedUrl = localStorage.getItem('wp_api_url');
+  const storedUrl = localStorage.getItem('wordpress_url');
   if (storedUrl) {
     // Remove trailing slash if present
     return storedUrl.replace(/\/$/, '');

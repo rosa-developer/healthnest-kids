@@ -17,7 +17,6 @@ const AppHeader: React.FC<AppHeaderProps> = ({ setActiveSection }) => {
       <div className="flex items-center gap-4">
         <button 
           onClick={() => {
-            setActiveSection('settings');
             navigate('/wordpress-settings');
           }}
           className="flex items-center gap-1 text-sm font-medium text-primary-purple hover:text-primary-purple/80 transition-colors"

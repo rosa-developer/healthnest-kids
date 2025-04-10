@@ -6,15 +6,16 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Button } from "@/components/ui/button";
 import { Settings, Globe } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
+import { useNavigate } from 'react-router-dom';
 
 const BabyAdviceSection: React.FC = () => {
   const { advice, isLoading, error } = useBabyGrowthAdvice();
   const { toast } = useToast();
+  const navigate = useNavigate();
   
   const handleConfigureWordPress = () => {
     // Store the current URL to return after configuration
-    const currentUrl = window.location.href;
-    localStorage.setItem('redirect_after_wp_config', currentUrl);
+    localStorage.setItem('redirect_after_wp_config', window.location.href);
     
     // Show configuration toast
     toast({
@@ -23,8 +24,8 @@ const BabyAdviceSection: React.FC = () => {
       duration: 3000,
     });
     
-    // Navigate to settings section
-    window.location.href = `${window.location.origin}/?configure=wordpress`;
+    // Navigate to WordPress settings page
+    navigate('/wordpress-settings');
   };
   
   if (error) {
