@@ -26,7 +26,10 @@ const MainNavigation: React.FC<MainNavigationProps> = ({ activeSection, setActiv
       
       <button 
         className={`kid-nav-button ${activeSection === 'growth' ? 'bg-blue-200' : 'bg-blue-100'}`}
-        onClick={() => setActiveSection('growth')}
+        onClick={() => {
+          setActiveSection('growth');
+          navigate('/growth');
+        }}
       >
         <Ruler className={`w-8 h-8 ${activeSection === 'growth' ? 'text-blue-600' : 'text-blue-400'}`} />
         <span className="text-xs mt-1">Growth</span>
@@ -34,7 +37,10 @@ const MainNavigation: React.FC<MainNavigationProps> = ({ activeSection, setActiv
       
       <button 
         className={`kid-nav-button ${activeSection === 'milestones' ? 'bg-red-200' : 'bg-red-100'}`}
-        onClick={() => setActiveSection('milestones')}
+        onClick={() => {
+          setActiveSection('milestones');
+          navigate('/milestones');
+        }}
       >
         <Baby className={`w-8 h-8 ${activeSection === 'milestones' ? 'text-red-600' : 'text-red-400'}`} />
         <span className="text-xs mt-1">Milestones</span>
@@ -42,7 +48,10 @@ const MainNavigation: React.FC<MainNavigationProps> = ({ activeSection, setActiv
       
       <button 
         className={`kid-nav-button ${activeSection === 'health' ? 'bg-green-200' : 'bg-green-100'}`}
-        onClick={() => setActiveSection('health')}
+        onClick={() => {
+          setActiveSection('health');
+          navigate('/health');
+        }}
       >
         <Heart className={`w-8 h-8 ${activeSection === 'health' ? 'text-green-600' : 'text-green-400'}`} />
         <span className="text-xs mt-1">Health</span>
@@ -50,7 +59,10 @@ const MainNavigation: React.FC<MainNavigationProps> = ({ activeSection, setActiv
       
       <button 
         className={`kid-nav-button ${activeSection === 'learning' ? 'bg-yellow-200' : 'bg-yellow-100'}`}
-        onClick={() => setActiveSection('learning')}
+        onClick={() => {
+          setActiveSection('learning');
+          navigate('/learning');
+        }}
       >
         <BookOpen className={`w-8 h-8 ${activeSection === 'learning' ? 'text-yellow-600' : 'text-yellow-400'}`} />
         <span className="text-xs mt-1">Learning</span>
