@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Button } from "@/components/ui/button";
-import { Camera, Mic, Calendar, Edit, Eye, Save } from 'lucide-react';
+import { Camera, Mic, Calendar, PenLine, Eye, Save } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
 import { useNavigate } from 'react-router-dom';
 
@@ -55,7 +55,7 @@ const MilestoneActions: React.FC<MilestoneActionsProps> = ({
           <Button 
             variant="outline" 
             size="sm"
-            className="bg-white dark:bg-gray-800"
+            className="bg-white dark:bg-gray-800 border-indigo-100 dark:border-indigo-900/30 hover:bg-indigo-50 dark:hover:bg-indigo-950/30"
             onClick={handleCapturePhoto}
           >
             <Camera className="h-4 w-4 mr-1.5 text-indigo-500" />
@@ -64,7 +64,7 @@ const MilestoneActions: React.FC<MilestoneActionsProps> = ({
           <Button 
             variant="outline" 
             size="sm"
-            className="bg-white dark:bg-gray-800"
+            className="bg-white dark:bg-gray-800 border-indigo-100 dark:border-indigo-900/30 hover:bg-indigo-50 dark:hover:bg-indigo-950/30"
             onClick={handleRecordAudio}
           >
             <Mic className="h-4 w-4 mr-1.5 text-indigo-500" />
@@ -73,7 +73,7 @@ const MilestoneActions: React.FC<MilestoneActionsProps> = ({
           <Button 
             variant="outline" 
             size="sm"
-            className="bg-white dark:bg-gray-800"
+            className="bg-white dark:bg-gray-800 border-indigo-100 dark:border-indigo-900/30 hover:bg-indigo-50 dark:hover:bg-indigo-950/30"
             onClick={handleSetDate}
           >
             <Calendar className="h-4 w-4 mr-1.5 text-indigo-500" />
@@ -82,7 +82,7 @@ const MilestoneActions: React.FC<MilestoneActionsProps> = ({
         </div>
         <Button 
           size="sm" 
-          className="bg-indigo-500 hover:bg-indigo-600"
+          className="bg-indigo-500 hover:bg-indigo-600 text-white"
           onClick={onSaveNotes}
         >
           <Save className="h-4 w-4 mr-1.5" />
@@ -97,17 +97,17 @@ const MilestoneActions: React.FC<MilestoneActionsProps> = ({
       <Button 
         variant="outline" 
         size="sm"
-        className="bg-white dark:bg-gray-800"
+        className="bg-white dark:bg-gray-800 border-indigo-100 dark:border-indigo-900/30 hover:bg-indigo-50 dark:hover:bg-indigo-950/30"
         onClick={() => onEditNotes(milestoneId)}
       >
-        <Edit className="h-4 w-4 mr-1.5 text-indigo-500" />
+        <PenLine className="h-4 w-4 mr-1.5 text-indigo-500" />
         Add Notes
       </Button>
       
       <Button 
         variant="outline" 
         size="sm"
-        className="bg-white dark:bg-gray-800"
+        className="bg-white dark:bg-gray-800 border-indigo-100 dark:border-indigo-900/30 hover:bg-indigo-50 dark:hover:bg-indigo-950/30"
         onClick={handleViewMilestone}
       >
         <Eye className="h-4 w-4 mr-1.5 text-indigo-500" />
@@ -118,7 +118,7 @@ const MilestoneActions: React.FC<MilestoneActionsProps> = ({
         <Button 
           variant="outline" 
           size="sm"
-          className="bg-white dark:bg-gray-800"
+          className="bg-white dark:bg-gray-800 border-indigo-100 dark:border-indigo-900/30 hover:bg-indigo-50 dark:hover:bg-indigo-950/30"
           onClick={handleCapturePhoto}
         >
           <Camera className="h-4 w-4 mr-1.5 text-indigo-500" />

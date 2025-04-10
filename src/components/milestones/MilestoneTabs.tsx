@@ -32,16 +32,16 @@ const MilestoneTabs: React.FC<MilestoneTabsProps> = ({
 }) => {
   return (
     <Tabs defaultValue="upcoming" className="mb-6">
-      <TabsList className="grid grid-cols-2 w-full bg-muted rounded-lg p-1">
-        <TabsTrigger value="upcoming" className="rounded-md data-[state=active]:bg-white data-[state=active]:shadow-soft">
-          Upcoming
+      <TabsList className="grid grid-cols-2 w-full bg-muted/50 backdrop-blur-sm rounded-lg p-1.5 border border-gray-100 dark:border-gray-800">
+        <TabsTrigger value="upcoming" className="rounded-md text-sm py-2 data-[state=active]:bg-white data-[state=active]:text-indigo-600 data-[state=active]:shadow-sm dark:data-[state=active]:bg-gray-800 dark:data-[state=active]:text-indigo-400">
+          Upcoming Milestones
         </TabsTrigger>
-        <TabsTrigger value="completed" className="rounded-md data-[state=active]:bg-white data-[state=active]:shadow-soft">
-          Completed
+        <TabsTrigger value="completed" className="rounded-md text-sm py-2 data-[state=active]:bg-white data-[state=active]:text-indigo-600 data-[state=active]:shadow-sm dark:data-[state=active]:bg-gray-800 dark:data-[state=active]:text-indigo-400">
+          Completed Milestones
         </TabsTrigger>
       </TabsList>
       
-      <TabsContent value="upcoming" className="mt-4 animate-fade-in">
+      <TabsContent value="upcoming" className="mt-6 animate-fade-in">
         <UpcomingMilestones 
           activeCategory={activeCategory}
           filteredMilestones={filteredMilestones}
@@ -56,7 +56,7 @@ const MilestoneTabs: React.FC<MilestoneTabsProps> = ({
         />
       </TabsContent>
       
-      <TabsContent value="completed" className="mt-4 animate-fade-in">
+      <TabsContent value="completed" className="mt-6 animate-fade-in">
         <CompletedMilestones 
           filteredMilestones={filteredMilestones}
           selectedMilestoneId={selectedMilestoneId}

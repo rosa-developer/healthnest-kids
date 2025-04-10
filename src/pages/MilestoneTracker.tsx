@@ -46,11 +46,11 @@ const MilestoneTracker: React.FC = () => {
 
   return (
     <div className="container mx-auto pt-6 pb-20">
-      <div className="mb-8 bg-gradient-to-r from-indigo-50 to-purple-50 dark:from-indigo-950/20 dark:to-purple-950/20 p-6 rounded-2xl">
+      <div className="mb-8 bg-gradient-to-r from-indigo-50/80 to-purple-50/80 dark:from-indigo-950/20 dark:to-purple-950/20 p-6 rounded-2xl border border-indigo-100/50 dark:border-indigo-800/30 backdrop-blur-sm">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between">
           <div className="mb-4 md:mb-0">
             <h1 className="text-3xl font-bold mb-2 bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">Milestone Tracker</h1>
-            <p className="text-muted-foreground max-w-lg">
+            <p className="text-slate-600 dark:text-slate-400 max-w-lg">
               Track and celebrate your child's development journey with our interactive milestone tracker.
             </p>
           </div>

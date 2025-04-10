@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Button } from "@/components/ui/button";
-import { Circle, CheckCircle2, Calendar, ChevronDown, ChevronUp } from 'lucide-react';
+import { CircleCheck, Circle, Calendar, ChevronDown, ChevronUp } from 'lucide-react';
 import { format } from 'date-fns';
 import { CollapsibleTrigger } from "@/components/ui/collapsible";
 
@@ -50,7 +50,7 @@ const MilestoneHeader: React.FC<MilestoneHeaderProps> = ({
             onClick={() => onToggleMilestone(milestoneId)}
           >
             {isCompleted ? (
-              <CheckCircle2 className="h-5 w-5" />
+              <CircleCheck className="h-5 w-5" />
             ) : (
               <Circle className="h-5 w-5" />
             )}

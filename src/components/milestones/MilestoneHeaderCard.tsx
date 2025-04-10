@@ -35,23 +35,23 @@ const MilestoneHeaderCard: React.FC<MilestoneHeaderCardProps> = ({
   const completionPercentage = totalMilestones > 0 ? Math.round((totalCompleted / totalMilestones) * 100) : 0;
 
   return (
-    <Card className="border border-border shadow-md mb-6 rounded-xl overflow-hidden">
-      <div className="bg-gradient-to-r from-indigo-100 to-violet-100 dark:from-indigo-950/40 dark:to-violet-950/40 p-4">
+    <Card className="border border-indigo-100 dark:border-indigo-800/30 shadow-lg mb-6 rounded-xl overflow-hidden">
+      <div className="bg-gradient-to-r from-indigo-50 to-purple-50 dark:from-indigo-950/30 dark:to-purple-950/30 p-6">
         <ChildMilestoneHeader 
           onCaptureAudio={onCaptureAudio}
           onAddRecord={onAddRecord}
         />
         
-        <div className="mt-4">
+        <div className="mt-5">
           <div className="flex justify-between items-center mb-2">
-            <span className="text-sm font-medium">Overall Progress</span>
-            <span className="text-sm font-medium">{completionPercentage}%</span>
+            <span className="text-sm font-medium text-slate-700 dark:text-slate-300">Overall Progress</span>
+            <span className="text-sm font-medium text-indigo-600 dark:text-indigo-400">{completionPercentage}%</span>
           </div>
-          <Progress value={completionPercentage} className="h-2" />
+          <Progress value={completionPercentage} className="h-2.5 bg-indigo-100 dark:bg-indigo-900/50" indicatorClassName="bg-gradient-to-r from-indigo-500 to-purple-500" />
         </div>
       </div>
       
-      <CardContent className="p-4 pt-5">
+      <CardContent className="p-6">
         <CategorySelector 
           categories={categories}
           activeCategory={activeCategory}

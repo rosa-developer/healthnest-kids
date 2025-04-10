@@ -2,6 +2,7 @@
 import React from 'react';
 import { Milestone } from '@/types/milestone';
 import MilestoneItem from './MilestoneItem';
+import { Trophy } from 'lucide-react';
 
 interface CompletedMilestonesListProps {
   milestones: Milestone[];
@@ -24,8 +25,10 @@ const CompletedMilestonesList: React.FC<CompletedMilestonesListProps> = ({
 }) => {
   if (milestones.length === 0) {
     return (
-      <div className="text-center py-6">
+      <div className="text-center py-10">
+        <Trophy className="h-12 w-12 mx-auto text-gray-300 dark:text-gray-600 mb-3" />
         <p className="text-muted-foreground">No completed milestones in this category yet.</p>
+        <p className="text-sm text-muted-foreground mt-1">Check back after marking some milestones as complete.</p>
       </div>
     );
   }

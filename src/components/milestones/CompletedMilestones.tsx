@@ -27,11 +27,11 @@ const CompletedMilestones: React.FC<CompletedMilestonesProps> = ({
   const completedMilestones = filteredMilestones.filter(m => m.completed);
   
   return (
-    <Card className="border border-border shadow-soft">
-      <CardHeader className="pb-2 flex justify-between items-center">
+    <Card className="border border-border shadow-md rounded-xl bg-gradient-to-b from-white to-gray-50 dark:from-gray-900 dark:to-gray-950">
+      <CardHeader className="pb-2 flex justify-between items-center border-b border-gray-100 dark:border-gray-800">
         <CompletedMilestonesHeader />
       </CardHeader>
-      <CardContent>
+      <CardContent className="pt-4">
         <CompletedMilestonesList
           milestones={completedMilestones}
           selectedMilestoneId={selectedMilestoneId}
