@@ -9,6 +9,7 @@ import HealthTracker from './pages/HealthTracker';
 import LearningTracker from './pages/LearningTracker';
 import SettingsPage from './pages/Settings';
 import MilestoneView from './pages/MilestoneView';
+import Index from './pages/Index';
 
 const App: React.FC = () => {
   const [activeSection, setActiveSection] = useState('home');
@@ -18,7 +19,7 @@ const App: React.FC = () => {
       <Router>
         <Routes>
           <Route path="/" element={<MainLayout activeSection={activeSection} setActiveSection={setActiveSection} />}>
-            <Route index element={<Navigate to="/growth" />} /> {/* Redirect to /growth by default */}
+            <Route index element={<Index />} /> {/* Use Index component for home page */}
             <Route path="growth" element={<GrowthTracker />} />
             <Route path="milestones" element={<MilestoneTracker />} />
             <Route path="health" element={<HealthTracker />} />

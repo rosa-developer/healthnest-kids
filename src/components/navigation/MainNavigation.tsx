@@ -17,7 +17,7 @@ const MainNavigation: React.FC<MainNavigationProps> = ({ activeSection, setActiv
         className={`kid-nav-button ${activeSection === 'home' ? 'bg-primary-purple/20' : 'bg-purple-100'}`}
         onClick={() => {
           setActiveSection('home');
-          navigate('/');
+          navigate('/'); // Navigate to root instead of /home
         }}
       >
         <Home className={`w-8 h-8 ${activeSection === 'home' ? 'text-primary-purple' : 'text-primary-purple/60'}`} />
