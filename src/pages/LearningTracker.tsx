@@ -5,7 +5,7 @@ const LearningTracker: React.FC = () => {
   return (
     <div className="container mx-auto pt-6">
       <h1 className="text-2xl font-bold mb-6">Learning Tracker</h1>
-      <p className="text-muted-foreground">Monitor your child's learning and development progress.</p>
+      <p className="text-muted-foreground">Track your child's educational development and learning milestones.</p>
     </div>
   );
 };
