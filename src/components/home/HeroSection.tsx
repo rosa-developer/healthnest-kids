@@ -17,6 +17,10 @@ const HeroSection = () => {
     }
   };
 
+  const handleCreateMemories = () => {
+    navigate('/memories');
+  };
+
   return (
     <div className="relative overflow-hidden rounded-3xl mb-8 transition-all duration-500 hover:shadow-xl group bg-gradient-to-r from-primary-purple/10 to-primary-blue/10">
       {/* Enhanced background with animated gradient overlay */}
@@ -63,7 +67,7 @@ const HeroSection = () => {
             <Button 
               variant="ghost" 
               className="hover:bg-primary-blue/10 text-primary-blue shadow-sm transition-all duration-500 hover:shadow-md hover:translate-y-[-2px] rounded-full group"
-              onClick={() => navigate('/memories')}
+              onClick={handleCreateMemories}
             >
               <Calendar className="mr-2 h-4 w-4 group-hover:rotate-12 transition-transform duration-300" />
               <span className="relative inline-block">

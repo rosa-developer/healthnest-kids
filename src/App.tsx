@@ -10,6 +10,7 @@ import LearningTracker from './pages/LearningTracker';
 import SettingsPage from './pages/Settings';
 import MilestoneView from './pages/MilestoneView';
 import Index from './pages/Index';
+import Memories from './pages/Memories';
 
 const App: React.FC = () => {
   const [activeSection, setActiveSection] = useState('home');
@@ -19,12 +20,13 @@ const App: React.FC = () => {
       <Router>
         <Routes>
           <Route path="/" element={<MainLayout activeSection={activeSection} setActiveSection={setActiveSection} />}>
-            <Route index element={<Index />} /> {/* Use Index component for home page */}
+            <Route index element={<Index />} />
             <Route path="growth" element={<GrowthTracker />} />
             <Route path="milestones" element={<MilestoneTracker />} />
             <Route path="health" element={<HealthTracker />} />
             <Route path="learning" element={<LearningTracker />} />
             <Route path="settings" element={<SettingsPage />} />
+            <Route path="memories" element={<Memories />} />
             <Route path="/milestone/:id" element={<MilestoneView />} />
           </Route>
         </Routes>

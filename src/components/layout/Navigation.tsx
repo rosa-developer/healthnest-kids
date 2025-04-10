@@ -11,9 +11,10 @@ const Navigation: React.FC = () => {
   const navigate = useNavigate();
   
   const handleAddNew = () => {
+    navigate('/memories');
     toast({
-      title: "Add New Entry",
-      description: "This feature will be available in the next update!",
+      title: "Add New Memory",
+      description: "Opening memories page to create a new entry!",
     });
   };
 
