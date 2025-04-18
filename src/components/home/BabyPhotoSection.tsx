@@ -9,14 +9,14 @@ import { useNavigate } from 'react-router-dom';
 const BabyPhotoSection = () => {
   const navigate = useNavigate();
   
-  // Enhanced family photos array with more images
+  // Enhanced family photos array with images that will work properly
   const familyPhotos = [
     { src: "/baby-emma.jpg", alt: "Baby Emma" },
-    { src: "https://images.unsplash.com/photo-1603710673131-a49917c03b6f?q=80&w=1000", alt: "Happy family outdoors" },
-    { src: "https://images.unsplash.com/photo-1535572290543-960a8046f5af?q=80&w=1000", alt: "Parents with baby" },
-    { src: "https://images.unsplash.com/photo-1607400201515-c2c41c07d307?q=80&w=1000", alt: "Mother with baby" },
-    { src: "https://images.unsplash.com/photo-1492725764893-90b379c2b6e7?q=80&w=1000", alt: "Father and baby" },
-    { src: "https://images.unsplash.com/photo-1518571744034-9cd6bf1eb9f5?q=80&w=1000", alt: "Family portrait" },
+    { src: "/lovable-uploads/09704aa0-0bda-4497-942b-b783bd82f948.png", alt: "Happy family moments" },
+    { src: "/lovable-uploads/40981d4d-5381-44c9-a78f-c22d7a65cdcf.png", alt: "Family playtime" },
+    { src: "/baby-emma.jpg", alt: "Baby close-up" },
+    { src: "/lovable-uploads/09704aa0-0bda-4497-942b-b783bd82f948.png", alt: "Fun times" },
+    { src: "/lovable-uploads/40981d4d-5381-44c9-a78f-c22d7a65cdcf.png", alt: "Family portrait" },
   ];
 
   return (
@@ -89,7 +89,7 @@ const BabyPhotoSection = () => {
             </div>
           </div>
           
-          {/* Family photos gallery - Enhanced with better styling */}
+          {/* Family photos gallery - Updated with local images */}
           <div className="mt-6">
             <h3 className="text-lg font-medium mb-4 flex items-center">
               <Camera className="h-4 w-4 mr-2 text-primary-blue" />
