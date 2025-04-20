@@ -15,7 +15,7 @@ export interface LearningCategory {
   skills: LearningSkill[];
 }
 
-export const learningCategories = [
+export const learningCategories: LearningCategory[] = [
   { 
     id: "cognitive", 
     name: "Cognitive Skills", 
@@ -26,7 +26,7 @@ export const learningCategories = [
       { name: "Cause and Effect", age: "6-12 months", status: "completed" },
       { name: "Sorting & Categorizing", age: "12-18 months", status: "in-progress" },
       { name: "Number Recognition", age: "24-36 months", status: "upcoming" },
-      { name: "Pattern Recognition", age: "36-48 months", status: "upcoming" },
+      { name: "Pattern Recognition", age: "36-48 months", status: "upcoming" }
     ]
   },
   { 
@@ -39,7 +39,7 @@ export const learningCategories = [
       { name: "Two-Word Phrases", age: "18-24 months", status: "in-progress" },
       { name: "Complete Sentences", age: "30-36 months", status: "upcoming" },
       { name: "Storytelling", age: "36-48 months", status: "upcoming" },
-      { name: "Reading Readiness", age: "48-60 months", status: "upcoming" },
+      { name: "Reading Readiness", age: "48-60 months", status: "upcoming" }
     ]
   },
   { 
@@ -52,7 +52,7 @@ export const learningCategories = [
       { name: "Pincer Grasp", age: "9-12 months", status: "completed" },
       { name: "Scribbling", age: "12-18 months", status: "in-progress" },
       { name: "Drawing Lines", age: "24-30 months", status: "upcoming" },
-      { name: "Using Scissors", age: "36-48 months", status: "upcoming" },
+      { name: "Using Scissors", age: "36-48 months", status: "upcoming" }
     ]
   },
   { 
@@ -65,7 +65,7 @@ export const learningCategories = [
       { name: "Separation Anxiety", age: "8-14 months", status: "completed" },
       { name: "Parallel Play", age: "18-24 months", status: "in-progress" },
       { name: "Cooperative Play", age: "30-36 months", status: "upcoming" },
-      { name: "Understand Rules", age: "36-48 months", status: "upcoming" },
+      { name: "Understand Rules", age: "36-48 months", status: "upcoming" }
     ]
   },
   { 
@@ -78,7 +78,7 @@ export const learningCategories = [
       { name: "Music & Rhythm", age: "6-18 months", status: "in-progress" },
       { name: "Picture Books", age: "12-24 months", status: "in-progress" },
       { name: "Counting Games", age: "24-36 months", status: "upcoming" },
-      { name: "STEM Activities", age: "36-60 months", status: "upcoming" },
+      { name: "STEM Activities", age: "36-60 months", status: "upcoming" }
     ]
-  },
+  }
 ];
