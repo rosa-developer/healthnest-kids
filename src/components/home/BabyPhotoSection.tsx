@@ -1,13 +1,21 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
-import { Baby, ChevronRight, Heart, Camera } from 'lucide-react';
+import { Baby, ChevronRight, Heart, Camera, Info, Sparkles } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { useNavigate } from 'react-router-dom';
+import { 
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import { cn } from "@/lib/utils";
 
 const BabyPhotoSection = () => {
   const navigate = useNavigate();
+  const [activePhoto, setActivePhoto] = useState(0);
   
   // Enhanced family photos array with images that will work properly
   const familyPhotos = [
@@ -26,11 +34,22 @@ const BabyPhotoSection = () => {
         <div className="absolute -top-16 -right-16 w-32 h-32 bg-primary-pink/10 rounded-full blur-xl"></div>
         <div className="absolute -bottom-8 -left-8 w-24 h-24 bg-primary-blue/10 rounded-full blur-lg"></div>
         
+        {/* Enhanced header with tooltip */}
         <div className="flex justify-between items-center mb-6">
-          <h2 className="text-2xl font-semibold font-heading flex items-center gap-2">
-            <Heart className="h-5 w-5 text-primary-pink" />
-            Family Memories
-          </h2>
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <h2 className="text-2xl font-semibold font-heading flex items-center gap-2 cursor-help">
+                  <Heart className="h-5 w-5 text-primary-pink animate-pulse-soft" />
+                  Family Memories
+                  <Info className="h-4 w-4 text-muted-foreground" />
+                </h2>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p className="max-w-xs">Capture and cherish special moments with your baby and family</p>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
           <Button 
             variant="ghost" 
             size="sm" 
@@ -42,7 +61,7 @@ const BabyPhotoSection = () => {
         </div>
         
         <div className="flex flex-col space-y-6 relative z-10">
-          {/* Baby profile section */}
+          {/* Baby profile section - Enhanced with interactive elements */}
           <div className="flex flex-col md:flex-row gap-6">
             <div className="w-full md:w-1/3 rounded-xl overflow-hidden shadow-md transition-all duration-300 hover:shadow-xl group">
               <AspectRatio ratio={4/3}>
@@ -55,20 +74,27 @@ const BabyPhotoSection = () => {
                     e.currentTarget.src = "/placeholder.svg";
                   }}
                 />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-end p-4">
+                  <p className="text-white font-medium">Emma's journey</p>
+                </div>
               </AspectRatio>
             </div>
             <div className="flex-1 space-y-4">
               <p className="text-muted-foreground">
                 Track your baby's growth, milestones, health records, and cherish every moment with photos and memories.
               </p>
-              <div className="bg-muted/30 p-4 rounded-lg border border-primary-purple/10">
-                <p className="font-medium text-sm">Did you know?</p>
+              <div className="bg-muted/30 p-4 rounded-lg border border-primary-purple/10 relative overflow-hidden group hover:border-primary-purple/30 transition-all duration-300">
+                <div className="absolute top-0 right-0 h-16 w-16 bg-primary-purple/10 rounded-full -translate-y-1/2 translate-x-1/2 blur-xl group-hover:bg-primary-purple/20 transition-all duration-500"></div>
+                <p className="font-medium text-sm flex items-center gap-2">
+                  <Sparkles className="h-4 w-4 text-primary-purple animate-pulse-slow" />
+                  Did you know?
+                </p>
                 <p className="text-sm text-muted-foreground">
                   Babies typically triple their birth weight by their first birthday.
                 </p>
               </div>
-              <div className="flex items-center space-x-3 mt-4">
-                <Avatar className="h-12 w-12 border-2 border-white shadow-sm">
+              <div className="flex items-center space-x-3 mt-4 p-2 rounded-lg hover:bg-muted/20 transition-all duration-300 cursor-pointer" onClick={() => navigate('/growth')}>
+                <Avatar className="h-12 w-12 border-2 border-white shadow-sm ring-2 ring-primary-pink/20 ring-offset-2 ring-offset-background">
                   <AvatarImage 
                     src="/baby-emma.jpg" 
                     alt="Baby Emma" 
@@ -77,7 +103,7 @@ const BabyPhotoSection = () => {
                       e.currentTarget.src = "/placeholder.svg";
                     }}
                   />
-                  <AvatarFallback>
+                  <AvatarFallback className="bg-primary-purple/10">
                     <Baby className="h-6 w-6 text-purple-500" />
                   </AvatarFallback>
                 </Avatar>
@@ -85,11 +111,12 @@ const BabyPhotoSection = () => {
                   <h3 className="font-medium">Emma</h3>
                   <p className="text-sm text-muted-foreground">8 months old</p>
                 </div>
+                <ChevronRight className="h-4 w-4 ml-auto text-muted-foreground" />
               </div>
             </div>
           </div>
           
-          {/* Family photos gallery - Updated with local images */}
+          {/* Family photos gallery - Enhanced with selection and active state */}
           <div className="mt-6">
             <h3 className="text-lg font-medium mb-4 flex items-center">
               <Camera className="h-4 w-4 mr-2 text-primary-blue" />
@@ -99,7 +126,11 @@ const BabyPhotoSection = () => {
               {familyPhotos.map((photo, index) => (
                 <div 
                   key={index} 
-                  className="rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 group"
+                  className={cn(
+                    "rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 group cursor-pointer",
+                    activePhoto === index && "ring-2 ring-primary-blue ring-offset-2 ring-offset-background"
+                  )}
+                  onClick={() => setActivePhoto(index)}
                 >
                   <AspectRatio ratio={1/1}>
                     <img 
@@ -114,6 +145,11 @@ const BabyPhotoSection = () => {
                     <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-end p-2">
                       <p className="text-white text-xs font-medium truncate w-full">{photo.alt}</p>
                     </div>
+                    {activePhoto === index && (
+                      <div className="absolute top-2 right-2 h-6 w-6 bg-primary-blue text-white rounded-full flex items-center justify-center">
+                        <Heart className="h-3 w-3" fill="white" />
+                      </div>
+                    )}
                   </AspectRatio>
                 </div>
               ))}
