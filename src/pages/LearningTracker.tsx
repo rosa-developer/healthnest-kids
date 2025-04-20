@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Book, GraduationCap, Lightbulb, Award, Brain, Palette } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
@@ -102,30 +101,32 @@ const LearningTracker: React.FC = () => {
 
   return (
     <div className="container max-w-screen-xl mx-auto pt-20 pb-32 px-4 md:px-6">
-      {/* Header Section */}
-      <div className="mb-8 bg-gradient-to-r from-indigo-50 to-purple-50 dark:from-indigo-950/20 dark:to-purple-950/20 p-6 rounded-2xl">
+      {/* Header Section with improved gradient */}
+      <div className="mb-8 bg-gradient-to-br from-primary-purple/20 via-primary-blue/10 to-primary-pink/20 dark:from-primary-purple/10 dark:via-primary-blue/5 dark:to-primary-pink/10 p-8 rounded-3xl border border-primary-purple/20">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between">
           <div className="mb-4 md:mb-0">
-            <h1 className="text-3xl font-bold mb-2 bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">Learning Tracker</h1>
-            <p className="text-muted-foreground max-w-lg">
+            <h1 className="text-3xl font-bold mb-2 bg-gradient-to-r from-primary-purple via-primary-blue to-primary-pink bg-clip-text text-transparent">
+              Learning Tracker
+            </h1>
+            <p className="text-lg text-foreground/80 max-w-lg">
               Track your child's educational journey, cognitive development, and learning milestones in one place.
             </p>
           </div>
           <div className="flex items-center space-x-2">
-            <GraduationCap className="h-10 w-10 text-indigo-500 animate-bounce-slow" />
+            <GraduationCap className="h-12 w-12 text-primary-purple animate-bounce-slow" />
           </div>
         </div>
       </div>
 
-      {/* Learning Categories */}
+      {/* Learning Categories with improved colors and hover effects */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 mb-8">
         {learningCategories.map((category) => (
           <Card 
             key={category.id}
-            className={`cursor-pointer transition-all hover:shadow-md hover:-translate-y-1 ${
+            className={`cursor-pointer transition-all duration-300 hover:shadow-lg hover:-translate-y-1 ${
               activeTab === category.id 
-                ? 'border-2 border-indigo-500 dark:border-indigo-400 shadow-md' 
-                : 'border border-border hover:border-indigo-200 dark:hover:border-indigo-800'
+                ? 'border-2 border-primary-purple shadow-md bg-gradient-to-br from-primary-purple/10 to-transparent' 
+                : 'border border-border hover:border-primary-purple/30'
             }`}
             onClick={() => setActiveTab(category.id)}
           >
@@ -133,7 +134,7 @@ const LearningTracker: React.FC = () => {
               <div className="flex items-center justify-between">
                 {category.icon}
                 {activeTab === category.id && (
-                  <div className="h-2 w-2 rounded-full bg-indigo-500 animate-pulse"></div>
+                  <div className="h-2 w-2 rounded-full bg-primary-purple animate-pulse"></div>
                 )}
               </div>
               <CardTitle className="text-md mt-2">{category.name}</CardTitle>
@@ -147,11 +148,11 @@ const LearningTracker: React.FC = () => {
         ))}
       </div>
 
-      {/* Learning Content */}
+      {/* Learning Content with improved visual hierarchy */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Skills Column */}
         <div className="col-span-2">
-          <Card className="h-full">
+          <Card className="h-full bg-gradient-to-br from-white to-primary-purple/5 dark:from-gray-900 dark:to-primary-purple/10">
             <CardHeader>
               <div className="flex items-center space-x-3">
                 {activeCategory?.icon}
@@ -164,7 +165,7 @@ const LearningTracker: React.FC = () => {
                 <h3 className="text-sm font-medium text-muted-foreground mb-2">Developmental Skills</h3>
                 <ul className="space-y-4">
                   {activeCategory?.skills.map((skill, index) => (
-                    <li key={index} className="p-4 rounded-lg border border-border flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+                    <li key={index} className="p-4 rounded-xl border border-primary-purple/20 bg-white/50 dark:bg-gray-900/50 backdrop-blur-sm flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 transition-all duration-300 hover:border-primary-purple/40 hover:shadow-md">
                       <div>
                         <div className="font-medium">{skill.name}</div>
                         <div className="text-sm text-muted-foreground">Expected age: {skill.age}</div>
@@ -178,13 +179,24 @@ const LearningTracker: React.FC = () => {
               </div>
             </CardContent>
             <CardFooter className="flex justify-between">
-              <Button variant="outline" size="sm">Record New Progress</Button>
-              <Button size="sm">Add Custom Skill</Button>
+              <Button 
+                variant="outline" 
+                size="sm"
+                className="border-primary-purple/30 hover:bg-primary-purple/10 text-primary-purple"
+              >
+                Record New Progress
+              </Button>
+              <Button 
+                size="sm"
+                className="bg-gradient-to-r from-primary-purple to-primary-pink hover:opacity-90"
+              >
+                Add Custom Skill
+              </Button>
             </CardFooter>
           </Card>
         </div>
 
-        {/* Resources Column */}
+        {/* Resources Column with improved styling */}
         <div>
           <Card className="h-full">
             <CardHeader>
@@ -240,9 +252,11 @@ const LearningTracker: React.FC = () => {
         </div>
       </div>
 
-      {/* Learning Progress Section */}
+      {/* Learning Progress Section with improved visuals */}
       <div className="mt-8">
-        <h2 className="text-xl font-semibold mb-4">Learning Progress</h2>
+        <h2 className="text-xl font-semibold mb-4 bg-gradient-to-r from-primary-purple to-primary-pink bg-clip-text text-transparent">
+          Learning Progress
+        </h2>
         <Card>
           <CardHeader>
             <CardTitle className="text-lg">Monthly Progress Overview</CardTitle>
