@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
@@ -17,12 +16,12 @@ const BabyPhotoSection = () => {
   const navigate = useNavigate();
   const [activePhoto, setActivePhoto] = useState(0);
   
-  // Updated family photos array with valid image paths
+  // Updated family photos array with valid image paths and new baby close-up photo
   const familyPhotos = [
     { src: "/baby-emma.jpg", alt: "Baby Emma" },
     { src: "/lovable-uploads/09704aa0-0bda-4497-942b-b783bd82f948.png", alt: "Happy family moments" },
     { src: "/lovable-uploads/40981d4d-5381-44c9-a78f-c22d7a65cdcf.png", alt: "Family playtime" },
-    { src: "/baby-emma.jpg", alt: "Baby close-up" },
+    { src: "/photo-1535268647677-300dbf3d78d1.jpg", alt: "Baby close-up" }, // updated to placeholder baby close-up image
     { src: "/lovable-uploads/09704aa0-0bda-4497-942b-b783bd82f948.png", alt: "Fun times" },
     { src: "/lovable-uploads/40981d4d-5381-44c9-a78f-c22d7a65cdcf.png", alt: "Family portrait" },
   ];
