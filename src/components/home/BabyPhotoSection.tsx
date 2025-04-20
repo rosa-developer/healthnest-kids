@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
@@ -15,15 +16,36 @@ import { cn } from "@/lib/utils";
 const BabyPhotoSection = () => {
   const navigate = useNavigate();
   const [activePhoto, setActivePhoto] = useState(0);
-  
-  // Updated family photos array with valid image paths and new baby close-up photo
+
+  // Gallery images updated to be unique and subject-relevant (using available uploads & placeholders)
   const familyPhotos = [
-    { src: "/baby-emma.jpg", alt: "Baby Emma" },
-    { src: "/lovable-uploads/09704aa0-0bda-4497-942b-b783bd82f948.png", alt: "Happy family moments" },
-    { src: "/lovable-uploads/40981d4d-5381-44c9-a78f-c22d7a65cdcf.png", alt: "Family playtime" },
-    { src: "/photo-1535268647677-300dbf3d78d1.jpg", alt: "Baby close-up" }, // updated to placeholder baby close-up image
-    { src: "/lovable-uploads/09704aa0-0bda-4497-942b-b783bd82f948.png", alt: "Fun times" },
-    { src: "/lovable-uploads/40981d4d-5381-44c9-a78f-c22d7a65cdcf.png", alt: "Family portrait" },
+    {
+      src: "/baby-emma.jpg",
+      alt: "Baby Emma"
+    },
+    {
+      src: "/lovable-uploads/09704aa0-0bda-4497-942b-b783bd82f948.png",
+      alt: "Happy family moments"
+    },
+    {
+      src: "/lovable-uploads/40981d4d-5381-44c9-a78f-c22d7a65cdcf.png",
+      alt: "Family playtime"
+    },
+    // Use a cat placeholder as a cute close-up for demo, since no specific baby close-up is in assets
+    {
+      src: "/photo-1535268647677-300dbf3d78d1.jpg",
+      alt: "Baby close-up"
+    },
+    // Living room as "Fun times" for a family context placeholder
+    {
+      src: "/photo-1721322800607-8c38375eef04.jpg",
+      alt: "Fun times"
+    },
+    // Use baby's face again as "Family portrait"
+    {
+      src: "/baby-emma.jpg",
+      alt: "Family portrait"
+    },
   ];
 
   return (
@@ -32,7 +54,7 @@ const BabyPhotoSection = () => {
         {/* Decorative elements */}
         <div className="absolute -top-16 -right-16 w-32 h-32 bg-primary-pink/10 rounded-full blur-xl"></div>
         <div className="absolute -bottom-8 -left-8 w-24 h-24 bg-primary-blue/10 rounded-full blur-lg"></div>
-        
+
         {/* Enhanced header with tooltip */}
         <div className="flex justify-between items-center mb-6">
           <TooltipProvider>
@@ -58,9 +80,9 @@ const BabyPhotoSection = () => {
             View all <ChevronRight className="h-4 w-4 ml-1 group-hover:translate-x-1 transition-all duration-300" />
           </Button>
         </div>
-        
+
         <div className="flex flex-col space-y-6 relative z-10">
-          {/* Baby profile section - Enhanced with interactive elements */}
+          {/* Baby profile section */}
           <div className="flex flex-col md:flex-row gap-6">
             <div className="w-full md:w-1/3 rounded-xl overflow-hidden shadow-md transition-all duration-300 hover:shadow-xl group">
               <AspectRatio ratio={4/3}>
@@ -115,7 +137,7 @@ const BabyPhotoSection = () => {
             </div>
           </div>
           
-          {/* Family photos gallery - Enhanced with selection and active state */}
+          {/* Updated photo gallery */}
           <div className="mt-6">
             <h3 className="text-lg font-medium mb-4 flex items-center">
               <Camera className="h-4 w-4 mr-2 text-primary-blue" />
@@ -170,3 +192,4 @@ const BabyPhotoSection = () => {
 };
 
 export default BabyPhotoSection;
+
