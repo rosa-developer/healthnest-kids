@@ -1,0 +1,43 @@
+
+@keyframes scale-up {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.05);
+  }
+}
+
+@keyframes slide-up-hover {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-5px);
+  }
+}
+
+@keyframes swing {
+  0%, 100% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(5deg);
+  }
+  75% {
+    transform: rotate(-5deg);
+  }
+}
+
+.animate-swing {
+  animation: swing 3s ease-in-out infinite;
+  transform-origin: center top;
+}
+
+.group:hover .group-hover-scale {
+  animation: scale-up 0.3s ease forwards;
+}
+
+.group:hover .group-hover-slide-up {
+  animation: slide-up-hover 0.3s ease forwards;
+}
