@@ -33,7 +33,7 @@ const Memories = () => {
   return (
     <div className="main-container relative">
       <img 
-        src="/lovable-uploads/40981d4d-5381-44c9-a78f-c22d7a65cdcf.png" 
+        src="/lovable-uploads/40981d4d-5381-44c9-a78f-c22d7a65cdcf.png"
         alt="Pastel baby growth chart" 
         className="absolute top-10 right-0 w-52 opacity-30 pointer-events-none"
         onError={(e) => {

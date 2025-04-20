@@ -41,7 +41,7 @@ const BabyAdviceCard: React.FC<BabyAdviceCardProps> = ({
           className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
           onError={(e) => {
             // Fallback image if the provided URL fails to load
-            (e.target as HTMLImageElement).src = '/lovable-uploads/40981d4d-5381-44c9-a78f-c22d7a65cdcf.png';
+            (e.target as HTMLImageElement).src = '/lovable-uploads/09704aa0-0bda-4497-942b-b783bd82f948.png';
           }}
         />
       </div>

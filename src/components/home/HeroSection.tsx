@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { ArrowRight, Heart, Star } from 'lucide-react';
 import { Button } from "@/components/ui/button";
@@ -50,7 +49,7 @@ const HeroSection = () => {
           <div className="relative">
             <div className="absolute -inset-1 bg-gradient-to-r from-primary-purple via-primary-blue to-primary-pink rounded-full blur-lg opacity-70"></div>
             <img 
-              src="/baby-emma.jpg" 
+              src="/lovable-uploads/40981d4d-5381-44c9-a78f-c22d7a65cdcf.png"
               alt="Baby Growth Journey" 
               className="relative w-full max-w-sm rounded-2xl shadow-xl border-2 border-white/50"
             />

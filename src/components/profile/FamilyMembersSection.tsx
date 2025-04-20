@@ -38,7 +38,7 @@ const FamilyMembersSection: React.FC = () => {
           <FamilyMemberCard 
             name="Emma" 
             age="8 months old" 
-            photoSrc="/baby-emma.jpg" 
+            photoSrc="/lovable-uploads/40981d4d-5381-44c9-a78f-c22d7a65cdcf.png"
           />
         </div>
       </CardContent>
