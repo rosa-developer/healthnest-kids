@@ -1,5 +1,6 @@
 
 import { Book, Brain, Palette, Award, Lightbulb } from 'lucide-react';
+import React from 'react';
 
 export interface LearningSkill {
   name: string;
@@ -10,16 +11,21 @@ export interface LearningSkill {
 export interface LearningCategory {
   id: string;
   name: string;
-  icon: JSX.Element;
+  icon: React.ReactNode;
   description: string;
   skills: LearningSkill[];
 }
+
+// Helper function to create icon renderer functions
+const createIconRenderer = (Icon: any, className: string) => {
+  return () => React.createElement(Icon, { className });
+};
 
 export const learningCategories: LearningCategory[] = [
   { 
     id: "cognitive", 
     name: "Cognitive Skills", 
-    icon: <Brain className="h-6 w-6 text-indigo-500" />,
+    icon: createIconRenderer(Brain, "h-6 w-6 text-indigo-500"),
     description: "Track problem-solving, memory, and thinking skills",
     skills: [
       { name: "Object Permanence", age: "4-8 months", status: "completed" },
@@ -32,7 +38,7 @@ export const learningCategories: LearningCategory[] = [
   { 
     id: "language", 
     name: "Language Development", 
-    icon: <Book className="h-6 w-6 text-blue-500" />,
+    icon: createIconRenderer(Book, "h-6 w-6 text-blue-500"),
     description: "Monitor speech, vocabulary, and communication progress",
     skills: [
       { name: "First Words", age: "10-14 months", status: "completed" },
@@ -45,7 +51,7 @@ export const learningCategories: LearningCategory[] = [
   { 
     id: "motor", 
     name: "Fine Motor Skills", 
-    icon: <Palette className="h-6 w-6 text-pink-500" />,
+    icon: createIconRenderer(Palette, "h-6 w-6 text-pink-500"),
     description: "Track drawing, writing, and hand coordination",
     skills: [
       { name: "Grasping Objects", age: "3-6 months", status: "completed" },
@@ -58,7 +64,7 @@ export const learningCategories: LearningCategory[] = [
   { 
     id: "social", 
     name: "Social Learning", 
-    icon: <Award className="h-6 w-6 text-amber-500" />,
+    icon: createIconRenderer(Award, "h-6 w-6 text-amber-500"),
     description: "Monitor interaction, sharing, and emotional understanding",
     skills: [
       { name: "Social Smiling", age: "2-3 months", status: "completed" },
@@ -71,7 +77,7 @@ export const learningCategories: LearningCategory[] = [
   { 
     id: "activities", 
     name: "Learning Activities", 
-    icon: <Lightbulb className="h-6 w-6 text-yellow-500" />,
+    icon: createIconRenderer(Lightbulb, "h-6 w-6 text-yellow-500"),
     description: "Age-appropriate educational activities and resources",
     skills: [
       { name: "Sensory Play", age: "0-12 months", status: "completed" },

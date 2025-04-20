@@ -14,6 +14,14 @@ const LearningCategoryCard: React.FC<LearningCategoryCardProps> = ({
   isActive,
   onClick
 }) => {
+  // Call the icon function if it's a function, otherwise render it directly
+  const renderIcon = () => {
+    if (typeof category.icon === 'function') {
+      return category.icon();
+    }
+    return category.icon;
+  };
+
   return (
     <Card 
       className={`cursor-pointer transition-all duration-300 hover:shadow-lg hover:-translate-y-1 ${
@@ -25,7 +33,7 @@ const LearningCategoryCard: React.FC<LearningCategoryCardProps> = ({
     >
       <CardHeader className="p-4 pb-2">
         <div className="flex items-center justify-between">
-          {category.icon}
+          {renderIcon()}
           {isActive && (
             <div className="h-2 w-2 rounded-full bg-primary-purple animate-pulse"></div>
           )}

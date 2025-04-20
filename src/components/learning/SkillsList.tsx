@@ -9,6 +9,14 @@ interface SkillsListProps {
 }
 
 const SkillsList: React.FC<SkillsListProps> = ({ category }) => {
+  // Call the icon function if it's a function, otherwise render it directly
+  const renderIcon = () => {
+    if (typeof category.icon === 'function') {
+      return category.icon();
+    }
+    return category.icon;
+  };
+
   const renderSkillStatus = (status: string) => {
     switch(status) {
       case 'completed':
@@ -32,7 +40,7 @@ const SkillsList: React.FC<SkillsListProps> = ({ category }) => {
     <Card className="h-full bg-gradient-to-br from-white to-primary-purple/5 dark:from-gray-900 dark:to-primary-purple/10">
       <CardHeader>
         <div className="flex items-center space-x-3">
-          {category.icon}
+          {renderIcon()}
           <CardTitle>{category.name}</CardTitle>
         </div>
         <CardDescription>{category.description}</CardDescription>
