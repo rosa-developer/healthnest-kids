@@ -17,7 +17,7 @@ const BabyPhotoSection = () => {
   const navigate = useNavigate();
   const [activePhoto, setActivePhoto] = useState(0);
   
-  // Enhanced family photos array with images that will work properly
+  // Updated family photos array with valid image paths
   const familyPhotos = [
     { src: "/baby-emma.jpg", alt: "Baby Emma" },
     { src: "/lovable-uploads/09704aa0-0bda-4497-942b-b783bd82f948.png", alt: "Happy family moments" },
