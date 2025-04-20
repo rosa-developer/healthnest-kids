@@ -11,7 +11,7 @@ export interface LearningSkill {
 export interface LearningCategory {
   id: string;
   name: string;
-  icon: React.ReactNode;
+  icon: React.ReactNode | (() => React.ReactNode);
   description: string;
   skills: LearningSkill[];
 }
