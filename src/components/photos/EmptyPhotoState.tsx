@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { FileImage, Upload } from 'lucide-react';
 import { Button } from "@/components/ui/button";
@@ -8,7 +7,7 @@ interface EmptyPhotoStateProps {
   onUploadClick: () => void;
 }
 
-const EmptyPhotoState: React.FC<EmptyPhotoStateProps> = ({ 
+const EmptyPhotoSection: React.FC<EmptyPhotoStateProps> = ({ 
   searchQuery, 
   onUploadClick 
 }) => {
@@ -33,16 +32,51 @@ const EmptyPhotoState: React.FC<EmptyPhotoStateProps> = ({
       </div>
       
       <div className="flex flex-wrap gap-4 justify-center mb-8">
-        <div className="max-w-sm rounded-lg shadow-md overflow-hidden">
-          <img 
-            src="/lovable-uploads/40981d4d-5381-44c9-a78f-c22d7a65cdcf.png" 
-            alt="Baby photo example" 
-            className="max-w-sm rounded-lg" 
-            onError={(e) => {
-              console.error("Failed to load baby example image");
-              e.currentTarget.src = "/placeholder.svg";
-            }}
-          />
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-2xl">
+          <div className="rounded-lg shadow-md overflow-hidden">
+            <img 
+              src="/baby-emma.jpg" 
+              alt="Baby portrait example" 
+              className="w-full h-48 object-cover" 
+              onError={(e) => {
+                console.error("Failed to load baby example image");
+                e.currentTarget.src = "/placeholder.svg";
+              }}
+            />
+          </div>
+          <div className="rounded-lg shadow-md overflow-hidden">
+            <img 
+              src="/lovable-uploads/40981d4d-5381-44c9-a78f-c22d7a65cdcf.png" 
+              alt="Family moment example" 
+              className="w-full h-48 object-cover" 
+              onError={(e) => {
+                console.error("Failed to load family example image");
+                e.currentTarget.src = "/placeholder.svg";
+              }}
+            />
+          </div>
+          <div className="rounded-lg shadow-md overflow-hidden">
+            <img 
+              src="/photo-1472396961693-142e6e269027" 
+              alt="Nature walk example" 
+              className="w-full h-48 object-cover" 
+              onError={(e) => {
+                console.error("Failed to load nature example image");
+                e.currentTarget.src = "/placeholder.svg";
+              }}
+            />
+          </div>
+          <div className="rounded-lg shadow-md overflow-hidden">
+            <img 
+              src="/lovable-uploads/09704aa0-0bda-4497-942b-b783bd82f948.png" 
+              alt="Milestone example" 
+              className="w-full h-48 object-cover" 
+              onError={(e) => {
+                console.error("Failed to load milestone example image");
+                e.currentTarget.src = "/placeholder.svg";
+              }}
+            />
+          </div>
         </div>
       </div>
       

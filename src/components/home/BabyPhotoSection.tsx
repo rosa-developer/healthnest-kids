@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
@@ -17,35 +16,32 @@ const BabyPhotoSection = () => {
   const navigate = useNavigate();
   const [activePhoto, setActivePhoto] = useState(0);
 
-  // Gallery images updated to be unique and subject-relevant (using available uploads & placeholders)
+  // Updated gallery images with more relevant photos
   const familyPhotos = [
     {
       src: "/baby-emma.jpg",
-      alt: "Baby Emma"
+      alt: "Baby Emma's portrait"
     },
     {
       src: "/lovable-uploads/09704aa0-0bda-4497-942b-b783bd82f948.png",
-      alt: "Happy family moments"
+      alt: "Family playtime"
+    },
+    {
+      src: "/photo-1472396961693-142e6e269027",
+      alt: "Nature walk with family"
     },
     {
       src: "/lovable-uploads/40981d4d-5381-44c9-a78f-c22d7a65cdcf.png",
-      alt: "Family playtime"
+      alt: "Baby milestone"
     },
-    // Use a cat placeholder as a cute close-up for demo, since no specific baby close-up is in assets
-    {
-      src: "/photo-1535268647677-300dbf3d78d1.jpg",
-      alt: "Baby close-up"
-    },
-    // Living room as "Fun times" for a family context placeholder
     {
       src: "/photo-1721322800607-8c38375eef04.jpg",
-      alt: "Fun times"
+      alt: "Family living room"
     },
-    // Use baby's face again as "Family portrait"
     {
-      src: "/baby-emma.jpg",
-      alt: "Family portrait"
-    },
+      src: "/photo-1535268647677-300dbf3d78d1.jpg",
+      alt: "Baby's first pet"
+    }
   ];
 
   return (
@@ -192,4 +188,3 @@ const BabyPhotoSection = () => {
 };
 
 export default BabyPhotoSection;
-
