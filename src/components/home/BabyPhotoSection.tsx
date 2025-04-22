@@ -16,31 +16,30 @@ const BabyPhotoSection = () => {
   const navigate = useNavigate();
   const [activePhoto, setActivePhoto] = useState(0);
 
-  // Updated gallery images with more relevant photos
   const familyPhotos = [
     {
       src: "/baby-emma.jpg",
-      alt: "Baby Emma's portrait"
+      alt: "Baby Emma's first smile"
     },
     {
       src: "/lovable-uploads/09704aa0-0bda-4497-942b-b783bd82f948.png",
-      alt: "Family playtime"
-    },
-    {
-      src: "/photo-1472396961693-142e6e269027",
-      alt: "Nature walk with family"
+      alt: "Emma playing with toys"
     },
     {
       src: "/lovable-uploads/40981d4d-5381-44c9-a78f-c22d7a65cdcf.png",
-      alt: "Baby milestone"
+      alt: "Emma's playtime"
     },
     {
-      src: "/photo-1721322800607-8c38375eef04.jpg",
-      alt: "Family living room"
+      src: "/baby-emma.jpg",
+      alt: "Baby Emma's bath time"
     },
     {
-      src: "/photo-1535268647677-300dbf3d78d1.jpg",
-      alt: "Baby's first pet"
+      src: "/lovable-uploads/09704aa0-0bda-4497-942b-b783bd82f948.png",
+      alt: "Emma's first steps"
+    },
+    {
+      src: "/lovable-uploads/40981d4d-5381-44c9-a78f-c22d7a65cdcf.png",
+      alt: "Family time with Emma"
     }
   ];
 
