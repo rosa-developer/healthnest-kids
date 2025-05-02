@@ -1,7 +1,8 @@
+
 import React, { useState } from 'react';
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
-import { Baby, ChevronRight, Heart, Camera, Info, Sparkles } from 'lucide-react';
+import { Baby, ChevronRight, Heart, Camera, Info, Sparkles, Image } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { useNavigate } from 'react-router-dom';
 import { 
@@ -19,29 +20,37 @@ const BabyPhotoSection = () => {
   const familyPhotos = [
     {
       src: "/baby-emma.jpg",
-      alt: "Baby Emma's first smile"
+      alt: "Baby Emma's first smile",
+      featured: true
     },
     {
       src: "/lovable-uploads/09704aa0-0bda-4497-942b-b783bd82f948.png",
-      alt: "Emma playing with toys"
+      alt: "Emma playing with toys",
+      featured: true
     },
     {
       src: "/lovable-uploads/40981d4d-5381-44c9-a78f-c22d7a65cdcf.png",
-      alt: "Emma's playtime"
+      alt: "Emma's playtime with teddy",
+      featured: false
     },
     {
       src: "/baby-emma.jpg",
-      alt: "Baby Emma's bath time"
+      alt: "Emma's bath time fun",
+      featured: true
     },
     {
       src: "/lovable-uploads/09704aa0-0bda-4497-942b-b783bd82f948.png",
-      alt: "Emma's first steps"
+      alt: "Emma's first steps attempt",
+      featured: false
     },
     {
       src: "/lovable-uploads/40981d4d-5381-44c9-a78f-c22d7a65cdcf.png",
-      alt: "Family time with Emma"
+      alt: "Family time with Emma",
+      featured: false
     }
   ];
+
+  const featuredPhotos = familyPhotos.filter(photo => photo.featured);
 
   return (
     <div className="animate-scale-in mb-8" id="memories">
@@ -132,8 +141,36 @@ const BabyPhotoSection = () => {
             </div>
           </div>
           
+          {/* Featured baby photos */}
+          <div className="mt-4">
+            <h3 className="text-lg font-medium mb-4 flex items-center">
+              <Image className="h-5 w-5 mr-2 text-primary-pink" />
+              Featured Baby Moments
+            </h3>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+              {featuredPhotos.map((photo, index) => (
+                <div 
+                  key={`featured-${index}`} 
+                  className="rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-all duration-300 cursor-pointer group"
+                  onClick={() => setActivePhoto(index)}
+                >
+                  <AspectRatio ratio={4/3}>
+                    <img 
+                      src={photo.src} 
+                      alt={photo.alt} 
+                      className="object-cover w-full h-full transition-all duration-500 group-hover:scale-110"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-end p-3">
+                      <p className="text-white text-sm font-medium">{photo.alt}</p>
+                    </div>
+                  </AspectRatio>
+                </div>
+              ))}
+            </div>
+          </div>
+          
           {/* Updated photo gallery */}
-          <div className="mt-6">
+          <div className="mt-2">
             <h3 className="text-lg font-medium mb-4 flex items-center">
               <Camera className="h-4 w-4 mr-2 text-primary-blue" />
               Happy Family Moments
