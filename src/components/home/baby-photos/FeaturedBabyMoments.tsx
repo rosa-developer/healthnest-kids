@@ -6,7 +6,7 @@ import { AspectRatio } from "@/components/ui/aspect-ratio";
 const FeaturedBabyMoments = () => {
   const featuredPhotos = [
     {
-      src: "/lovable-uploads/09704aa0-0bda-4497-942b-b783bd82f948.png",
+      src: "/lovable-uploads/40981d4d-5381-44c9-a78f-c22d7a65cdcf.png",
       fallbackSrc: "/placeholder.svg",
       alt: "Baby Emma's first smile"
     },
