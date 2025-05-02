@@ -16,14 +16,14 @@ const FeaturedBabyMoments = () => {
       alt: "Emma playing with toys"
     },
     {
-      src: "/lovable-uploads/09704aa0-0bda-4497-942b-b783bd82f948.png",
-      fallbackSrc: "/placeholder.svg",
-      alt: "Family time with Emma"
-    },
-    {
       src: "/lovable-uploads/40981d4d-5381-44c9-a78f-c22d7a65cdcf.png",
       fallbackSrc: "/placeholder.svg",
-      alt: "Emma's first bath time"
+      alt: "Emma's bath time"
+    },
+    {
+      src: "/lovable-uploads/09704aa0-0bda-4497-942b-b783bd82f948.png",
+      fallbackSrc: "/placeholder.svg",
+      alt: "Emma's first steps"
     }
   ];
 
