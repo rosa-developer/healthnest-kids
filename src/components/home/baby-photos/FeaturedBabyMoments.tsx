@@ -19,6 +19,11 @@ const FeaturedBabyMoments = () => {
       src: "/lovable-uploads/09704aa0-0bda-4497-942b-b783bd82f948.png",
       fallbackSrc: "/placeholder.svg",
       alt: "Family time with Emma"
+    },
+    {
+      src: "/lovable-uploads/40981d4d-5381-44c9-a78f-c22d7a65cdcf.png",
+      fallbackSrc: "/placeholder.svg",
+      alt: "Emma's first bath time"
     }
   ];
 
@@ -33,7 +38,7 @@ const FeaturedBabyMoments = () => {
         <Image className="h-5 w-5 mr-2 text-primary-pink" />
         Featured Baby Moments
       </h3>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
         {featuredPhotos.map((photo, index) => (
           <div 
             key={`featured-${index}`} 
