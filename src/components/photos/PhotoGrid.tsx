@@ -22,6 +22,11 @@ const PhotoGrid: React.FC<PhotoGridProps> = ({
     return null;
   }
 
+  const handleImageError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
+    console.error(`Failed to load image`);
+    e.currentTarget.src = "/placeholder.svg";
+  };
+
   return (
     <div className="photo-masonry-layout">
       {photos.map(photo => {
@@ -35,6 +40,7 @@ const PhotoGrid: React.FC<PhotoGridProps> = ({
                   src={photo.src} 
                   alt={photo.caption} 
                   className="w-full h-auto object-cover transition-all duration-500 group-hover:scale-105"
+                  onError={handleImageError}
                 />
                 <div className="absolute top-0 left-0 w-full h-full photo-hover-overlay photo-gradient-overlay">
                   <div className="absolute top-2 right-2 flex gap-2">

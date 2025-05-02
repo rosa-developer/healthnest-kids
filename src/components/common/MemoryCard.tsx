@@ -13,6 +13,7 @@ interface MemoryCardProps {
   audioSrc?: string;
   description?: string;
   className?: string;
+  onImageError?: (e: React.SyntheticEvent<HTMLImageElement, Event>) => void;
 }
 
 const MemoryCard: React.FC<MemoryCardProps> = ({
@@ -23,6 +24,7 @@ const MemoryCard: React.FC<MemoryCardProps> = ({
   audioSrc,
   description,
   className,
+  onImageError,
 }) => {
   const { toast } = useToast();
   const [liked, setLiked] = useState(false);
@@ -51,6 +53,11 @@ const MemoryCard: React.FC<MemoryCardProps> = ({
     setExpanded(!expanded);
   };
 
+  const handleDefaultImageError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
+    console.error("Memory card image failed to load");
+    e.currentTarget.src = "/placeholder.svg";
+  };
+
   return (
     <motion.div
       whileHover={{ y: -5 }}
@@ -67,6 +74,7 @@ const MemoryCard: React.FC<MemoryCardProps> = ({
             src={imageSrc}
             alt={title}
             className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+            onError={onImageError || handleDefaultImageError}
           />
           <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-black/40 to-transparent"></div>
         </div>

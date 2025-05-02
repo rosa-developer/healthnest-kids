@@ -52,6 +52,11 @@ const PhotoMemories: React.FC = () => {
     });
   };
 
+  const handleImageError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
+    console.error("Failed to load memory image");
+    e.currentTarget.src = "/placeholder.svg";
+  };
+
   return (
     <div className="relative">
       <div className="flex justify-end mb-4">
@@ -74,6 +79,7 @@ const PhotoMemories: React.FC = () => {
             date={memory.date}
             imageSrc={memory.imageSrc}
             description={memory.description}
+            onImageError={handleImageError}
           />
         ))}
       </div>

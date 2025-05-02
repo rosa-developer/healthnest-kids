@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { FileImage, Upload } from 'lucide-react';
 import { Button } from "@/components/ui/button";
@@ -7,10 +8,15 @@ interface EmptyPhotoStateProps {
   onUploadClick: () => void;
 }
 
-const EmptyPhotoSection: React.FC<EmptyPhotoStateProps> = ({ 
+const EmptyPhotoState: React.FC<EmptyPhotoStateProps> = ({ 
   searchQuery, 
   onUploadClick 
 }) => {
+  const handleImageError = (e: React.SyntheticEvent<HTMLImageElement, Event>, fallback: string) => {
+    console.error(`Failed to load image example: ${e.currentTarget.src}`);
+    e.currentTarget.src = fallback;
+  };
+
   return (
     <div className="flex flex-col items-center justify-center py-16 px-4 text-center">
       <div className="bg-muted/40 rounded-full p-4 mb-4">
@@ -35,13 +41,10 @@ const EmptyPhotoSection: React.FC<EmptyPhotoStateProps> = ({
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-2xl">
           <div className="rounded-lg shadow-md overflow-hidden">
             <img 
-              src="/baby-emma.jpg" 
+              src="/lovable-uploads/09704aa0-0bda-4497-942b-b783bd82f948.png" 
               alt="Baby portrait example" 
               className="w-full h-48 object-cover" 
-              onError={(e) => {
-                console.error("Failed to load baby example image");
-                e.currentTarget.src = "/placeholder.svg";
-              }}
+              onError={(e) => handleImageError(e, "/placeholder.svg")}
             />
           </div>
           <div className="rounded-lg shadow-md overflow-hidden">
@@ -49,21 +52,15 @@ const EmptyPhotoSection: React.FC<EmptyPhotoStateProps> = ({
               src="/lovable-uploads/40981d4d-5381-44c9-a78f-c22d7a65cdcf.png" 
               alt="Family moment example" 
               className="w-full h-48 object-cover" 
-              onError={(e) => {
-                console.error("Failed to load family example image");
-                e.currentTarget.src = "/placeholder.svg";
-              }}
+              onError={(e) => handleImageError(e, "/placeholder.svg")}
             />
           </div>
           <div className="rounded-lg shadow-md overflow-hidden">
             <img 
-              src="/photo-1472396961693-142e6e269027" 
+              src="/placeholder.svg" 
               alt="Nature walk example" 
               className="w-full h-48 object-cover" 
-              onError={(e) => {
-                console.error("Failed to load nature example image");
-                e.currentTarget.src = "/placeholder.svg";
-              }}
+              onError={(e) => handleImageError(e, "/placeholder.svg")}
             />
           </div>
           <div className="rounded-lg shadow-md overflow-hidden">
@@ -71,10 +68,7 @@ const EmptyPhotoSection: React.FC<EmptyPhotoStateProps> = ({
               src="/lovable-uploads/09704aa0-0bda-4497-942b-b783bd82f948.png" 
               alt="Milestone example" 
               className="w-full h-48 object-cover" 
-              onError={(e) => {
-                console.error("Failed to load milestone example image");
-                e.currentTarget.src = "/placeholder.svg";
-              }}
+              onError={(e) => handleImageError(e, "/placeholder.svg")}
             />
           </div>
         </div>

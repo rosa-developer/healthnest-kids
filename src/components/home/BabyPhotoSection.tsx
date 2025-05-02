@@ -1,8 +1,8 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
-import { Baby, ChevronRight, Heart, Camera, Info, Sparkles, Image } from 'lucide-react';
+import { Baby, ChevronRight, Heart, Camera, Info, Sparkles, Image, AlertCircle } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { useNavigate } from 'react-router-dom';
 import { 
@@ -12,45 +12,87 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
+import { useToast } from "@/hooks/use-toast";
 
 const BabyPhotoSection = () => {
   const navigate = useNavigate();
   const [activePhoto, setActivePhoto] = useState(0);
+  const { toast } = useToast();
+  const [imagesLoaded, setImagesLoaded] = useState(false);
 
   const familyPhotos = [
     {
       src: "/baby-emma.jpg",
+      fallbackSrc: "/lovable-uploads/09704aa0-0bda-4497-942b-b783bd82f948.png",
       alt: "Baby Emma's first smile",
       featured: true
     },
     {
       src: "/lovable-uploads/09704aa0-0bda-4497-942b-b783bd82f948.png",
+      fallbackSrc: "/placeholder.svg",
       alt: "Emma playing with toys",
       featured: true
     },
     {
       src: "/lovable-uploads/40981d4d-5381-44c9-a78f-c22d7a65cdcf.png",
+      fallbackSrc: "/placeholder.svg",
       alt: "Emma's playtime with teddy",
       featured: false
     },
     {
       src: "/baby-emma.jpg",
+      fallbackSrc: "/lovable-uploads/40981d4d-5381-44c9-a78f-c22d7a65cdcf.png",
       alt: "Emma's bath time fun",
       featured: true
     },
     {
       src: "/lovable-uploads/09704aa0-0bda-4497-942b-b783bd82f948.png",
+      fallbackSrc: "/placeholder.svg",
       alt: "Emma's first steps attempt",
       featured: false
     },
     {
       src: "/lovable-uploads/40981d4d-5381-44c9-a78f-c22d7a65cdcf.png",
+      fallbackSrc: "/placeholder.svg",
       alt: "Family time with Emma",
       featured: false
     }
   ];
 
   const featuredPhotos = familyPhotos.filter(photo => photo.featured);
+  
+  useEffect(() => {
+    // Check if images exist
+    const checkImages = async () => {
+      try {
+        await Promise.all(
+          familyPhotos.map(photo => 
+            new Promise((resolve) => {
+              const img = new Image();
+              img.onload = () => resolve(true);
+              img.onerror = () => resolve(false);
+              img.src = photo.src;
+            })
+          )
+        );
+        setImagesLoaded(true);
+      } catch (error) {
+        console.error("Error checking images:", error);
+        toast({
+          title: "Image loading issue",
+          description: "Some images may not display properly",
+          variant: "destructive",
+        });
+      }
+    };
+    
+    checkImages();
+  }, [toast]);
+
+  const handleImageError = (e: React.SyntheticEvent<HTMLImageElement, Event>, fallbackSrc: string) => {
+    console.log(`Image failed to load, using fallback: ${fallbackSrc}`);
+    e.currentTarget.src = fallbackSrc;
+  };
 
   return (
     <div className="animate-scale-in mb-8" id="memories">
@@ -91,13 +133,10 @@ const BabyPhotoSection = () => {
             <div className="w-full md:w-1/3 rounded-xl overflow-hidden shadow-md transition-all duration-300 hover:shadow-xl group">
               <AspectRatio ratio={4/3}>
                 <img 
-                  src="/baby-emma.jpg" 
+                  src="/lovable-uploads/09704aa0-0bda-4497-942b-b783bd82f948.png" 
                   alt="Baby Emma" 
                   className="object-cover w-full h-full rounded-xl transform transition-all duration-500 group-hover:scale-105"
-                  onError={(e) => {
-                    console.error("Failed to load baby image");
-                    e.currentTarget.src = "/placeholder.svg";
-                  }}
+                  onError={(e) => handleImageError(e, "/placeholder.svg")}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-end p-4">
                   <p className="text-white font-medium">Emma's journey</p>
@@ -121,12 +160,9 @@ const BabyPhotoSection = () => {
               <div className="flex items-center space-x-3 mt-4 p-2 rounded-lg hover:bg-muted/20 transition-all duration-300 cursor-pointer" onClick={() => navigate('/growth')}>
                 <Avatar className="h-12 w-12 border-2 border-white shadow-sm ring-2 ring-primary-pink/20 ring-offset-2 ring-offset-background">
                   <AvatarImage 
-                    src="/baby-emma.jpg" 
+                    src="/lovable-uploads/09704aa0-0bda-4497-942b-b783bd82f948.png" 
                     alt="Baby Emma" 
-                    onError={(e) => {
-                      console.error("Failed to load avatar image");
-                      e.currentTarget.src = "/placeholder.svg";
-                    }}
+                    onError={(e) => handleImageError(e, "/placeholder.svg")}
                   />
                   <AvatarFallback className="bg-primary-purple/10">
                     <Baby className="h-6 w-6 text-purple-500" />
@@ -159,6 +195,7 @@ const BabyPhotoSection = () => {
                       src={photo.src} 
                       alt={photo.alt} 
                       className="object-cover w-full h-full transition-all duration-500 group-hover:scale-110"
+                      onError={(e) => handleImageError(e, photo.fallbackSrc)}
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-end p-3">
                       <p className="text-white text-sm font-medium">{photo.alt}</p>
@@ -190,10 +227,7 @@ const BabyPhotoSection = () => {
                       src={photo.src} 
                       alt={photo.alt} 
                       className="object-cover w-full h-full transition-all duration-500 group-hover:scale-110"
-                      onError={(e) => {
-                        console.error(`Failed to load image: ${photo.src}`);
-                        e.currentTarget.src = "/placeholder.svg";
-                      }}
+                      onError={(e) => handleImageError(e, photo.fallbackSrc)}
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-end p-2">
                       <p className="text-white text-xs font-medium truncate w-full">{photo.alt}</p>
