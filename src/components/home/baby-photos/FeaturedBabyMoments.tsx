@@ -11,7 +11,7 @@ const FeaturedBabyMoments = () => {
       alt: "Baby Emma's first smile"
     },
     {
-      src: "/lovable-uploads/40981d4d-5381-44c9-a78f-c22d7a65cdcf.png",
+      src: "/lovable-uploads/09704aa0-0bda-4497-942b-b783bd82f948.png",
       fallbackSrc: "/placeholder.svg",
       alt: "Emma playing with toys"
     },
