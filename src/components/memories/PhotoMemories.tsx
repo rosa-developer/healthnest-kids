@@ -2,8 +2,9 @@
 import React, { useState } from 'react';
 import MemoryCard from '@/components/common/MemoryCard';
 import { Button } from "@/components/ui/button";
-import { PlusCircle, Upload } from 'lucide-react';
+import { PlusCircle, Upload, Baby, Heart } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
+import { motion } from 'framer-motion';
 
 const PhotoMemories: React.FC = () => {
   const { toast } = useToast();
@@ -47,7 +48,7 @@ const PhotoMemories: React.FC = () => {
 
   const handleAddPhotoMemory = () => {
     toast({
-      title: "Add Photo Memory",
+      title: "Add Baby Photo Memory",
       description: "This feature will be available in the next update!",
     });
   };
@@ -59,7 +60,13 @@ const PhotoMemories: React.FC = () => {
 
   return (
     <div className="relative">
-      <div className="flex justify-end mb-4">
+      <div className="flex justify-between items-center mb-6">
+        <div className="flex items-center">
+          <div className="bg-primary-pink/20 p-2 rounded-full mr-3">
+            <Baby className="h-5 w-5 text-primary-pink" />
+          </div>
+          <h3 className="text-lg font-semibold">Baby Photo Memories</h3>
+        </div>
         <Button 
           onClick={handleAddPhotoMemory}
           className="bg-healthnest-primary text-white hover:bg-healthnest-primary/90"
@@ -71,31 +78,48 @@ const PhotoMemories: React.FC = () => {
       </div>
       
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {memories.map(memory => (
-          <MemoryCard
+        {memories.map((memory, index) => (
+          <motion.div
             key={memory.id}
-            id={memory.id}
-            title={memory.title}
-            date={memory.date}
-            imageSrc={memory.imageSrc}
-            description={memory.description}
-            onImageError={handleImageError}
-          />
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, delay: index * 0.1 }}
+          >
+            <MemoryCard
+              id={memory.id}
+              title={memory.title}
+              date={memory.date}
+              imageSrc={memory.imageSrc}
+              description={memory.description}
+              onImageError={handleImageError}
+            />
+          </motion.div>
         ))}
       </div>
       
-      <div className="mt-6 p-6 bg-muted/30 rounded-xl border border-border dashed flex flex-col items-center text-center">
-        <p className="text-muted-foreground mb-2">Capture more precious moments with your little one!</p>
+      <motion.div 
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.5 }}
+        className="mt-8 p-6 bg-muted/30 rounded-xl border border-border dashed flex flex-col items-center text-center"
+      >
+        <div className="bg-background/80 p-3 rounded-full mb-4 shadow-soft">
+          <Heart className="h-5 w-5 text-primary-pink" />
+        </div>
+        <h4 className="text-lg font-medium mb-2">Capture Precious Baby Moments</h4>
+        <p className="text-muted-foreground mb-4 max-w-md">
+          Add more special moments to your baby's photo collection to cherish forever.
+        </p>
         <Button
           variant="outline"
           size="sm"
           onClick={handleAddPhotoMemory}
-          className="mt-2"
+          className="border-primary-pink/50 text-primary-pink hover:bg-primary-pink/10"
         >
           <Upload className="h-4 w-4 mr-2" />
-          Upload New Photos
+          Upload New Baby Photos
         </Button>
-      </div>
+      </motion.div>
     </div>
   );
 };

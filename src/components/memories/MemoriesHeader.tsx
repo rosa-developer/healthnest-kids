@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Button } from "@/components/ui/button";
-import { Filter, Camera, Upload, Mic, PlusCircle, Image } from 'lucide-react';
+import { Filter, Camera, Upload, Mic, Baby, Image } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 interface MemoriesHeaderProps {
@@ -10,9 +10,14 @@ interface MemoriesHeaderProps {
 
 const MemoriesHeader: React.FC<MemoriesHeaderProps> = ({ handleAddMemory }) => {
   return (
-    <div className="flex items-center justify-between mb-4">
+    <div className="flex items-center justify-between mb-6">
       <div>
-        <h1 className="text-2xl font-bold tracking-tight mb-1">Memories</h1>
+        <h1 className="text-2xl font-bold tracking-tight mb-1 flex items-center">
+          <span>Memories</span>
+          <div className="ml-3 bg-primary-pink/20 p-1.5 rounded-full">
+            <Baby className="h-4 w-4 text-primary-pink" />
+          </div>
+        </h1>
         <p className="text-muted-foreground">Capture and cherish precious moments with Emma</p>
       </div>
       <div className="flex gap-2">
@@ -30,12 +35,12 @@ const MemoriesHeader: React.FC<MemoriesHeaderProps> = ({ handleAddMemory }) => {
         </Button>
         <Button 
           size="sm"
-          className="bg-green-500 text-white hover:bg-green-600"
+          className="bg-primary-pink text-white hover:bg-primary-pink/90"
           asChild
         >
           <Link to="/photos">
-            <Image className="h-4 w-4 mr-2" />
-            Photos
+            <Baby className="h-4 w-4 mr-2" />
+            Baby Photos
           </Link>
         </Button>
       </div>

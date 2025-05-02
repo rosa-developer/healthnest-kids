@@ -1,7 +1,8 @@
 
 import React from 'react';
-import { FileImage, Upload } from 'lucide-react';
+import { FileImage, Upload, Baby } from 'lucide-react';
 import { Button } from "@/components/ui/button";
+import { motion } from 'framer-motion';
 
 interface EmptyPhotoStateProps {
   searchQuery: string;
@@ -18,17 +19,24 @@ const EmptyPhotoState: React.FC<EmptyPhotoStateProps> = ({
   };
 
   return (
-    <div className="flex flex-col items-center justify-center py-16 px-4 text-center">
-      <div className="bg-muted/40 rounded-full p-4 mb-4">
-        <FileImage className="h-8 w-8 text-muted-foreground" />
+    <motion.div 
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4 }}
+      className="flex flex-col items-center justify-center py-16 px-4 text-center"
+    >
+      <div className="bg-primary/10 rounded-full p-4 mb-4">
+        <Baby className="h-8 w-8 text-primary" />
       </div>
-      <h3 className="text-xl font-semibold mb-2">No photos found</h3>
+      <h3 className="text-xl font-semibold mb-2">
+        {searchQuery ? `No baby photos match "${searchQuery}"` : "Add Your First Baby Photo"}
+      </h3>
       <p className="text-muted-foreground max-w-md mb-4">
         {searchQuery 
-          ? `No photos match "${searchQuery}". Try another search term.` 
-          : "Upload your first photo to get started."}
+          ? "Try another search term or upload new photos." 
+          : "Capture and save precious moments of your little one's growth journey."}
       </p>
-      <div className="bg-muted/20 rounded-lg p-4 mb-6 max-w-md">
+      <div className="bg-muted/20 rounded-lg p-4 mb-6 max-w-md border border-muted/30">
         <p className="text-sm text-muted-foreground">
           Supported formats: JPG, PNG, GIF, WebP (up to 5MB)
         </p>
@@ -74,11 +82,11 @@ const EmptyPhotoState: React.FC<EmptyPhotoStateProps> = ({
         </div>
       </div>
       
-      <Button onClick={onUploadClick} className="gap-2">
+      <Button onClick={onUploadClick} className="gap-2 bg-primary hover:bg-primary/90">
         <Upload className="h-4 w-4" />
-        Upload Photos
+        Upload Baby Photos
       </Button>
-    </div>
+    </motion.div>
   );
 };
 
