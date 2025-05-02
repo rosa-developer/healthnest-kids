@@ -5,7 +5,7 @@ import ChildProfileCard from '@/components/home/child-profile/ChildProfileCard';
 import UpcomingAppointments from '@/components/home/UpcomingAppointments';
 import RecentTimeline from '@/components/home/RecentTimeline';
 import HealthOverview from '@/components/home/HealthOverview';
-import BabyPhotoSection from './BabyPhotoSection';
+import BabyPhotoSection from './baby-photos';
 import RemindersSection from './RemindersSection';
 
 // Fallback component for card errors
