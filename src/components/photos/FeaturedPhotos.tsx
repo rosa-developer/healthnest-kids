@@ -20,7 +20,7 @@ const FeaturedPhotos: React.FC<FeaturedPhotosProps> = ({ photos }) => {
 
   const handleImageError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
     console.error(`Failed to load featured image`);
-    e.currentTarget.src = "/placeholder.svg";
+    e.currentTarget.src = "/baby-emma.jpg";
   };
 
   return (

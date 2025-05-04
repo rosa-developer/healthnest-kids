@@ -140,7 +140,7 @@ const TimelineCard: React.FC<TimelineCardProps> = ({
           
           {imageSrc && (
             <div className="mt-3 rounded-lg overflow-hidden">
-              <img src={imageSrc} alt={title} className="w-full h-auto object-cover" />
+              <img src="/baby-emma.jpg" alt={title} className="w-full h-auto object-cover" />
             </div>
           )}
           

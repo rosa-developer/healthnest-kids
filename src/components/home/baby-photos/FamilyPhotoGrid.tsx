@@ -15,37 +15,37 @@ const FamilyPhotoGrid = () => {
 
   const familyPhotos = [
     {
-      src: "/lovable-uploads/40981d4d-5381-44c9-a78f-c22d7a65cdcf.png",
+      src: "/baby-emma.jpg",
       fallbackSrc: "/placeholder.svg",
       alt: "Baby Emma's first smile",
       featured: true
     },
     {
-      src: "/lovable-uploads/09704aa0-0bda-4497-942b-b783bd82f948.png",
+      src: "/baby-emma.jpg",
       fallbackSrc: "/placeholder.svg",
       alt: "Emma playing with toys",
       featured: true
     },
     {
-      src: "/lovable-uploads/40981d4d-5381-44c9-a78f-c22d7a65cdcf.png",
+      src: "/baby-emma.jpg",
       fallbackSrc: "/placeholder.svg",
       alt: "Emma's playtime with teddy",
       featured: false
     },
     {
-      src: "/lovable-uploads/09704aa0-0bda-4497-942b-b783bd82f948.png",
+      src: "/baby-emma.jpg",
       fallbackSrc: "/placeholder.svg",
       alt: "Emma's bath time fun",
       featured: true
     },
     {
-      src: "/lovable-uploads/40981d4d-5381-44c9-a78f-c22d7a65cdcf.png",
+      src: "/baby-emma.jpg",
       fallbackSrc: "/placeholder.svg",
       alt: "Emma's first steps attempt",
       featured: false
     },
     {
-      src: "/lovable-uploads/09704aa0-0bda-4497-942b-b783bd82f948.png",
+      src: "/baby-emma.jpg",
       fallbackSrc: "/placeholder.svg",
       alt: "Family time with Emma",
       featured: false

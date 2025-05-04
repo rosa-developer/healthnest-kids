@@ -32,12 +32,12 @@ const ChildProfileInfo = () => {
           <div className="absolute -inset-1 bg-gradient-to-r from-primary-purple via-primary-blue to-primary-pink rounded-full blur opacity-75"></div>
           <div className="relative h-full w-full rounded-full bg-white/90 flex items-center justify-center overflow-hidden border-2 border-white shadow-md transform hover:scale-105 transition-all duration-300">
             <img 
-              src="/lovable-uploads/40981d4d-5381-44c9-a78f-c22d7a65cdcf.png"
+              src="/baby-emma.jpg"
               alt={`Baby ${activeProfile.name}`}
               className="w-full h-full object-cover"
               onError={(e) => {
                 console.error("Failed to load baby image");
-                e.currentTarget.src = "/lovable-uploads/09704aa0-0bda-4497-942b-b783bd82f948.png";
+                e.currentTarget.src = "/placeholder.svg";
               }}
             />
           </div>

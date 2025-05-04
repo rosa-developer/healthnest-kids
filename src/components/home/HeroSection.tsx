@@ -47,11 +47,11 @@ const HeroSection = () => {
             <div className="absolute -inset-1 bg-gradient-to-r from-primary-purple via-primary-blue to-primary-pink rounded-3xl blur-lg opacity-70"></div>
             <div className="relative rounded-3xl overflow-hidden border-2 border-white/50 shadow-2xl">
               <img 
-                src="/lovable-uploads/40981d4d-5381-44c9-a78f-c22d7a65cdcf.png"
+                src="/baby-emma.jpg"
                 alt="Baby Growth Journey" 
                 className="w-full h-full object-cover aspect-[4/3]"
                 onError={(e) => {
-                  e.currentTarget.src = "/lovable-uploads/09704aa0-0bda-4497-942b-b783bd82f948.png";
+                  e.currentTarget.src = "/placeholder.svg";
                 }}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
