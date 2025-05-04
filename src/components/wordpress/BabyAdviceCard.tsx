@@ -36,7 +36,7 @@ const BabyAdviceCard: React.FC<BabyAdviceCardProps> = ({
             alt={title} 
             className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
             onError={(e) => {
-              e.currentTarget.src = "/lovable-uploads/40981d4d-5381-44c9-a78f-c22d7a65cdcf.png";
+              e.currentTarget.src = "/lovable-uploads/09704aa0-0bda-4497-942b-b783bd82f948.png";
             }}
           />
         ) : (

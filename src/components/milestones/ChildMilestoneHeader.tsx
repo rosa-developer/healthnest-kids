@@ -22,7 +22,7 @@ const ChildMilestoneHeader: React.FC<ChildMilestoneHeaderProps> = ({
             <img src={photoSrc} alt="Child" className="w-full h-full object-cover" />
           ) : (
             <img 
-              src="/lovable-uploads/09704aa0-0bda-4497-942b-b783bd82f948.png" 
+              src="/lovable-uploads/40981d4d-5381-44c9-a78f-c22d7a65cdcf.png" 
               alt="Emma" 
               className="w-full h-full object-cover" 
             />

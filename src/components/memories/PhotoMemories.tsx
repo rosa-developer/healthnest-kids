@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import MemoryCard from '@/components/common/MemoryCard';
 import { Button } from "@/components/ui/button";
@@ -13,35 +12,35 @@ const PhotoMemories: React.FC = () => {
       id: "photo1",
       title: "First Smile",
       date: "January 15, 2023",
-      imageSrc: "/lovable-uploads/09704aa0-0bda-4497-942b-b783bd82f948.png",
+      imageSrc: "/lovable-uploads/40981d4d-5381-44c9-a78f-c22d7a65cdcf.png",
       description: "Emma's first real smile! Her eyes lit up when I sang to her."
     },
     {
       id: "photo2",
       title: "Bath Time Fun",
       date: "February 8, 2023",
-      imageSrc: "/lovable-uploads/40981d4d-5381-44c9-a78f-c22d7a65cdcf.png",
+      imageSrc: "/lovable-uploads/09704aa0-0bda-4497-942b-b783bd82f948.png",
       description: "Emma loves splashing in the bath. So many bubbles and giggles!"
     },
     {
       id: "photo3",
       title: "First Time at the Park",
       date: "March 22, 2023",
-      imageSrc: "/lovable-uploads/09704aa0-0bda-4497-942b-b783bd82f948.png",
+      imageSrc: "/lovable-uploads/40981d4d-5381-44c9-a78f-c22d7a65cdcf.png",
       description: "Our first family trip to the park. Emma was fascinated by the trees."
     },
     {
       id: "photo4",
       title: "Playing with Blocks",
       date: "April 10, 2023",
-      imageSrc: "/lovable-uploads/40981d4d-5381-44c9-a78f-c22d7a65cdcf.png",
+      imageSrc: "/lovable-uploads/09704aa0-0bda-4497-942b-b783bd82f948.png",
       description: "Emma's getting so good at stacking her blocks! She can stack 3 now."
     },
     {
       id: "photo5",
       title: "Nap Time with Teddy",
       date: "April 18, 2023",
-      imageSrc: "/lovable-uploads/09704aa0-0bda-4497-942b-b783bd82f948.png",
+      imageSrc: "/lovable-uploads/40981d4d-5381-44c9-a78f-c22d7a65cdcf.png",
       description: "Emma fell asleep hugging her favorite teddy bear. So precious!"
     }
   ]);
@@ -68,7 +67,10 @@ const PhotoMemories: React.FC = () => {
           <h3 className="text-lg font-semibold">Baby Photo Memories</h3>
         </div>
         <Button 
-          onClick={handleAddPhotoMemory}
+          onClick={() => toast({
+            title: "Add Baby Photo Memory",
+            description: "This feature will be available in the next update!",
+          })}
           className="bg-healthnest-primary text-white hover:bg-healthnest-primary/90"
           size="sm"
         >
@@ -113,7 +115,10 @@ const PhotoMemories: React.FC = () => {
         <Button
           variant="outline"
           size="sm"
-          onClick={handleAddPhotoMemory}
+          onClick={() => toast({
+            title: "Add Baby Photo Memory",
+            description: "This feature will be available in the next update!",
+          })}
           className="border-primary-pink/50 text-primary-pink hover:bg-primary-pink/10"
         >
           <Upload className="h-4 w-4 mr-2" />

@@ -49,7 +49,7 @@ const EmptyPhotoState: React.FC<EmptyPhotoStateProps> = ({
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-2xl">
           <div className="rounded-lg shadow-md overflow-hidden">
             <img 
-              src="/lovable-uploads/09704aa0-0bda-4497-942b-b783bd82f948.png" 
+              src="/lovable-uploads/40981d4d-5381-44c9-a78f-c22d7a65cdcf.png" 
               alt="Baby portrait example" 
               className="w-full h-48 object-cover" 
               onError={(e) => handleImageError(e, "/placeholder.svg")}
@@ -57,7 +57,7 @@ const EmptyPhotoState: React.FC<EmptyPhotoStateProps> = ({
           </div>
           <div className="rounded-lg shadow-md overflow-hidden">
             <img 
-              src="/lovable-uploads/40981d4d-5381-44c9-a78f-c22d7a65cdcf.png" 
+              src="/lovable-uploads/09704aa0-0bda-4497-942b-b783bd82f948.png" 
               alt="Family moment example" 
               className="w-full h-48 object-cover" 
               onError={(e) => handleImageError(e, "/placeholder.svg")}
@@ -65,7 +65,7 @@ const EmptyPhotoState: React.FC<EmptyPhotoStateProps> = ({
           </div>
           <div className="rounded-lg shadow-md overflow-hidden">
             <img 
-              src="/placeholder.svg" 
+              src="/lovable-uploads/40981d4d-5381-44c9-a78f-c22d7a65cdcf.png" 
               alt="Nature walk example" 
               className="w-full h-48 object-cover" 
               onError={(e) => handleImageError(e, "/placeholder.svg")}
