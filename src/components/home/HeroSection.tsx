@@ -47,8 +47,8 @@ const HeroSection = () => {
             <div className="absolute -inset-1 bg-gradient-to-r from-primary-purple via-primary-blue to-primary-pink rounded-3xl blur-lg opacity-70"></div>
             <div className="relative rounded-3xl overflow-hidden border-2 border-white/50 shadow-2xl">
               <img 
-                src="https://images.unsplash.com/photo-1577741314755-048d8525d31e"
-                alt="Family with Baby" 
+                src="https://images.unsplash.com/photo-1501286353178-1ec871214838"
+                alt="Baby playing with toys" 
                 className="w-full h-full object-cover aspect-[4/3]"
                 onError={(e) => {
                   e.currentTarget.src = "/placeholder.svg";
