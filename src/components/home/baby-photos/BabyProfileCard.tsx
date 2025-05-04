@@ -18,7 +18,7 @@ const BabyProfileCard = () => {
       <div className="w-full md:w-1/3 rounded-xl overflow-hidden shadow-md transition-all duration-300 hover:shadow-xl group">
         <AspectRatio ratio={4/3}>
           <img 
-            src="/lovable-uploads/09704aa0-0bda-4497-942b-b783bd82f948.png" 
+            src="/lovable-uploads/40981d4d-5381-44c9-a78f-c22d7a65cdcf.png" 
             alt="Baby Emma" 
             className="object-cover w-full h-full rounded-xl transform transition-all duration-500 group-hover:scale-105"
             onError={(e) => handleImageError(e, "/placeholder.svg")}
@@ -45,7 +45,7 @@ const BabyProfileCard = () => {
         <div className="flex items-center space-x-3 mt-4 p-2 rounded-lg hover:bg-muted/20 transition-all duration-300 cursor-pointer" onClick={() => navigate('/growth')}>
           <Avatar className="h-12 w-12 border-2 border-white shadow-sm ring-2 ring-primary-pink/20 ring-offset-2 ring-offset-background">
             <AvatarImage 
-              src="/lovable-uploads/09704aa0-0bda-4497-942b-b783bd82f948.png" 
+              src="/lovable-uploads/40981d4d-5381-44c9-a78f-c22d7a65cdcf.png" 
               alt="Baby Emma" 
               onError={(e) => handleImageError(e, "/placeholder.svg")}
             />
