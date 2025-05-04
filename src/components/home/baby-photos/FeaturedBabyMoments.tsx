@@ -21,7 +21,7 @@ const FeaturedBabyMoments = () => {
       alt: "Emma's bath time"
     },
     {
-      src: "https://images.unsplash.com/photo-1588864723510-ab5427961d2c",
+      src: "https://images.unsplash.com/photo-1533483595632-c5f0e57a1936",
       fallbackSrc: "/placeholder.svg",
       alt: "Emma's first steps"
     }
