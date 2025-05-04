@@ -47,7 +47,7 @@ const HeroSection = () => {
             <div className="absolute -inset-1 bg-gradient-to-r from-primary-purple via-primary-blue to-primary-pink rounded-3xl blur-lg opacity-70"></div>
             <div className="relative rounded-3xl overflow-hidden border-2 border-white/50 shadow-2xl">
               <img 
-                src="/baby-emma.jpg"
+                src="https://images.unsplash.com/photo-1498036882173-b4e08b3128c9"
                 alt="Baby Growth Journey" 
                 className="w-full h-full object-cover aspect-[4/3]"
                 onError={(e) => {

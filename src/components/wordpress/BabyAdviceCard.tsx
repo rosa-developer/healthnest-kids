@@ -27,6 +27,17 @@ const BabyAdviceCard: React.FC<BabyAdviceCardProps> = ({
   
   const cleanExcerpt = excerpt.replace(/<\/?[^>]+(>|$)/g, "");
   
+  const fallbackImages = [
+    "https://images.unsplash.com/photo-1438565434616-3ef039228b15",
+    "https://images.unsplash.com/photo-1501286353178-1ec881214838",
+    "https://images.unsplash.com/photo-1469041797191-50ace28483c3"
+  ];
+  
+  const getRandomFallbackImage = () => {
+    const randomIndex = Math.floor(Math.random() * fallbackImages.length);
+    return fallbackImages[randomIndex];
+  };
+  
   return (
     <Card className="h-full flex flex-col hover:shadow-lg transition-all duration-300 group">
       <div className="relative h-48 overflow-hidden rounded-t-lg">
@@ -36,13 +47,18 @@ const BabyAdviceCard: React.FC<BabyAdviceCardProps> = ({
             alt={title} 
             className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
             onError={(e) => {
-              e.currentTarget.src = "/baby-emma.jpg";
+              e.currentTarget.src = getRandomFallbackImage();
             }}
           />
         ) : (
-          <div className="w-full h-full bg-muted flex items-center justify-center">
-            <Image className="h-12 w-12 text-muted-foreground/50" />
-          </div>
+          <img
+            src={getRandomFallbackImage()}
+            alt={title}
+            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+            onError={(e) => {
+              e.currentTarget.src = "/placeholder.svg";
+            }}
+          />
         )}
         <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
       </div>
