@@ -6,22 +6,22 @@ import { AspectRatio } from "@/components/ui/aspect-ratio";
 const FeaturedBabyMoments = () => {
   const featuredPhotos = [
     {
-      src: "https://images.unsplash.com/photo-1472396961693-142e6e269027",
+      src: "https://images.unsplash.com/photo-1485423036251-8b2a2909899f",
       fallbackSrc: "/placeholder.svg",
       alt: "Baby Emma's first smile"
     },
     {
-      src: "https://images.unsplash.com/photo-1506744038136-46273834b3fb",
+      src: "https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9",
       fallbackSrc: "/placeholder.svg",
       alt: "Emma playing with toys"
     },
     {
-      src: "https://images.unsplash.com/photo-1501854140801-50d01698950b",
+      src: "https://images.unsplash.com/photo-1555252333-9f8e92e65df9",
       fallbackSrc: "/placeholder.svg",
       alt: "Emma's bath time"
     },
     {
-      src: "https://images.unsplash.com/photo-1615729947596-a598e5de0ab3",
+      src: "https://images.unsplash.com/photo-1588864723510-ab5427961d2c",
       fallbackSrc: "/placeholder.svg",
       alt: "Emma's first steps"
     }

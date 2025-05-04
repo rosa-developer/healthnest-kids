@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -28,9 +27,9 @@ const BabyAdviceCard: React.FC<BabyAdviceCardProps> = ({
   const cleanExcerpt = excerpt.replace(/<\/?[^>]+(>|$)/g, "");
   
   const fallbackImages = [
-    "https://images.unsplash.com/photo-1438565434616-3ef039228b15",
-    "https://images.unsplash.com/photo-1501286353178-1ec881214838",
-    "https://images.unsplash.com/photo-1469041797191-50ace28483c3"
+    "https://images.unsplash.com/photo-1540479859555-17af45c78602",
+    "https://images.unsplash.com/photo-1492725764893-90b379c2b6e7",
+    "https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4"
   ];
   
   const getRandomFallbackImage = () => {

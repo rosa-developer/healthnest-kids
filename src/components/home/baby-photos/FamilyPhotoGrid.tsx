@@ -15,37 +15,37 @@ const FamilyPhotoGrid = () => {
 
   const familyPhotos = [
     {
-      src: "https://images.unsplash.com/photo-1466721591366-2d5fba72006d",
+      src: "https://images.unsplash.com/photo-1575052814086-f385e2e2ad1b",
       fallbackSrc: "/placeholder.svg",
       alt: "Baby Emma's first smile",
       featured: true
     },
     {
-      src: "https://images.unsplash.com/photo-1493962853295-0fd70327578a",
+      src: "https://images.unsplash.com/photo-1588815828883-b4e6f8673386",
       fallbackSrc: "/placeholder.svg",
       alt: "Emma playing with toys",
       featured: true
     },
     {
-      src: "https://images.unsplash.com/photo-1535268647677-300dbf3d78d1",
+      src: "https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4",
       fallbackSrc: "/placeholder.svg",
       alt: "Emma's playtime with teddy",
       featured: false
     },
     {
-      src: "https://images.unsplash.com/photo-1498936178812-4b2e558d2937",
+      src: "https://images.unsplash.com/photo-1485423036251-8b2a2909899f",
       fallbackSrc: "/placeholder.svg",
       alt: "Emma's bath time fun",
       featured: true
     },
     {
-      src: "https://images.unsplash.com/photo-1452960962994-acf4fd70b632",
+      src: "https://images.unsplash.com/photo-1544126592-55d6cb9f7881",
       fallbackSrc: "/placeholder.svg",
       alt: "Emma's first steps attempt",
       featured: false
     },
     {
-      src: "https://images.unsplash.com/photo-1518877593221-1f28583780b4",
+      src: "https://images.unsplash.com/photo-1519689680058-324335c77eba",
       fallbackSrc: "/placeholder.svg",
       alt: "Family time with Emma",
       featured: false
