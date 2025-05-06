@@ -3,7 +3,8 @@ import React from 'react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Check, AlertTriangle, Loader } from 'lucide-react';
+import { Check, AlertTriangle, Loader, Globe } from 'lucide-react';
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 interface WordPressConnectionFormProps {
   wpUrl: string;
@@ -48,42 +49,50 @@ const WordPressConnectionForm: React.FC<WordPressConnectionFormProps> = ({
       </div>
       
       {testStatus === 'testing' && (
-        <div className="flex items-center gap-2 text-blue-600 bg-blue-50 p-4 rounded-lg">
-          <Loader className="h-5 w-5 animate-spin" />
-          <span className="font-medium">Testing connection...</span>
-        </div>
+        <Alert className="bg-blue-50 border-blue-200">
+          <Loader className="h-5 w-5 animate-spin text-blue-600" />
+          <AlertTitle className="text-blue-600">Testing connection...</AlertTitle>
+          <AlertDescription className="text-blue-500">
+            Attempting to connect to {wpUrl}
+          </AlertDescription>
+        </Alert>
       )}
       
       {testStatus === 'success' && (
-        <div className="flex items-center gap-2 text-green-600 bg-green-50 p-4 rounded-lg">
-          <Check className="h-5 w-5" />
-          <span className="font-medium">Connection successful!</span>
-        </div>
+        <Alert className="bg-green-50 border-green-200">
+          <Check className="h-5 w-5 text-green-600" />
+          <AlertTitle className="text-green-600">Connection successful!</AlertTitle>
+          <AlertDescription className="text-green-500">
+            Successfully connected to WordPress API at {wpUrl}
+          </AlertDescription>
+        </Alert>
       )}
       
       {testStatus === 'error' && (
-        <div className="flex items-start gap-3 text-red-600 bg-red-50 p-4 rounded-lg">
-          <AlertTriangle className="h-5 w-5 shrink-0 mt-0.5" />
-          <div className="space-y-2">
-            <p className="font-medium">Connection failed</p>
-            <p className="text-sm leading-relaxed">{errorMessage || 'Could not connect to WordPress site'}</p>
-            <div className="text-sm mt-3 space-y-1">
-              <p className="font-medium">Make sure:</p>
-              <ul className="list-disc list-inside ml-2 space-y-1 leading-relaxed">
-                <li>The URL is correct</li>
-                <li>The WordPress REST API is enabled</li>
-                <li>Your WordPress site is publicly accessible</li>
-              </ul>
-            </div>
+        <Alert className="bg-red-50 border-red-200">
+          <AlertTriangle className="h-5 w-5 text-red-600" />
+          <AlertTitle className="text-red-600">Connection failed</AlertTitle>
+          <AlertDescription className="text-red-500 mb-4">
+            {errorMessage || 'Could not connect to WordPress site'}
+          </AlertDescription>
+          
+          <div className="text-sm space-y-3 pl-2 border-l-2 border-red-200 ml-1">
+            <p className="font-medium text-red-700">Troubleshooting tips:</p>
+            <ul className="list-disc list-inside ml-2 space-y-1 text-red-600">
+              <li>Check that the URL is correct and includes http:// or https://</li>
+              <li>Verify the WordPress REST API is enabled on your site</li>
+              <li>Make sure your WordPress site is publicly accessible</li>
+              <li>Try using the demo URL to test the connection feature</li>
+            </ul>
           </div>
-        </div>
+        </Alert>
       )}
 
-      <div className="flex justify-between pt-2">
+      <div className="flex justify-between pt-4">
         <Button 
           variant="outline" 
           onClick={testConnection}
-          disabled={testStatus === 'testing' || !wpUrl}
+          disabled={testStatus === 'testing' || !wpUrl.trim()}
           className="flex items-center gap-2"
         >
           {testStatus === 'testing' ? (
@@ -91,11 +100,16 @@ const WordPressConnectionForm: React.FC<WordPressConnectionFormProps> = ({
               <Loader className="h-4 w-4 animate-spin" />
               Testing...
             </>
-          ) : 'Test Connection'}
+          ) : (
+            <>
+              <Globe className="h-4 w-4" />
+              Test Connection
+            </>
+          )}
         </Button>
         <Button 
           onClick={saveSettings}
-          disabled={!wpUrl || testStatus === 'error'}
+          disabled={testStatus !== 'success'}
         >
           Save Settings
         </Button>

@@ -24,10 +24,21 @@ const getWordPressApiUrl = () => {
 export const testWordPressConnection = async (url: string): Promise<void> => {
   // Normalize URL (remove trailing slash)
   const normalizedUrl = url.replace(/\/$/, '');
+  console.log(`Testing WordPress connection to: ${normalizedUrl}`);
   
   try {
     // Try to fetch the WP API root
-    const response = await fetch(`${normalizedUrl}/wp-json/`);
+    console.log(`Fetching WordPress API from: ${normalizedUrl}/wp-json/`);
+    const response = await fetch(`${normalizedUrl}/wp-json/`, {
+      // Add cache control to prevent caching issues
+      headers: {
+        'Cache-Control': 'no-cache'
+      },
+      // Set longer timeout
+      signal: AbortSignal.timeout(10000) // 10 second timeout
+    });
+    
+    console.log(`WordPress API response status: ${response.status}`);
     
     if (!response.ok) {
       throw new Error(`WordPress site not reachable (Status: ${response.status})`);
@@ -35,14 +46,17 @@ export const testWordPressConnection = async (url: string): Promise<void> => {
     
     // Check if response contains expected WordPress API data
     const data = await response.json();
+    console.log('WordPress API response data:', data);
     
     if (!data.namespaces || !data.namespaces.includes('wp/v2')) {
       throw new Error('URL does not appear to be a WordPress site with REST API enabled');
     }
     
     // Connection successful
+    console.log('WordPress connection test successful');
     return;
   } catch (error) {
+    console.error('WordPress connection test failed:', error);
     if (error instanceof Error) {
       throw error;
     } else {
