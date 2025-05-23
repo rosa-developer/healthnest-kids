@@ -32,7 +32,7 @@ const Index = () => {
           {/* Welcome Section with improved glassmorphism effect */}
           <div className="relative rounded-3xl overflow-hidden group">
             <div className="absolute inset-0 bg-gradient-to-r from-primary-purple/20 via-primary-pink/10 to-primary-blue/20 z-0"></div>
-            <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width=\"20\" height=\"20\" xmlns=\"http://www.w3.org/2000/svg\"%3E%3Cpath d=\"M0 0h10v10H0zm10 10h10v10H10z\" fill=\"%23fff\" fill-opacity=\".05\"/%3E%3C/svg%3E')] bg-repeat z-0 opacity-30"></div>
+            <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent z-0 opacity-30"></div>
             <Card className="border-none bg-transparent shadow-none">
               <CardContent className="p-8 relative z-10 backdrop-blur-sm">
                 <WelcomeSection dbStatus="connected" />
