@@ -1,5 +1,5 @@
 
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import { testWordPressConnection } from '../../../services/wordpressApi';
 import { useToast } from "../../../hooks/use-toast";
 
@@ -8,6 +8,19 @@ export const useWordPressConnection = () => {
   const [testStatus, setTestStatus] = useState<'idle' | 'testing' | 'success' | 'error'>('idle');
   const [errorMessage, setErrorMessage] = useState<string>('');
   const { toast } = useToast();
+
+  // Normalize URL function
+  const normalizeUrl = useCallback((url: string): string => {
+    let normalizedUrl = url.trim();
+    if (normalizedUrl && !normalizedUrl.startsWith('http://') && !normalizedUrl.startsWith('https://')) {
+      normalizedUrl = `https://${normalizedUrl}`;
+    }
+    // Remove trailing slash if present
+    if (normalizedUrl.endsWith('/')) {
+      normalizedUrl = normalizedUrl.slice(0, -1);
+    }
+    return normalizedUrl;
+  }, []);
 
   const testConnection = async () => {
     if (!wpUrl) {
@@ -19,12 +32,9 @@ export const useWordPressConnection = () => {
       return;
     }
     
-    // Normalize URL - ensure it has http/https prefix
-    let normalizedUrl = wpUrl.trim();
-    if (!normalizedUrl.startsWith('http://') && !normalizedUrl.startsWith('https://')) {
-      normalizedUrl = `https://${normalizedUrl}`;
-      setWpUrl(normalizedUrl);
-    }
+    // Normalize URL before testing
+    const normalizedUrl = normalizeUrl(wpUrl);
+    setWpUrl(normalizedUrl);
     
     setTestStatus('testing');
     try {
@@ -68,6 +78,10 @@ export const useWordPressConnection = () => {
     setWpUrl('https://demo.wp-api.org');
     setTestStatus('idle');
     setErrorMessage('');
+    toast({
+      title: "Demo URL Added",
+      description: "We've added a demo WordPress URL for testing purposes",
+    });
   };
 
   const handleReturn = () => {
@@ -82,6 +96,7 @@ export const useWordPressConnection = () => {
     testConnection,
     saveSettings,
     provideSampleUrl,
-    handleReturn
+    handleReturn,
+    normalizeUrl
   };
 };
