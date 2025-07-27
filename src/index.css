@@ -3,53 +3,208 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Bubblegum+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bubblegum+Sans&family=Fredoka+One&family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700;800&display=swap');
 
 @layer base {
   html, body {
-    @apply font-sans; /* Applies Bubblegum Sans everywhere */
+    @apply font-sans;
   }
-}
-
-body {
-  @apply bg-primary-yellow; /* Light yellow background for kid-friendly feel */
+  
+  * {
+    @apply border-border;
+  }
+  
+  body {
+    @apply bg-gradient-to-br from-primary-yellow via-white to-primary-yellow/30;
+    background-attachment: fixed;
+  }
 }
 
 @layer components {
+  /* Enhanced Card Components */
   .kid-card {
-    @apply bg-white rounded-3xl p-5 shadow-kid transition-all duration-300;
+    @apply bg-white/80 backdrop-blur-sm rounded-3xl p-6 shadow-kid border border-white/20 
+           transition-all duration-300 hover:shadow-kid-hover hover:-translate-y-1;
   }
   
-  .kid-card:hover {
-    @apply transform -translate-y-1 shadow-kid-hover;
+  .kid-card-glass {
+    @apply bg-glass-white backdrop-blur-md rounded-3xl p-6 shadow-kid border border-white/30 
+           transition-all duration-300 hover:shadow-kid-lg hover:-translate-y-1;
   }
   
+  .kid-card-gradient {
+    @apply bg-gradient-to-br from-white/90 to-white/70 backdrop-blur-sm rounded-3xl p-6 
+           shadow-kid border border-white/40 transition-all duration-300 hover:shadow-kid-hover;
+  }
+  
+  /* Enhanced Button Components */
   .kid-button {
-    @apply bg-primary-green text-white font-bold py-3 px-6 rounded-full shadow-md 
-           transition duration-300 hover:bg-green-600 hover:transform hover:scale-105;
+    @apply bg-gradient-to-r from-primary-green to-primary-green/90 text-white font-semibold 
+           py-4 px-8 rounded-full shadow-md transition-all duration-300 
+           hover:shadow-kid-lg hover:scale-105 hover:-translate-y-1 active:scale-95;
   }
   
-  .kid-category-card {
-    @apply rounded-2xl p-5 shadow-md transition-all duration-300 cursor-pointer;
+  .kid-button-outline {
+    @apply bg-transparent border-2 border-primary-purple/30 text-primary-purple font-semibold 
+           py-4 px-8 rounded-full transition-all duration-300 hover:bg-primary-purple/10 
+           hover:border-primary-purple/50 hover:shadow-md hover:scale-105;
   }
   
-  .kid-category-card:hover {
-    @apply transform -translate-y-1 shadow-kid-hover;
+  .kid-button-gradient {
+    @apply bg-gradient-to-r from-primary-purple via-primary-blue to-primary-pink text-white 
+           font-semibold py-4 px-8 rounded-full shadow-md transition-all duration-300 
+           hover:shadow-glow hover:scale-105 hover:-translate-y-1;
   }
   
+  /* Enhanced Navigation */
   .kid-nav-button {
-    @apply p-2 rounded-full transition-all duration-300 flex flex-col items-center;
+    @apply p-3 rounded-2xl transition-all duration-300 flex flex-col items-center 
+           hover:scale-110 hover:shadow-kid active:scale-95;
   }
   
-  .kid-nav-button:hover {
-    @apply transform scale-110;
+  .kid-nav-button-active {
+    @apply bg-gradient-to-br from-primary-purple/20 to-primary-blue/20 
+           shadow-kid border border-white/30 backdrop-blur-sm;
   }
   
-  .kid-nav-icon {
-    @apply block h-8 w-8 rounded-full;
+  /* Enhanced Category Cards */
+  .kid-category-card {
+    @apply rounded-3xl p-6 shadow-kid transition-all duration-300 cursor-pointer 
+           bg-gradient-to-br from-white/80 to-white/60 backdrop-blur-sm border border-white/30
+           hover:shadow-kid-hover hover:-translate-y-2 hover:scale-105;
   }
   
+  /* Enhanced Header */
   .kid-header {
-    @apply bg-primary-purple rounded-3xl p-5 mb-6 shadow-lg text-white text-center;
+    @apply bg-gradient-to-r from-primary-purple via-primary-blue to-primary-pink 
+           rounded-3xl p-8 mb-8 shadow-kid-lg text-white text-center 
+           border border-white/20 backdrop-blur-sm;
+  }
+  
+  /* Enhanced Form Elements */
+  .kid-input {
+    @apply bg-white/80 backdrop-blur-sm border-2 border-gray-200 rounded-2xl px-4 py-3 
+           transition-all duration-300 focus:border-primary-purple focus:ring-2 
+           focus:ring-primary-purple/20 focus:outline-none;
+  }
+  
+  .kid-select {
+    @apply bg-white/80 backdrop-blur-sm border-2 border-gray-200 rounded-2xl px-4 py-3 
+           transition-all duration-300 focus:border-primary-purple focus:ring-2 
+           focus:ring-primary-purple/20 focus:outline-none;
+  }
+  
+  /* Enhanced Badge Components */
+  .kid-badge {
+    @apply bg-gradient-to-r from-primary-purple/20 to-primary-blue/20 text-primary-purple 
+           px-4 py-2 rounded-full text-sm font-medium border border-primary-purple/30 
+           backdrop-blur-sm;
+  }
+  
+  .kid-badge-success {
+    @apply bg-gradient-to-r from-success/20 to-success/10 text-success 
+           px-4 py-2 rounded-full text-sm font-medium border border-success/30;
+  }
+  
+  .kid-badge-warning {
+    @apply bg-gradient-to-r from-warning/20 to-warning/10 text-warning 
+           px-4 py-2 rounded-full text-sm font-medium border border-warning/30;
+  }
+  
+  /* Enhanced Progress Components */
+  .kid-progress {
+    @apply bg-gray-200 rounded-full overflow-hidden;
+  }
+  
+  .kid-progress-bar {
+    @apply bg-gradient-to-r from-primary-green to-primary-blue h-full 
+           transition-all duration-500 ease-out;
+  }
+  
+  /* Enhanced Modal Components */
+  .kid-modal {
+    @apply bg-white/95 backdrop-blur-md rounded-3xl shadow-kid-xl border border-white/40;
+  }
+  
+  .kid-modal-overlay {
+    @apply bg-black/20 backdrop-blur-sm;
+  }
+  
+  /* Enhanced Loading States */
+  .kid-loading {
+    @apply bg-gradient-to-r from-primary-purple/20 via-primary-blue/20 to-primary-pink/20 
+           rounded-3xl p-8 text-center animate-pulse;
+  }
+  
+  /* Enhanced Text Components */
+  .kid-heading {
+    @apply font-display text-4xl md:text-5xl lg:text-6xl bg-gradient-to-r 
+           from-primary-purple via-primary-blue to-primary-pink bg-clip-text text-transparent;
+  }
+  
+  .kid-subheading {
+    @apply font-heading text-2xl md:text-3xl font-semibold text-gray-800;
+  }
+  
+  .kid-text-gradient {
+    @apply bg-gradient-to-r from-primary-purple to-primary-blue bg-clip-text text-transparent;
+  }
+  
+  /* Enhanced Animation Classes */
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+  
+  .animate-glow {
+    animation: glow 2s ease-in-out infinite alternate;
+  }
+  
+  .animate-heartbeat {
+    animation: heartbeat 1.5s ease-in-out infinite;
+  }
+  
+  /* Enhanced Layout Components */
+  .main-container {
+    @apply min-h-screen px-4 py-6 md:px-6 lg:px-8 max-w-7xl mx-auto;
+  }
+  
+  .glass-container {
+    @apply bg-glass-white backdrop-blur-md rounded-3xl border border-white/30 
+           shadow-kid transition-all duration-300;
+  }
+  
+  .gradient-container {
+    @apply bg-gradient-to-br from-white/80 via-white/60 to-white/40 
+           backdrop-blur-sm rounded-3xl border border-white/40 shadow-kid;
+  }
+  
+  /* Enhanced Interactive Elements */
+  .kid-hover-lift {
+    @apply transition-all duration-300 hover:-translate-y-2 hover:shadow-kid-lg;
+  }
+  
+  .kid-hover-scale {
+    @apply transition-all duration-300 hover:scale-105 hover:shadow-kid-hover;
+  }
+  
+  .kid-hover-glow {
+    @apply transition-all duration-300 hover:shadow-glow;
+  }
+  
+  /* Enhanced Decorative Elements */
+  .kid-decoration {
+    @apply absolute w-32 h-32 rounded-full blur-3xl opacity-30 animate-pulse-slow;
+  }
+  
+  .kid-decoration-purple {
+    @apply kid-decoration bg-primary-purple;
+  }
+  
+  .kid-decoration-blue {
+    @apply kid-decoration bg-primary-blue;
+  }
+  
+  .kid-decoration-pink {
+    @apply kid-decoration bg-primary-pink;
   }
 }

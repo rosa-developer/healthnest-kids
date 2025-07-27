@@ -1,91 +1,123 @@
 
 import React from 'react';
-import { CalendarClock, Heart, LineChart, Star, Cloud, Sparkles } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { useChildProfile } from '@/contexts/ChildProfileContext';
-import DatabaseStatus from './DatabaseStatus';
-import { Badge } from "@/components/ui/badge";
+import { Baby, Calendar, MapPin, Sparkles } from 'lucide-react';
+import { Badge } from '@/components/ui/badge';
 
 interface WelcomeSectionProps {
-  dbStatus: 'connecting' | 'connected' | 'error';
+  dbStatus: string;
 }
 
-const WelcomeSection = ({ dbStatus }: WelcomeSectionProps) => {
+const WelcomeSection: React.FC<WelcomeSectionProps> = ({ dbStatus }) => {
   const { activeProfile } = useChildProfile();
-  const childName = activeProfile?.name || 'your child';
-  
+
+  const getGreeting = () => {
+    const hour = new Date().getHours();
+    if (hour < 12) return "Good morning";
+    if (hour < 17) return "Good afternoon";
+    return "Good evening";
+  };
+
+  const getAgeText = (birthDate: string) => {
+    const birth = new Date(birthDate);
+    const today = new Date();
+    const ageInMonths = (today.getFullYear() - birth.getFullYear()) * 12 + (today.getMonth() - birth.getMonth());
+    
+    if (ageInMonths < 1) {
+      const days = Math.floor((today.getTime() - birth.getTime()) / (1000 * 60 * 60 * 24));
+      return `${days} day${days !== 1 ? 's' : ''} old`;
+    } else if (ageInMonths < 12) {
+      return `${ageInMonths} month${ageInMonths !== 1 ? 's' : ''} old`;
+    } else {
+      const years = Math.floor(ageInMonths / 12);
+      const months = ageInMonths % 12;
+      if (months === 0) {
+        return `${years} year${years !== 1 ? 's' : ''} old`;
+      }
+      return `${years} year${years !== 1 ? 's' : ''} and ${months} month${months !== 1 ? 's' : ''} old`;
+    }
+  };
+
   return (
-    <div className="relative">
-      {/* Add subtle background decorations */}
-      <div className="absolute -top-10 -left-10 w-40 h-40 bg-primary-pink/5 rounded-full blur-xl"></div>
-      <div className="absolute -bottom-10 -right-10 w-40 h-40 bg-primary-blue/5 rounded-full blur-xl"></div>
-      
-      <div className="flex flex-col lg:flex-row justify-between gap-6">
-        <div className="space-y-4">
-          <div className="flex items-center gap-3">
-            <div className="flex items-center gap-2 bg-primary-purple/10 px-3 py-1 rounded-full">
-              <Sparkles className="h-4 w-4 text-primary-purple" />
-              <span className="text-sm font-medium text-primary-purple">Daily Updates</span>
-            </div>
-            
-            {dbStatus === 'error' && (
-              <Badge variant="outline" className="bg-amber-500/10 text-amber-500 border-amber-500/30">
-                <Cloud className="h-3 w-3 mr-1" />
-                Offline
-              </Badge>
-            )}
+    <div className="space-y-6">
+      {/* Enhanced header with greeting */}
+      <div className="text-center space-y-3">
+        <div className="flex items-center justify-center gap-2 mb-4">
+          <div className="bg-gradient-to-r from-primary-purple/20 to-primary-blue/20 backdrop-blur-sm rounded-full p-2 border border-white/30">
+            <Baby className="h-6 w-6 text-primary-purple" />
           </div>
-          
-          <h1 className="text-4xl font-bold tracking-tight bg-gradient-to-r from-primary-purple via-primary-pink to-primary-purple bg-clip-text text-transparent animate-fade-in">
-            Welcome Back
-          </h1>
-          
-          <p className="text-lg text-foreground/80 max-w-lg animate-slide-up leading-relaxed" style={{ animationDelay: "0.1s" }}>
-            Track {childName}'s growth journey, milestones, and create lasting memories all in one place.
-          </p>
-          
-          <div className="flex flex-wrap items-center gap-3 mt-4 animate-slide-up" style={{ animationDelay: "0.2s" }}>
-            <Button className="bg-gradient-to-r from-primary-green to-primary-green/80 hover:from-primary-green/90 hover:to-primary-green/70 text-white shadow-md transition-all duration-300 hover:shadow-lg hover:translate-y-[-2px] rounded-lg">
-              <LineChart className="mr-2 h-4 w-4" />
-              Track Growth
-            </Button>
-            <Button variant="outline" className="border-primary-pink/30 hover:bg-primary-pink/10 text-primary-pink shadow-sm transition-all duration-300 hover:shadow-md hover:translate-y-[-2px] rounded-lg">
-              <Heart className="mr-2 h-4 w-4" />
-              Record Milestone
-            </Button>
-            <Button variant="outline" className="border-primary-purple/30 hover:bg-primary-purple/10 text-primary-purple shadow-sm transition-all duration-300 hover:shadow-md hover:translate-y-[-2px] rounded-lg">
-              <Star className="mr-2 h-4 w-4" />
-              New Memory
-            </Button>
-          </div>
-          
-          <DatabaseStatus status={dbStatus} />
+          <Badge variant="gradient" className="text-sm">
+            <Sparkles className="h-3 w-3 mr-1" />
+            Connected
+          </Badge>
         </div>
         
-        <div className="flex-shrink-0 animate-scale-in" style={{ animationDelay: "0.3s" }}>
-          <div className="flex items-center gap-4 bg-gradient-to-br from-white/90 to-primary-yellow/40 dark:from-black/40 dark:to-primary-orange/10 backdrop-blur-sm rounded-xl p-5 shadow-lg border border-primary-orange/20 dark:border-white/5 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 relative overflow-hidden group">
-            {/* Add subtle pulsing animation on hover */}
-            <div className="absolute inset-0 bg-gradient-to-r from-primary-orange/0 via-primary-orange/10 to-primary-orange/0 opacity-0 group-hover:opacity-100 transition-opacity duration-1000 animate-pulse"></div>
-            
-            <div className="relative bg-gradient-to-br from-primary-orange/20 to-primary-orange/10 p-3 rounded-lg shadow-inner">
-              <CalendarClock className="h-12 w-12 text-primary-orange animate-pulse-soft" />
+        <h2 className="kid-subheading">
+          {getGreeting()}, {activeProfile?.name ? `${activeProfile.name}'s Family` : 'Family'}! 👋
+        </h2>
+        
+        <p className="text-gray-600 max-w-md mx-auto">
+          Ready to capture another beautiful day in your little one's journey?
+        </p>
+      </div>
+
+      {/* Enhanced profile information */}
+      {activeProfile && (
+        <div className="kid-card-gradient">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-4">
+              <div className="relative">
+                <div className="w-16 h-16 bg-gradient-to-br from-primary-purple to-primary-blue rounded-full flex items-center justify-center text-white font-bold text-xl shadow-kid">
+                  {activeProfile.name?.charAt(0).toUpperCase() || 'B'}
+                </div>
+                <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-primary-green rounded-full flex items-center justify-center">
+                  <span className="text-white text-xs">✓</span>
+                </div>
+              </div>
+              
+              <div className="space-y-1">
+                <h3 className="text-lg font-semibold text-gray-800">
+                  {activeProfile.name || 'Baby'}
+                </h3>
+                <div className="flex items-center gap-4 text-sm text-gray-600">
+                  <div className="flex items-center gap-1">
+                    <Calendar className="h-4 w-4 text-primary-blue" />
+                    <span>{getAgeText(activeProfile.birthDate || new Date().toISOString())}</span>
+                  </div>
+                  {activeProfile.location && (
+                    <div className="flex items-center gap-1">
+                      <MapPin className="h-4 w-4 text-primary-green" />
+                      <span>{activeProfile.location}</span>
+                    </div>
+                  )}
+                </div>
+              </div>
             </div>
             
-            <div className="relative">
-              <h3 className="font-medium text-primary-orange text-lg">Next Check-up</h3>
-              <p className="text-muted-foreground">
-                {activeProfile?.nextCheckup || 'No upcoming appointments'}
-              </p>
-              <Button 
-                variant="ghost" 
-                size="sm" 
-                className="mt-2 text-primary-orange/80 hover:text-primary-orange p-0 h-auto"
-              >
-                Schedule Appointment
-              </Button>
+            <div className="text-right">
+              <div className="text-2xl font-bold text-primary-purple">
+                {activeProfile.name ? activeProfile.name.length * 2 : 10}
+              </div>
+              <div className="text-xs text-gray-500">Memories</div>
             </div>
           </div>
         </div>
+      )}
+
+      {/* Enhanced quick stats */}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        {[
+          { label: 'Milestones', value: '12', color: 'primary-pink', icon: '🎯' },
+          { label: 'Photos', value: '48', color: 'primary-blue', icon: '📸' },
+          { label: 'Growth Records', value: '8', color: 'primary-green', icon: '📊' },
+          { label: 'Memories', value: '24', color: 'primary-orange', icon: '💝' },
+        ].map((stat, index) => (
+          <div key={index} className="kid-card-glass text-center kid-hover-scale">
+            <div className="text-2xl mb-2">{stat.icon}</div>
+            <div className="text-xl font-bold text-gray-800">{stat.value}</div>
+            <div className="text-xs text-gray-500">{stat.label}</div>
+          </div>
+        ))}
       </div>
     </div>
   );
