@@ -1,195 +1,412 @@
 
 import React, { useState } from 'react';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { TrendingUp, ShieldCheck, Calendar, FilePlus, Activity } from 'lucide-react';
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { useToast } from "@/hooks/use-toast";
-import BabyAdviceSection from '@/components/wordpress/BabyAdviceSection';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { Progress } from '@/components/ui/progress';
+import { 
+  Heart, 
+  Stethoscope, 
+  Calendar, 
+  Plus,
+  CheckCircle,
+  Clock,
+  Target,
+  Activity,
+  Baby,
+  Shield,
+  Thermometer
+} from 'lucide-react';
+import { getPhoto } from '@/data/photoAssets';
 
-const HealthTracker: React.FC = () => {
-  const { toast } = useToast();
+const HealthTracker = () => {
+  const [activeTab, setActiveTab] = useState('overview');
 
-  const handleAddRecord = () => {
-    toast({
-      title: "Add Health Record",
-      description: "This feature will be available in the next update!",
-    });
-  };
+  const healthMetrics = [
+    {
+      id: 'temperature',
+      title: 'Temperature',
+      value: '36.8°C',
+      status: 'normal',
+      icon: Thermometer,
+      color: 'primary-green',
+      image: getPhoto('health', 'healthyBaby')
+    },
+    {
+      id: 'heartRate',
+      title: 'Heart Rate',
+      value: '120 bpm',
+      status: 'normal',
+      icon: Heart,
+      color: 'primary-blue',
+      image: getPhoto('health', 'checkup')
+    },
+    {
+      id: 'weight',
+      title: 'Weight',
+      value: '8.5 kg',
+      status: 'gaining',
+      icon: Baby,
+      color: 'primary-pink',
+      image: getPhoto('health', 'doctorVisit')
+    }
+  ];
+
+  const upcomingAppointments = [
+    {
+      id: 1,
+      type: 'Wellness Check',
+      doctor: 'Dr. Sarah Johnson',
+      date: '2024-02-15',
+      time: '10:00 AM',
+      image: getPhoto('health', 'doctorVisit'),
+      status: 'confirmed'
+    },
+    {
+      id: 2,
+      type: 'Vaccination',
+      doctor: 'Dr. Michael Chen',
+      date: '2024-02-20',
+      time: '2:30 PM',
+      image: getPhoto('health', 'vaccination'),
+      status: 'scheduled'
+    },
+    {
+      id: 3,
+      type: 'Growth Check',
+      doctor: 'Dr. Sarah Johnson',
+      date: '2024-03-01',
+      time: '9:00 AM',
+      image: getPhoto('health', 'checkup'),
+      status: 'pending'
+    }
+  ];
+
+  const vaccinationSchedule = [
+    {
+      id: 1,
+      vaccine: 'DTaP',
+      description: 'Diphtheria, Tetanus, Pertussis',
+      dueDate: '2024-02-20',
+      status: 'upcoming',
+      image: getPhoto('health', 'vaccination'),
+      age: '2 months'
+    },
+    {
+      id: 2,
+      vaccine: 'Hepatitis B',
+      description: 'Hepatitis B vaccine',
+      dueDate: '2024-01-15',
+      status: 'completed',
+      image: getPhoto('health', 'vaccination'),
+      age: 'Birth'
+    },
+    {
+      id: 3,
+      vaccine: 'Rotavirus',
+      description: 'Rotavirus vaccine',
+      dueDate: '2024-03-15',
+      status: 'upcoming',
+      image: getPhoto('health', 'vaccination'),
+      age: '4 months'
+    }
+  ];
+
+  const recentHealthRecords = [
+    {
+      id: 1,
+      type: 'Wellness Check',
+      date: '2024-01-10',
+      doctor: 'Dr. Sarah Johnson',
+      notes: 'Baby is developing well, weight gain is on track',
+      image: getPhoto('health', 'checkup'),
+      status: 'completed'
+    },
+    {
+      id: 2,
+      type: 'Vaccination',
+      date: '2024-01-05',
+      doctor: 'Dr. Michael Chen',
+      notes: 'Hepatitis B vaccine administered, no adverse reactions',
+      image: getPhoto('health', 'vaccination'),
+      status: 'completed'
+    },
+    {
+      id: 3,
+      type: 'Growth Check',
+      date: '2023-12-20',
+      doctor: 'Dr. Sarah Johnson',
+      notes: 'Height and weight measurements recorded',
+      image: getPhoto('health', 'doctorVisit'),
+      status: 'completed'
+    }
+  ];
 
   return (
-    <div className="container mx-auto pt-6 pb-20">
-      {/* Health Tracker Header */}
-      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-10">
-        <div className="flex items-center">
-          <div className="h-12 w-12 rounded-full bg-gradient-to-r from-green-300 to-green-500 flex items-center justify-center mr-4 shadow-md">
-            <Activity className="h-6 w-6 text-white" />
+    <div className="space-y-8">
+      {/* Header */}
+      <div className="text-center space-y-4">
+        <div className="flex items-center justify-center gap-3 mb-4">
+          <div className="bg-gradient-to-r from-primary-green/20 to-primary-blue/20 backdrop-blur-sm rounded-full p-2 border border-white/30">
+            <Heart className="h-6 w-6 text-primary-green" />
           </div>
-          <div>
-            <h1 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent">
-              Health Tracker
-            </h1>
-            <p className="text-sm md:text-base text-muted-foreground mt-1">
-              Track health records, vaccinations, and medical visits
-            </p>
-          </div>
+          <Badge variant="gradient" className="text-sm">
+            Health Tracker
+          </Badge>
         </div>
-        <Button 
-          onClick={handleAddRecord} 
-          size="sm" 
-          className="bg-gradient-to-r from-green-500 to-blue-500 text-white hover:opacity-90 shadow-lg px-5 py-2 h-auto rounded-xl transition-all duration-300"
+        
+        <h1 className="kid-heading text-4xl md:text-5xl">
+          Baby Health
+        </h1>
+        
+        <p className="text-gray-600 max-w-2xl mx-auto">
+          Monitor your baby's health, track vaccinations, and manage appointments with comprehensive health records.
+        </p>
+      </div>
+
+      {/* Health Metrics */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {healthMetrics.map((metric) => {
+          const Icon = metric.icon;
+          return (
+            <Card key={metric.id} className="kid-card-gradient kid-hover-lift">
+              <CardContent className="p-6">
+                <div className="flex items-center gap-4 mb-4">
+                  <img 
+                    src={metric.image}
+                    alt={metric.title}
+                    className="w-12 h-12 rounded-lg object-cover"
+                    onError={(e) => {
+                      e.currentTarget.src = getPhoto('placeholders', 'health');
+                    }}
+                  />
+                  <div className="flex-1">
+                    <h3 className="font-semibold text-gray-800">{metric.title}</h3>
+                    <p className="text-2xl font-bold text-primary-green">{metric.value}</p>
+                  </div>
+                  <div className={`w-10 h-10 rounded-full bg-${metric.color}/10 flex items-center justify-center`}>
+                    <Icon className={`h-5 w-5 text-${metric.color}`} />
+                  </div>
+                </div>
+                
+                <Badge 
+                  variant={metric.status === 'normal' ? 'success' : 'warning'} 
+                  className="text-xs"
+                >
+                  {metric.status}
+                </Badge>
+              </CardContent>
+            </Card>
+          );
+        })}
+      </div>
+
+      {/* Tab Navigation */}
+      <div className="flex space-x-1 bg-gray-100 rounded-2xl p-1">
+        <Button
+          variant={activeTab === 'overview' ? 'default' : 'ghost'}
+          size="sm"
+          onClick={() => setActiveTab('overview')}
+          className="flex-1"
         >
-          <FilePlus className="h-4 w-4 mr-2" />
-          Add Health Record
+          <Activity className="h-4 w-4 mr-2" />
+          Overview
+        </Button>
+        <Button
+          variant={activeTab === 'appointments' ? 'default' : 'ghost'}
+          size="sm"
+          onClick={() => setActiveTab('appointments')}
+          className="flex-1"
+        >
+          <Calendar className="h-4 w-4 mr-2" />
+          Appointments
+        </Button>
+        <Button
+          variant={activeTab === 'vaccinations' ? 'default' : 'ghost'}
+          size="sm"
+          onClick={() => setActiveTab('vaccinations')}
+          className="flex-1"
+        >
+          <Shield className="h-4 w-4 mr-2" />
+          Vaccinations
         </Button>
       </div>
 
-      {/* Main Content Tabs */}
-      <Tabs defaultValue="growth" className="mb-8">
-        <TabsList className="grid grid-cols-3 w-full bg-gradient-to-r from-muted/80 to-muted/40 rounded-xl p-1.5 mb-8">
-          <TabsTrigger 
-            value="growth" 
-            className="rounded-lg py-2.5 data-[state=active]:bg-white data-[state=active]:shadow-md data-[state=active]:text-green-600 transition-all duration-300"
-          >
-            <TrendingUp className="h-4 w-4 mr-2" />
-            Growth
-          </TabsTrigger>
-          <TabsTrigger 
-            value="vaccines" 
-            className="rounded-lg py-2.5 data-[state=active]:bg-white data-[state=active]:shadow-md data-[state=active]:text-green-600 transition-all duration-300"
-          >
-            <ShieldCheck className="h-4 w-4 mr-2" />
-            Vaccines
-          </TabsTrigger>
-          <TabsTrigger 
-            value="visits" 
-            className="rounded-lg py-2.5 data-[state=active]:bg-white data-[state=active]:shadow-md data-[state=active]:text-green-600 transition-all duration-300"
-          >
-            <Calendar className="h-4 w-4 mr-2" />
-            Visits
-          </TabsTrigger>
-        </TabsList>
-
-        <div className="overflow-hidden rounded-2xl border border-border/50 shadow-xl bg-gradient-to-br from-white to-muted/20">
-          <TabsContent value="growth" className="animate-fade-in m-0">
-            <div className="p-6 space-y-8">
-              {/* Growth Chart Placeholder */}
-              <Card className="overflow-hidden border-none shadow-md">
-                <div className="bg-gradient-to-r from-blue-50 to-green-50 p-4">
-                  <h3 className="text-lg font-semibold text-green-800">Growth Chart</h3>
-                  <p className="text-sm text-muted-foreground">Track your child's height and weight over time</p>
-                </div>
-                <CardContent className="p-6">
-                  <div className="h-64 bg-gradient-to-b from-blue-50/50 to-green-50/50 rounded-lg flex items-center justify-center">
-                    <p className="text-muted-foreground">Growth chart will appear here</p>
-                  </div>
-                </CardContent>
-              </Card>
-
-              {/* Growth Stats */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                {['Height', 'Weight', 'Head Circumference'].map((stat) => (
-                  <Card key={stat} className="overflow-hidden border-none shadow-md hover:shadow-lg transition-all duration-300">
-                    <div className="bg-gradient-to-r from-green-50 to-blue-50 p-4">
-                      <h3 className="text-md font-semibold text-green-700">{stat}</h3>
-                    </div>
-                    <CardContent className="p-4">
-                      <div className="flex justify-between items-center">
-                        <div>
-                          <p className="text-xl font-bold text-green-600">--</p>
-                          <p className="text-xs text-muted-foreground">No data yet</p>
-                        </div>
-                        <div className="text-xs px-2 py-1 rounded-full bg-blue-100 text-blue-700">
-                          Add data
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-            </div>
-          </TabsContent>
-
-          <TabsContent value="vaccines" className="animate-fade-in m-0">
-            <div className="p-6 space-y-6">
-              <Card className="border-none shadow-none overflow-hidden bg-transparent">
-                <div className="bg-gradient-to-r from-green-50 to-blue-50 p-4 rounded-t-lg">
-                  <h3 className="text-lg font-semibold text-green-800">Vaccination Schedule</h3>
-                  <p className="text-sm text-muted-foreground">Keep track of important vaccines and their due dates</p>
-                </div>
-                <CardContent className="p-4 pt-6">
-                  {/* Vaccine List */}
-                  <div className="space-y-4">
-                    {['MMR Vaccine', 'DTaP Vaccine', 'Polio Vaccine'].map((vaccine, index) => (
-                      <div key={vaccine} className="flex items-center justify-between p-4 rounded-lg border border-border/50 hover:bg-green-50/50 transition-all duration-200">
-                        <div className="flex items-center gap-3">
-                          <div className={`h-8 w-8 rounded-full flex items-center justify-center ${index === 0 ? 'bg-green-100 text-green-600' : 'bg-blue-100 text-blue-600'}`}>
-                            <ShieldCheck className="h-4 w-4" />
-                          </div>
-                          <div>
-                            <h4 className="text-sm font-medium">{vaccine}</h4>
-                            <p className="text-xs text-muted-foreground">Due: {index === 0 ? 'Completed' : 'In 3 months'}</p>
-                          </div>
-                        </div>
-                        <Button variant="outline" size="sm" className={index === 0 ? 'text-green-600 border-green-200' : ''}>
-                          {index === 0 ? 'Completed' : 'Schedule'}
-                        </Button>
-                      </div>
-                    ))}
-                  </div>
-                  
-                  <div className="mt-6">
-                    <Button variant="outline" className="w-full" onClick={handleAddRecord}>
-                      View Complete Vaccination Schedule
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
-          </TabsContent>
-
-          <TabsContent value="visits" className="animate-fade-in m-0">
-            <div className="p-6 space-y-6">
-              <Card className="border-none shadow-none overflow-hidden bg-transparent">
-                <div className="bg-gradient-to-r from-blue-50 to-green-50 p-4 rounded-t-lg">
-                  <h3 className="text-lg font-semibold text-green-800">Medical Visits</h3>
-                  <p className="text-sm text-muted-foreground">Track appointments, check-ups and doctor visits</p>
-                </div>
-                <CardContent className="p-4 pt-6">
-                  {/* Upcoming Appointments */}
-                  <h4 className="font-medium mb-3">Upcoming Appointments</h4>
-                  
-                  <div className="space-y-3 mb-6">
-                    <div className="p-4 rounded-lg border border-border/50 hover:bg-blue-50/30 transition-all duration-200">
-                      <div className="flex justify-between">
-                        <div>
-                          <h5 className="font-medium text-green-700">Pediatrician Check-up</h5>
-                          <p className="text-xs text-muted-foreground">Dr. Smith • Children's Hospital</p>
-                        </div>
-                        <div className="text-xs px-2 py-1 rounded-full bg-green-100 text-green-700 flex items-center">
-                          <Calendar className="h-3 w-3 mr-1" />
-                          June 15, 2025
-                        </div>
+      {/* Content based on active tab */}
+      {activeTab === 'overview' && (
+        <div className="space-y-6">
+          {/* Recent Health Records */}
+          <div className="space-y-4">
+            <h3 className="text-xl font-semibold text-gray-800">Recent Health Records</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {recentHealthRecords.map((record) => (
+                <Card key={record.id} className="kid-card-glass kid-hover-scale">
+                  <CardContent className="p-4">
+                    <div className="flex items-start gap-3 mb-3">
+                      <img 
+                        src={record.image}
+                        alt={record.type}
+                        className="w-12 h-12 rounded-lg object-cover"
+                        onError={(e) => {
+                          e.currentTarget.src = getPhoto('placeholders', 'health');
+                        }}
+                      />
+                      <div className="flex-1">
+                        <h4 className="font-semibold text-gray-800">{record.type}</h4>
+                        <p className="text-xs text-gray-600">{record.doctor}</p>
+                        <Badge variant="success" className="text-xs mt-1">
+                          {record.status}
+                        </Badge>
                       </div>
                     </div>
-                  </div>
-                  
-                  {/* Past Visits */}
-                  <h4 className="font-medium mb-3 mt-6">Past Visits</h4>
-                  <p className="text-muted-foreground text-sm">No past visits recorded yet.</p>
-                  
-                  <div className="mt-6 flex justify-end">
-                    <Button onClick={handleAddRecord} size="sm">Schedule Appointment</Button>
-                  </div>
-                </CardContent>
-              </Card>
+                    
+                    <p className="text-xs text-gray-600 mb-2">{record.notes}</p>
+                    <div className="flex items-center gap-2 text-xs text-gray-500">
+                      <Calendar className="h-3 w-3" />
+                      <span>{record.date}</span>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
             </div>
-          </TabsContent>
+          </div>
         </div>
-      </Tabs>
-      
-      {/* Related Health Advice */}
-      <BabyAdviceSection />
+      )}
+
+      {activeTab === 'appointments' && (
+        <div className="space-y-4">
+          <div className="flex items-center justify-between">
+            <h3 className="text-xl font-semibold text-gray-800">Upcoming Appointments</h3>
+            <Button variant="outline" size="sm">
+              <Plus className="h-4 w-4 mr-2" />
+              Schedule Appointment
+            </Button>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {upcomingAppointments.map((appointment) => (
+              <Card key={appointment.id} className="kid-card-glass kid-hover-scale">
+                <CardContent className="p-4">
+                  <div className="flex items-start gap-3 mb-3">
+                    <img 
+                      src={appointment.image}
+                      alt={appointment.type}
+                      className="w-12 h-12 rounded-lg object-cover"
+                      onError={(e) => {
+                        e.currentTarget.src = getPhoto('placeholders', 'health');
+                      }}
+                    />
+                    <div className="flex-1">
+                      <h4 className="font-semibold text-gray-800">{appointment.type}</h4>
+                      <p className="text-xs text-gray-600">{appointment.doctor}</p>
+                      <Badge 
+                        variant={appointment.status === 'confirmed' ? 'success' : 'warning'} 
+                        className="text-xs mt-1"
+                      >
+                        {appointment.status}
+                      </Badge>
+                    </div>
+                  </div>
+                  
+                  <div className="space-y-1">
+                    <div className="flex items-center gap-2 text-xs text-gray-500">
+                      <Calendar className="h-3 w-3" />
+                      <span>{appointment.date}</span>
+                    </div>
+                    <div className="flex items-center gap-2 text-xs text-gray-500">
+                      <Clock className="h-3 w-3" />
+                      <span>{appointment.time}</span>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {activeTab === 'vaccinations' && (
+        <div className="space-y-4">
+          <h3 className="text-xl font-semibold text-gray-800">Vaccination Schedule</h3>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {vaccinationSchedule.map((vaccine) => (
+              <Card key={vaccine.id} className="kid-card-gradient kid-hover-scale">
+                <CardContent className="p-4">
+                  <div className="flex items-start gap-3 mb-3">
+                    <div className="relative">
+                      <img 
+                        src={vaccine.image}
+                        alt={vaccine.vaccine}
+                        className="w-12 h-12 rounded-lg object-cover"
+                        onError={(e) => {
+                          e.currentTarget.src = getPhoto('placeholders', 'health');
+                        }}
+                      />
+                      {vaccine.status === 'completed' && (
+                        <div className="absolute -top-1 -right-1 w-6 h-6 bg-primary-green rounded-full flex items-center justify-center">
+                          <CheckCircle className="h-3 w-3 text-white" />
+                        </div>
+                      )}
+                    </div>
+                    <div className="flex-1">
+                      <h4 className="font-semibold text-gray-800">{vaccine.vaccine}</h4>
+                      <p className="text-xs text-gray-600">{vaccine.description}</p>
+                      <Badge 
+                        variant={vaccine.status === 'completed' ? 'success' : 'warning'} 
+                        className="text-xs mt-1"
+                      >
+                        {vaccine.status}
+                      </Badge>
+                    </div>
+                  </div>
+                  
+                  <div className="space-y-1">
+                    <div className="flex items-center gap-2 text-xs text-gray-500">
+                      <Calendar className="h-3 w-3" />
+                      <span>Due: {vaccine.dueDate}</span>
+                    </div>
+                    <div className="flex items-center gap-2 text-xs text-gray-500">
+                      <Baby className="h-3 w-3" />
+                      <span>Age: {vaccine.age}</span>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Health Summary */}
+      <Card className="kid-card-gradient">
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <Target className="h-5 w-5 text-primary-green" />
+            Health Summary
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+            <div className="text-center space-y-2">
+              <div className="text-3xl font-bold text-primary-green">5</div>
+              <div className="text-sm text-gray-600">Completed Checkups</div>
+            </div>
+            <div className="text-center space-y-2">
+              <div className="text-3xl font-bold text-primary-blue">3</div>
+              <div className="text-sm text-gray-600">Upcoming Appointments</div>
+            </div>
+            <div className="text-center space-y-2">
+              <div className="text-3xl font-bold text-primary-pink">8</div>
+              <div className="text-sm text-gray-600">Vaccines Due</div>
+            </div>
+            <div className="text-center space-y-2">
+              <div className="text-3xl font-bold text-primary-orange">100%</div>
+              <div className="text-sm text-gray-600">Health Score</div>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
     </div>
   );
 };

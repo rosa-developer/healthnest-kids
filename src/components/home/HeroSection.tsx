@@ -3,6 +3,7 @@ import React from 'react';
 import { ArrowRight, Heart, Star, Sparkles, Baby, Camera, Trophy } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { useNavigate } from 'react-router-dom';
+import { getPhoto } from '@/data/photoAssets';
 
 const HeroSection = () => {
   const navigate = useNavigate();
@@ -95,12 +96,12 @@ const HeroSection = () => {
             
             <div className="relative rounded-4xl overflow-hidden border-2 border-white/50 shadow-kid-xl bg-white/20 backdrop-blur-sm">
               <img 
-                src="https://images.unsplash.com/photo-1492725764893-90b379c2b6e7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
+                src={getPhoto('hero', 'family')}
                 alt="Family with baby" 
                 className="w-full h-full object-cover aspect-[4/3]"
                 onError={(e) => {
                   console.log("Image failed to load, using fallback");
-                  e.currentTarget.src = "/placeholder.svg";
+                  e.currentTarget.src = getPhoto('placeholders', 'family');
                 }}
               />
               
