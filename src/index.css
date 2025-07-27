@@ -10,12 +10,8 @@
     @apply font-sans;
   }
   
-  * {
-    @apply border-border;
-  }
-  
   body {
-    @apply bg-gradient-to-br from-primary-yellow via-white to-primary-yellow/30;
+    @apply bg-gradient-to-br from-primary-yellow/20 via-white to-primary-yellow/10;
     background-attachment: fixed;
   }
 }

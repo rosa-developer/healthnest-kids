@@ -1,73 +1,56 @@
 
 import React from 'react';
-import { cn } from '@/lib/utils';
-import { Database, CheckCircle, AlertCircle, Loader2, CloudOff } from 'lucide-react';
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-import { getConnectionStatus } from '@/lib/firebase';
+import { Badge } from '@/components/ui/badge';
+import { Wifi, WifiOff, AlertCircle } from 'lucide-react';
 
-interface ConnectionStatusBadgeProps {
-  className?: string;
-  withLabel?: boolean;
-}
+const ConnectionStatusBadge = () => {
+  // Mock connection status - in real app this would come from context/state
+  const connectionStatus = 'connected'; // 'connected' | 'disconnected' | 'error'
 
-const ConnectionStatusBadge: React.FC<ConnectionStatusBadgeProps> = ({ 
-  className,
-  withLabel = true
-}) => {
-  const [status, setStatus] = React.useState(getConnectionStatus());
-  
-  React.useEffect(() => {
-    const interval = setInterval(() => {
-      setStatus(getConnectionStatus());
-    }, 2000);
-    
-    return () => clearInterval(interval);
-  }, []);
-  
+  const getStatusConfig = (status: string) => {
+    switch (status) {
+      case 'connected':
+        return {
+          icon: Wifi,
+          variant: 'success' as const,
+          text: 'Connected',
+          className: 'bg-success/20 text-success border-success/30'
+        };
+      case 'disconnected':
+        return {
+          icon: WifiOff,
+          variant: 'warning' as const,
+          text: 'Offline',
+          className: 'bg-warning/20 text-warning border-warning/30'
+        };
+      case 'error':
+        return {
+          icon: AlertCircle,
+          variant: 'destructive' as const,
+          text: 'Error',
+          className: 'bg-destructive/20 text-destructive border-destructive/30'
+        };
+      default:
+        return {
+          icon: Wifi,
+          variant: 'outline' as const,
+          text: 'Unknown',
+          className: 'bg-gray-100 text-gray-600 border-gray-300'
+        };
+    }
+  };
+
+  const config = getStatusConfig(connectionStatus);
+  const Icon = config.icon;
+
   return (
-    <TooltipProvider>
-      <Tooltip>
-        <TooltipTrigger asChild>
-          <div className={cn(
-            "flex items-center gap-1 rounded-full px-2 py-1 text-xs font-medium transition-all duration-300",
-            status === 'connected' && "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400 border border-green-200 dark:border-green-800/50",
-            status === 'connecting' && "bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400 border border-amber-200 dark:border-amber-800/50",
-            status === 'error' && "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400 border border-red-200 dark:border-red-800/50",
-            className
-          )}>
-            {status === 'connected' && (
-              <>
-                <CheckCircle className="h-3 w-3" />
-                {withLabel && <span>Connected</span>}
-              </>
-            )}
-            {status === 'connecting' && (
-              <>
-                <Loader2 className="h-3 w-3 animate-spin" />
-                {withLabel && <span>Connecting</span>}
-              </>
-            )}
-            {status === 'error' && (
-              <>
-                <CloudOff className="h-3 w-3" />
-                {withLabel && <span>Offline</span>}
-              </>
-            )}
-          </div>
-        </TooltipTrigger>
-        <TooltipContent side="bottom" className="text-xs">
-          {status === 'connected' && (
-            <p>Database connected. All changes will be saved.</p>
-          )}
-          {status === 'connecting' && (
-            <p>Establishing connection to the database...</p>
-          )}
-          {status === 'error' && (
-            <p>Working in offline mode. Changes won't be saved.</p>
-          )}
-        </TooltipContent>
-      </Tooltip>
-    </TooltipProvider>
+    <Badge 
+      variant={config.variant}
+      className={`${config.className} backdrop-blur-sm transition-all duration-300 hover:scale-105`}
+    >
+      <Icon className="h-3 w-3 mr-1" />
+      {config.text}
+    </Badge>
   );
 };
 

@@ -1,38 +1,26 @@
 
-import React, { useState, useEffect } from 'react';
-import { cn } from '@/lib/utils';
+import React from 'react';
+import { motion } from 'framer-motion';
 
 interface PageTransitionProps {
   children: React.ReactNode;
   className?: string;
 }
 
-const PageTransition: React.FC<PageTransitionProps> = ({ 
-  children, 
-  className 
-}) => {
-  const [isVisible, setIsVisible] = useState(false);
-  
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsVisible(true);
-    }, 50);
-    
-    return () => clearTimeout(timer);
-  }, []);
-  
+const PageTransition: React.FC<PageTransitionProps> = ({ children, className = '' }) => {
   return (
-    <div
-      className={cn(
-        'transition-all duration-400 ease-out',
-        isVisible 
-          ? 'opacity-100 translate-y-0' 
-          : 'opacity-0 translate-y-4',
-        className
-      )}
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -20 }}
+      transition={{ 
+        duration: 0.5,
+        ease: [0.4, 0.0, 0.2, 1]
+      }}
+      className={className}
     >
       {children}
-    </div>
+    </motion.div>
   );
 };
 
