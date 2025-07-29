@@ -61,11 +61,12 @@ export default {
         'primary-pink': 'hsl(340 75% 55%)',
         'dark-yellow': 'hsl(32 95% 44%)',
         
-        // Status colors
-        'success': 'hsl(142 76% 36%)',
-        'warning': 'hsl(45 93% 47%)',
-        'error': 'hsl(0 84% 60%)',
-        'info': 'hsl(221 83% 53%)',
+        // Glassmorphism colors
+        'glass-white': 'rgba(255, 255, 255, 0.1)',
+        'glass-dark': 'rgba(0, 0, 0, 0.1)',
+        'glass-purple': 'rgba(139, 92, 246, 0.1)',
+        'glass-blue': 'rgba(59, 130, 246, 0.1)',
+        'glass-pink': 'rgba(236, 72, 153, 0.1)',
       },
       borderRadius: {
         lg: "var(--radius)",
