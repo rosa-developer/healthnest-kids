@@ -11,7 +11,7 @@ import {
   Database, 
   Palette,
   Baby,
-  Family,
+  Users,
   Camera,
   Download,
   Upload,
@@ -65,7 +65,7 @@ const Settings = () => {
       id: 2,
       title: 'Family Members',
       description: 'Manage family member access',
-      icon: Family,
+      icon: Users,
       action: 'Manage',
       image: getPhoto('settings', 'family')
     },

@@ -1,4 +1,6 @@
 
+@import url('https://fonts.googleapis.com/css2?family=Bubblegum+Sans&family=Fredoka+One&family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -72,8 +74,6 @@
   --shadow-strong: 0 20px 40px hsl(222 84% 4.9% / 0.7);
   --shadow-glow: 0 0 32px hsl(262 83% 58% / 0.5);
 }
-
-@import url('https://fonts.googleapis.com/css2?family=Bubblegum+Sans&family=Fredoka+One&family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700;800&display=swap');
 
 @layer base {
   html, body {
